@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ECP">
+        android:theme="@style/Theme.ECP"
+        android:name="com.github.johnnysc.ecp.App">
         <activity
             android:name=".MainActivity"
             android:exported="true">
