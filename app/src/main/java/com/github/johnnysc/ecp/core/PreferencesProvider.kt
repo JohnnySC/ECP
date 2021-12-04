@@ -2,6 +2,6 @@ package com.github.johnnysc.ecp.core
 
 import android.content.SharedPreferences
 
-interface PreferenceProvider {
+interface PreferencesProvider {
     fun provideSharedPreferences(name: String): SharedPreferences
 }
