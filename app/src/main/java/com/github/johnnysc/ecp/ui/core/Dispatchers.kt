@@ -7,28 +7,19 @@ import kotlinx.coroutines.withContext
 
 interface Dispatchers {
 
-    fun launchUI(scope: CoroutineScope, block: suspend () -> Unit): Job
-    fun launchBackground(scope: CoroutineScope, block: suspend () -> Unit): Job
-    suspend fun changeToUI(block: suspend () -> Unit)
+    fun launchUI(scope: CoroutineScope, block: suspend CoroutineScope.() -> Unit): Job
+    fun launchBackground(scope: CoroutineScope, block: suspend CoroutineScope.() -> Unit): Job
+    suspend fun changeToUI(block: suspend CoroutineScope. () -> Unit)
 
     class Base: Dispatchers {
 
-        private val main = kotlinx.coroutines.Dispatchers.Main
-        private val io = kotlinx.coroutines.Dispatchers.IO
+        override fun launchUI(scope: CoroutineScope, block: suspend CoroutineScope.() -> Unit) =
+            scope.launch(kotlinx.coroutines.Dispatchers.Main, block = block)
 
-        override fun launchUI(scope: CoroutineScope, block: suspend () -> Unit) =
-            scope.launch(main) {
-                block.invoke()
-            }
+        override fun launchBackground(scope: CoroutineScope, block: suspend CoroutineScope.() -> Unit) =
+            scope.launch(kotlinx.coroutines.Dispatchers.IO, block = block)
 
-        override fun launchBackground(scope: CoroutineScope, block: suspend () -> Unit) =
-            scope.launch(io) {
-                block.invoke()
-            }
-
-        override suspend fun changeToUI(block: suspend () -> Unit) =
-            withContext(main) {
-                block.invoke()
-            }
+        override suspend fun changeToUI(block: suspend CoroutineScope. () -> Unit) =
+            withContext(kotlinx.coroutines.Dispatchers.Main, block)
     }
 }
