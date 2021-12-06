@@ -4,6 +4,6 @@ import retrofit2.Retrofit
 
 interface ProvideRetrofit {
 
-    fun retrofitInstance(): Retrofit
+    fun retrofit(): Retrofit
 
 }
