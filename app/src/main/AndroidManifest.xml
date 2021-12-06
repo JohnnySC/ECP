@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECP"
 
-        android:screenOrientation="landscape">
+        android:screenOrientation="portrait">
         <activity
             android:name=".MainActivity"
             android:exported="true">
