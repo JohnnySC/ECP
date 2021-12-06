@@ -6,8 +6,10 @@ interface ListSerialization {
     fun map(data: String): List<String>
 
     class Base : ListSerialization {
-        override fun map(list: List<String>) = list.joinToString(", ")
+        private val delimiter = " "
+        override fun map(list: List<String>) = if (list.size <= 1) list.joinToString()
+        else list.joinToString(delimiter)
 
-        override fun map(data: String) = data.split(", ")
+        override fun map(data: String) = data.split(delimiter)
     }
 }
