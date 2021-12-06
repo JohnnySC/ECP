@@ -1,7 +1,7 @@
 package com.github.johnnysc.ecp.data.core
 
 interface ListSerialization {
-    fun map(listStrings: List<String>): String
+    fun map(list: List<String>): String
 
-    fun map(string: String): List<String>
+    fun map(data: String): List<String>
 }
