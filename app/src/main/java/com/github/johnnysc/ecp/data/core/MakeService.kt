@@ -10,13 +10,9 @@ interface MakeService {
         override fun <T> service(clazz: Class<T>): T = retrofit.create(clazz)
     }
 
-    class Test<S>(type: S) : MakeService {
+    class Test(private val inPar: Any) : MakeService {
 
-        private val service = type
-
-        override fun <T> service(clazz: Class<T>): T {
-            return clazz.cast(service)
-        }
+        override fun <T> service(clazz: Class<T>): T = inPar as T
     }
 
 }
