@@ -15,11 +15,9 @@ interface ProvideOkHttpClientBuilder {
         private val readTimeout: Long = READ_TIMEOUT,
         private val connectTimeout: Long = CONNECT_TIMEOUT
     ) : ProvideOkHttpClientBuilder {
-        override fun okHttpClientBuilder(): OkHttpClient.Builder {
-            return OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .readTimeout(readTimeout, TimeUnit.SECONDS)
-                .connectTimeout(connectTimeout, TimeUnit.SECONDS)
-        }
+        override fun okHttpClientBuilder() = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .readTimeout(readTimeout, TimeUnit.SECONDS)
+            .connectTimeout(connectTimeout, TimeUnit.SECONDS)
     }
 }
