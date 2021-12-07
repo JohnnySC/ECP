@@ -8,12 +8,7 @@ interface MakeService {
 
 class Base(provideRetrofit: ProvideRetrofit) : MakeService {
 
-    private var retrofit : Retrofit
-
-    init {
-        retrofit = provideRetrofit.retrofit()
-    }
+    private val retrofit = provideRetrofit.retrofit()
 
     override fun <T> service(clazz: Class<T>): T = retrofit.create(clazz)
-
 }
