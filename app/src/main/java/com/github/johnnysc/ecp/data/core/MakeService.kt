@@ -1,7 +1,5 @@
 package com.github.johnnysc.ecp.data.core
 
-import retrofit2.Retrofit
-
 interface MakeService {
     fun <T> service(clazz: Class<T>): T
 
@@ -11,4 +9,14 @@ interface MakeService {
 
         override fun <T> service(clazz: Class<T>): T = retrofit.create(clazz)
     }
+
+    class Test<S>(type: S) : MakeService {
+
+        private val service = type
+
+        override fun <T> service(clazz: Class<T>): T {
+            return clazz.cast(service)
+        }
+    }
+
 }
