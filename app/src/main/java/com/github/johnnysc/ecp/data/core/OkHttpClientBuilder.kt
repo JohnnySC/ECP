@@ -12,11 +12,10 @@ class OkHttpClientBuilder(
     private val readTimeout: Long = READ_TIMEOUT,
     private val connectTimeout: Long = CONNECT_TIMEOUT
 ) : ProvideOkHttpClientBuilder {
-    fun build(): OkHttpClient {
+    override fun okHttpClientBuilder(): OkHttpClient.Builder {
         return this.okHttpClientBuilder()
             .addInterceptor(interceptor)
             .readTimeout(readTimeout, TimeUnit.SECONDS)
             .connectTimeout(connectTimeout, TimeUnit.SECONDS)
-            .build()
     }
 }
