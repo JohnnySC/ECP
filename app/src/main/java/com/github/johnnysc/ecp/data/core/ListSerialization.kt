@@ -6,20 +6,19 @@ interface ListSerialization {
     fun map(data: String): List<String>
 
     class Base : ListSerialization {
-        private val delimiter = ","
         override fun map(list: List<String>): String {
-            var convertedList = ""
-            return if (list.size > 1) {
-                for (element in list) {
-                    convertedList += element + delimiter
-                }
-                convertedList.trimEnd(',')
-            } else {
-                list.forEach { convertedList = it }
-                convertedList
+            var convertedString = ""
+            when (list.isNotEmpty()) {
+                list.size > 1 -> list.forEach { convertedString += it + DELIMITER }
+                list.size == 1 -> list.forEach { convertedString = it }
             }
+            return convertedString.trimEnd(',')
         }
 
-        override fun map(data: String) = data.split(delimiter)
+        override fun map(data: String) = data.split(DELIMITER)
+    }
+
+    companion object {
+        const val DELIMITER = ","
     }
 }
