@@ -8,14 +8,13 @@ interface ProvideInterceptor {
     fun interceptor(): Interceptor
 
     class Base(private val isDebug: Boolean) : ProvideInterceptor {
-        private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor()
 
-        override fun interceptor():Interceptor {
-            interceptor.level =
-                    if (isDebug) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-            return interceptor
+        private val interceptor = HttpLoggingInterceptor().apply {
+            level = if (isDebug) HttpLoggingInterceptor.Level.BODY
+            else HttpLoggingInterceptor.Level.NONE
         }
 
-    }
+        override fun interceptor(): Interceptor = interceptor
 
+    }
 }
