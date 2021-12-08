@@ -1,4 +1,4 @@
-package com.github.johnnysc.ecp.data.core
+package com.github.johnnysc.ecp.domain.core
 
 interface HandleError {
     fun handle(exception: Exception)
