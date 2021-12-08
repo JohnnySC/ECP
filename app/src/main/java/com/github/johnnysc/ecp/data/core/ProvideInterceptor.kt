@@ -6,7 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 interface ProvideInterceptor {
 
     fun interceptor(): Interceptor
-    class Base(private val isDebug: Boolean) {
+    class Base(private val isDebug: Boolean):ProvideInterceptor  {
         private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor()
 
         fun interceptorLevel(): HttpLoggingInterceptor {
