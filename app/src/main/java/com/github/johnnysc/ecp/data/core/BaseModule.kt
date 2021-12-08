@@ -1,6 +1,8 @@
 package com.github.johnnysc.ecp.data.core
 
-interface BaseModule<T : BaseViewModel<T>> {
+import androidx.lifecycle.ViewModel
+
+interface BaseModule<T : ViewModel> {
 
     fun viewModel(): T
 
