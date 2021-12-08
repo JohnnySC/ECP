@@ -5,13 +5,8 @@ import org.junit.Before
 import org.junit.Test
 
 class ListSerializationTest {
-    companion object {
-        const val STRING_OF_WORDS = "cat dog pet"
-        const val ONE_STRING = "cat"
-    }
-
-    private fun getList() = listOf("cat", "dog", "pet")
-    private fun getOneItemList() = listOf("cat")
+    private fun itemsList() = listOf("cat", "dog", "pet")
+    private fun oneItemList() = listOf("cat")
 
     private lateinit var listBase: ListSerialization
 
@@ -22,18 +17,18 @@ class ListSerializationTest {
 
     @Test
     fun mapToList() {
-        val mapToString = listBase.map(getList())
+        val mapToString = listBase.map(itemsList())
         val mapToList = listBase.map(mapToString)
 
-        assertEquals(getList(), mapToList)
+        assertEquals(itemsList(), mapToList)
     }
 
     @Test
     fun mapToOneItemList() {
-        val mapToString = listBase.map(getOneItemList())
+        val mapToString = listBase.map(oneItemList())
         val mapToList = listBase.map(mapToString)
 
-        assertEquals(getOneItemList(), mapToList)
+        assertEquals(oneItemList(), mapToList)
     }
 
     @Test
@@ -50,5 +45,10 @@ class ListSerializationTest {
         val mapToString = listBase.map(mapToList)
 
         assertEquals(ONE_STRING, mapToString)
+    }
+
+    companion object {
+        const val STRING_OF_WORDS = "cat dog pet"
+        const val ONE_STRING = "cat"
     }
 }
