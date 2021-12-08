@@ -18,10 +18,8 @@ interface Communication<T> : Observe<T>, UnitMapper<T> {
         }
     }
     class Empty<T> : Communication<T>{
-        override fun map(data: T) {
-        }
+        override fun map(data: T) = Unit
 
-        override fun observe(owner: LifecycleOwner, observer: Observer<T>) {
-        }
+        override fun observe(owner: LifecycleOwner, observer: Observer<T>) = Unit
     }
 }
