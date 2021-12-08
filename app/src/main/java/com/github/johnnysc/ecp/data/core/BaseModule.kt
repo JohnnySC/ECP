@@ -1,7 +1,7 @@
 package com.github.johnnysc.ecp.data.core
 
-interface BaseModule {
+interface BaseModule<T : BaseViewModel<T>> {
 
-    fun <T : BaseViewModel<T>> instance(): BaseViewModel<T>
+    fun viewModel(): T
 
 }
