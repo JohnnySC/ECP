@@ -17,9 +17,9 @@ interface Communication<T> : Observe<T>, UnitMapper<T> {
             mutableLiveData.observe(owner, observer)
         }
     }
-    class Empty<T> : Communication<T>{
-        override fun map(data: T) = Unit
+    class Empty : Communication<Nothing>{
+        override fun map(data: Nothing) = Unit
 
-        override fun observe(owner: LifecycleOwner, observer: Observer<T>) = Unit
+        override fun observe(owner: LifecycleOwner, observer: Observer<Nothing>) = Unit
     }
 }
