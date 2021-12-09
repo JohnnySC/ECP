@@ -27,22 +27,13 @@ interface Communication<T> : Observe<T>, UnitMapper<T> {
     }
 
     class Single<T : Any> : Communication<T> {
-        private val mutableLiveData = MutableLiveData<T>()
-        private val pending = AtomicBoolean(false)
+        private val singleLiveEvent = SingleLiveEvent<T>()
 
-        @MainThread
         override fun map(data: T) {
-            pending.set(true)
-            mutableLiveData.value = data
+            singleLiveEvent.value = data
         }
 
-        @MainThread
-        override fun observe(owner: LifecycleOwner, observer: Observer<T>) {
-            mutableLiveData.observe(owner) {
-                if (pending.compareAndSet(true, false)) {
-                    observer.onChanged(it)
-                }
-            }
-        }
+        override fun observe(owner: LifecycleOwner, observer: Observer<T>) =
+            singleLiveEvent.observe(owner, observer)
     }
 }
