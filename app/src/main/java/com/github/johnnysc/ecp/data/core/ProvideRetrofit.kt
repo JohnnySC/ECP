@@ -6,14 +6,13 @@ interface ProvideRetrofit {
 
     fun retrofit(): Retrofit
 
-    class Base(private val baseURL: String, okHttpClientBuilder: ProvideOkHttpClientBuilder) :
-        ProvideRetrofit {
-
-        private val client = okHttpClientBuilder.okHttpClientBuilder().build()
-
+    class Base(
+        private val baseURL: String,
+        private val provideClientBuilder: ProvideOkHttpClientBuilder
+    ) : ProvideRetrofit {
         override fun retrofit(): Retrofit = Retrofit.Builder()
             .baseUrl(baseURL)
-            .client(client)
+            .client(provideClientBuilder.okHttpClientBuilder().build())
             .build()
     }
 }
