@@ -26,7 +26,7 @@ interface Communication<T> : Observe<T>, UnitMapper<T> {
         override fun observe(owner: LifecycleOwner, observer: Observer<Nothing>) = Unit
     }
 
-    class Single<T : Any> : Communication<T> {
+    open class Single<T : Any> : Communication<T> {
         private val singleLiveEvent = SingleLiveEvent<T>()
 
         override fun map(data: T) {
