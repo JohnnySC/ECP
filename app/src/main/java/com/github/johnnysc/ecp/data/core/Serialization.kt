@@ -8,8 +8,10 @@ interface Serialization {
     fun <T : Serializable> convertFromString(key: String, clazz: Class<T>): T
 
     class Base : Serialization {
-        override fun convertToString(data: Serializable): String = Gson().toJson(data)
+        val gson = Gson()
 
-        override fun <T : Serializable> convertFromString(key: String, clazz: Class<T>): T = Gson().fromJson(key, clazz)
+        override fun convertToString(data: Serializable): String = gson.toJson(data)
+
+        override fun <T : Serializable> convertFromString(key: String, clazz: Class<T>): T = gson.fromJson(key, clazz)
     }
 }
