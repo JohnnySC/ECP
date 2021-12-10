@@ -1,6 +1,5 @@
 package com.github.johnnysc.ecp.ui.core
 
-import androidx.lifecycle.ViewModel
+import com.github.johnnysc.ecp.data.core.BaseViewModel
 
-class MainViewModel(val communication : NavigationCommunication) : ViewModel() {
-}
+class MainViewModel(communication : NavigationCommunication) : BaseViewModel<NavigationUi>(communication)
