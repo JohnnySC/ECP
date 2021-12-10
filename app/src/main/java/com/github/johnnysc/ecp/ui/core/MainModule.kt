@@ -1,9 +1,9 @@
 package com.github.johnnysc.ecp.ui.core
 
+import com.github.johnnysc.ecp.core.CoreModule
 import com.github.johnnysc.ecp.data.core.BaseModule
 
-class MainModule : BaseModule<MainViewModel> {
-    private var communication = NavigationCommunication.Base()
+class MainModule(private val coreModule: CoreModule) : BaseModule<MainViewModel> {
 
-    override fun viewModel() = MainViewModel(communication)
+    override fun viewModel() = MainViewModel(coreModule.provideNavigationCommunication())
 }
