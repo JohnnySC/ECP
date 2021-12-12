@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 interface DefinitionCloud {
 
-    data class Base(
+    data class Base (
         @SerializedName("definition")
         private val definition: String,
 
@@ -16,5 +16,5 @@ interface DefinitionCloud {
 
         @SerializedName("antonyms")
         private val antonyms: List<String>?
-    )
+    ) : DefinitionCloud
 }

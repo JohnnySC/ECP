@@ -11,5 +11,5 @@ interface MeaningCloud {
         @SerializedName("definitions")
         private val definitions: List<DefinitionCloud>
 
-    )
+    ): MeaningCloud
 }
