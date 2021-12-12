@@ -1,4 +1,4 @@
-package com.github.johnnysc.ecp.ui.core
+package com.github.johnnysc.ecp.data.dictionary
 
 import com.google.gson.annotations.SerializedName
 
