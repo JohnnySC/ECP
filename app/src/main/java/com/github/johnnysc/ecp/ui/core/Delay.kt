@@ -3,20 +3,20 @@ package com.github.johnnysc.ecp.ui.core
 import java.util.*
 
 interface Delay {
-    fun delay(str: String)
+    fun delay(text: String)
 
     class Base(
         private val time: Long = 300L,
-        private val string: (String) -> Unit,
+        private val block: (String) -> Unit,
     ) : Delay {
         private var timer = Timer()
-        override fun delay(str: String) {
+        override fun delay(text: String) {
             timer.cancel()
             timer = Timer()
             timer.schedule(
                 object : TimerTask() {
                     override fun run() {
-                        string.invoke(str)
+                        block.invoke(text)
                     }
                 },
                 time
