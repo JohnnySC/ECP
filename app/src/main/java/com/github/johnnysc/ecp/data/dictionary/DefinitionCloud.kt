@@ -3,8 +3,9 @@ package com.github.johnnysc.ecp.data.dictionary
 import com.google.gson.annotations.SerializedName
 
 interface DefinitionCloud {
+    fun <T> map(mapper: DefinitionMapper<T>): T
 
-    data class Base (
+    data class Base(
         @SerializedName("definition")
         private val definition: String,
 
@@ -16,5 +17,9 @@ interface DefinitionCloud {
 
         @SerializedName("antonyms")
         private val antonyms: List<String>?
-    ) : DefinitionCloud
+    ) : DefinitionCloud {
+
+        override fun <T> map(mapper: DefinitionMapper<T>) =
+            mapper.map(definition, example, synonyms, antonyms)
+    }
 }
