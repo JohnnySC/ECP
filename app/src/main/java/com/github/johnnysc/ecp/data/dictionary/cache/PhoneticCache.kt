@@ -4,5 +4,8 @@ import io.realm.RealmObject
 
 interface PhoneticCache {
 
-    open class Base(val text: String = "", var audio: String = "") : RealmObject()
+    open class Base : RealmObject(), PhoneticCache {
+        var text: String = ""
+        var audio: String = ""
+    }
 }
