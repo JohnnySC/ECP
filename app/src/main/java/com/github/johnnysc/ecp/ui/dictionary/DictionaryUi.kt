@@ -1,3 +1,7 @@
 package com.github.johnnysc.ecp.ui.dictionary
 
-interface DictionaryUi
+class DictionaryUi{
+    private lateinit var items: List<DictionaryItemUi>
+
+    interface DictionaryItemUi
+}
