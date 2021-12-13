@@ -5,9 +5,6 @@ import android.net.Uri
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 
-
-
-
 interface SoundPlayer {
     fun play(url: String)
 
