@@ -6,7 +6,7 @@ import io.realm.RealmObject
 
 interface MeaningCache {
 
-    open class Base() : RealmObject(), MeaningCache {
+    open class Base : RealmObject(), MeaningCache {
         var partOfSpeech: String = ""
         var definitions: RealmList<DefinitionCloud> = RealmList()
     }
