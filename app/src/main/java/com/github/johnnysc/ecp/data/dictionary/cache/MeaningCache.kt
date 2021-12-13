@@ -11,4 +11,3 @@ interface MeaningCache {
         var definitions: RealmList<DefinitionCloud> = RealmList()
     }
 }
-
