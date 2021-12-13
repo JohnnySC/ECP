@@ -1,0 +1,8 @@
+package com.github.johnnysc.ecp.data.dictionary.cache
+
+import io.realm.RealmObject
+
+interface PhoneticCache {
+
+    open class Base(val text: String = "", var audio: String = "") : RealmObject()
+}
