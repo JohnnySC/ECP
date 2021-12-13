@@ -9,9 +9,9 @@ interface WordCloud {
         private val word: String,
 
         @SerializedName("phonetics")
-        private val phonetics: PhoneticCloud,
+        private val phonetics: List<PhoneticCloud>,
 
         @SerializedName("meanings")
-        private val meanings: MeaningCloud
+        private val meanings: List<MeaningCloud>
     ) : WordCloud
 }
