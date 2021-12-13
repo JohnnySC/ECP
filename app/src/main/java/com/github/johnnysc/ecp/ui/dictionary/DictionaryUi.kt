@@ -1,7 +1,8 @@
 package com.github.johnnysc.ecp.ui.dictionary
 
-class DictionaryUi{
-    private lateinit var items: List<DictionaryItemUi>
+open class DictionaryUi(private val items: List<DictionaryItemUi>) {
 
     interface DictionaryItemUi
+
+    class Base(items: List<DictionaryItemUi>) : DictionaryUi(items)
 }
