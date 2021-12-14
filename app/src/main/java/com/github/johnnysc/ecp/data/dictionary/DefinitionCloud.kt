@@ -13,13 +13,26 @@ interface DefinitionCloud {
         private val example: String,
 
         @SerializedName("synonyms")
-        private val synonyms: List<String>?,
+        private val _synonyms: List<String>?,
+        private val synonyms: List<String> = _synonyms ?: listOfNotNull(),
 
         @SerializedName("antonyms")
-        private val antonyms: List<String>?
+        private val _antonyms: List<String>?,
+        private val antonyms: List<String> = _antonyms ?: listOfNotNull()
     ) : DefinitionCloud {
 
         override fun <T> map(mapper: DefinitionMapper<T>) =
             mapper.map(definition, example, synonyms, antonyms)
     }
+
+    interface DefinitionMapper<T> {
+        fun map(
+            definition: String,
+            example: String,
+            synonyms: List<String>?,
+            antonyms: List<String>?
+        ): T
+    }
 }
+
+
