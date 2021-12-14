@@ -1,7 +1,9 @@
 package com.github.johnnysc.ecp.data.dictionary.cache
 
-import io.realm.RealmList
-import io.realm.RealmObject
+
+import com.github.johnnysc.ecp.data.dictionary.MeaningCloud
+import com.github.johnnysc.ecp.data.dictionary.PhoneticCloud
+
 
 interface WordCache {
 
