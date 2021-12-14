@@ -5,8 +5,8 @@ import io.realm.RealmObject
 
 interface WordCache
 
-open class WordCacheBase : RealmObject(), WordCache {
+open class BaseWordCache : RealmObject(), WordCache {
     var word: String = ""
-    var phonetics: RealmList<PhoneticCacheBase> = RealmList()
-    var meanings: RealmList<MeaningCacheBase> = RealmList()
+    var phonetics: RealmList<BasePhoneticCache> = RealmList()
+    var meanings: RealmList<BaseMeaningCache> = RealmList()
 }
