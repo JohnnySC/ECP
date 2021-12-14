@@ -7,5 +7,5 @@ interface MeaningCache
 
 open class MeaningCacheBase : RealmObject(), MeaningCache {
     var partOfSpeech: String = ""
-    var definitions: RealmList<DefinitionCache> = RealmList()
+    var definitions: RealmList<DefinitionCacheBase> = RealmList()
 }

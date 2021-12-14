@@ -7,6 +7,6 @@ interface WordCache
 
 open class WordCacheBase : RealmObject(), WordCache {
     var word: String = ""
-    var phonetics: RealmList<PhoneticCache> = RealmList()
-    var meanings: RealmList<MeaningCache> = RealmList()
+    var phonetics: RealmList<PhoneticCacheBase> = RealmList()
+    var meanings: RealmList<MeaningCacheBase> = RealmList()
 }
