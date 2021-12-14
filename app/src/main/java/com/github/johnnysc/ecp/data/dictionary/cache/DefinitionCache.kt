@@ -10,8 +10,8 @@ interface DefinitionCache {
         fun map(
             definition: String,
             example: String,
-            synonyms: RealmList<String>,
-            antonyms: RealmList<String>
+            synonyms: List<String>,
+            antonyms: List<String>
         ): T
     }
 }
