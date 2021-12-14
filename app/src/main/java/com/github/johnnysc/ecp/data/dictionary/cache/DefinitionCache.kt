@@ -8,7 +8,7 @@ interface DefinitionCache {
     open class Base : RealmObject(), DefinitionCache {
         var definition: String = ""
         var example: String = ""
-        var synonyms: RealmList<String>? = RealmList()
-        var antonyms: RealmList<String>? = RealmList()
+        var synonyms: RealmList<String> = RealmList()
+        var antonyms: RealmList<String> = RealmList()
     }
 }
