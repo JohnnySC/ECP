@@ -10,7 +10,7 @@ interface DependencyContainer {
 
     class Main(private val coreModule: CoreModule) : DependencyContainer {
         override fun <T : ViewModel> module(clazz: Class<T>): BaseModule<T> =
-            when (clazz::class.java) {
+            when (clazz) {
                 MainViewModel::class.java -> MainModule(coreModule = coreModule) as BaseModule<T>
                 else -> throw IllegalStateException("no module found for $clazz")
             }
