@@ -10,9 +10,5 @@ class DictionaryViewModel(
     dictionaryCommunication: DictionaryCommunication
 ) : BaseViewModel<DictionaryUi>(dictionaryCommunication), SearchWord {
 
-    fun init() {
-        navigation.map(NavigationUi())
-    }
-
     override fun searchWord(word: String) {}
 }
