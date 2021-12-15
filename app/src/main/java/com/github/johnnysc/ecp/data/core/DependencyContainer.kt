@@ -1,9 +1,18 @@
 package com.github.johnnysc.ecp.data.core
 
 import androidx.lifecycle.ViewModel
+import com.github.johnnysc.ecp.core.CoreModule
+import com.github.johnnysc.ecp.ui.core.MainModule
 
 interface DependencyContainer {
     fun <T : ViewModel> module(clazz: Class<T>): BaseModule<T>
+
+    class Main(private val coreModule: CoreModule) : DependencyContainer {
+        override fun <T : ViewModel> module(clazz: Class<T>): BaseModule<T> =
+            when (clazz::class.java) {
+                else -> MainModule(coreModule = coreModule) as BaseModule<T>
+            }
+    }
 
     class Error : DependencyContainer {
 
