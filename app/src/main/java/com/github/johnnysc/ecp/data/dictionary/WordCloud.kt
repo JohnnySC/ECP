@@ -3,8 +3,9 @@ package com.github.johnnysc.ecp.data.dictionary
 import com.google.gson.annotations.SerializedName
 
 interface WordCloud {
+    fun <T> map(mapper: Mapper<T>): T
 
-    class Base(
+    data class Base(
         @SerializedName("word")
         private val word: String,
 
@@ -13,5 +14,11 @@ interface WordCloud {
 
         @SerializedName("meanings")
         private val meanings: List<MeaningCloud>
-    ) : WordCloud
+    ) : WordCloud {
+        override fun <T> map(mapper: Mapper<T>): T = mapper.map(word, phonetics, meanings)
+    }
+
+    interface Mapper<T> {
+        fun map(word: String, phonetics: List<PhoneticCloud>, meanings: List<MeaningCloud>): T
+    }
 }
