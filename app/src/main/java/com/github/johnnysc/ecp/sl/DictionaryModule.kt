@@ -7,9 +7,11 @@ import com.github.johnnysc.ecp.ui.dictionary.DictionaryViewModel
 
 class DictionaryModule(
     private val coreModule: CoreModule,
-    private val communication: DictionaryCommunication
 ) : BaseModule<DictionaryViewModel> {
 
     override fun viewModel() =
-        DictionaryViewModel(coreModule.provideNavigationCommunication(), communication)
+        DictionaryViewModel(
+            coreModule.provideNavigationCommunication(),
+            DictionaryCommunication.Base()
+        )
 }
