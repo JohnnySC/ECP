@@ -9,8 +9,8 @@ interface WordCache {
     interface Mapper<T> {
         fun map(
             word: String,
-            phonetics: RealmList<BasePhoneticCache>,
-            meanings: RealmList<BaseMeaningCache>
+            phonetics: List<PhoneticCache>,
+            meanings: List<MeaningCache>
         ): T
     }
 }
