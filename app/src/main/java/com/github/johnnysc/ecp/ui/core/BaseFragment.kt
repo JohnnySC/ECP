@@ -10,8 +10,7 @@ import com.github.johnnysc.ecp.core.Matches
 import com.github.johnnysc.ecp.core.ProvideViewModel
 import com.github.johnnysc.ecp.data.core.BaseViewModel
 
-abstract class BaseFragment<T : ViewBinding, K : BaseViewModel<*>> : Fragment(), Matches<String>,
-    ProvideViewModel {
+abstract class BaseFragment<T : ViewBinding, K : BaseViewModel<*>> : Fragment(), Matches<String> {
 
     protected lateinit var viewModel: K
     protected var _binding: T? = null
