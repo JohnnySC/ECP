@@ -18,10 +18,6 @@ class DictionaryFragment : BaseFragment<FragmentDictionaryBinding, DictionaryVie
     override fun initBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentDictionaryBinding {
-
-        return FragmentDictionaryBinding.inflate(inflater, container, false)
-
-    }
+    ): FragmentDictionaryBinding = FragmentDictionaryBinding.inflate(inflater, container, false)
 
 }
