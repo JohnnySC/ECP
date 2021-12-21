@@ -24,8 +24,14 @@ interface SoundPlayer {
         }
 
         override fun stop() = player.run {
-                stop()
-                release()
-            }
+            stop()
+            release()
+        }
+    }
+
+    class Empty : SoundPlayer {
+        override fun play(url: String) = Unit
+
+        override fun stop() = Unit
     }
 }
