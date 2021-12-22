@@ -1,3 +1,3 @@
-package com.github.johnnysc.ecp.data.core.domain
+package com.github.johnnysc.ecp.domain.core
 
 class ServerException(message : String) : Exception(message)
