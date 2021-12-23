@@ -7,7 +7,7 @@ interface DictionaryRepository {
 
     fun chosenLanguage(): ChosenLanguage
     fun changeLanguage(value: String)
-    suspend fun searchWord(): List<WordData>
+    suspend fun searchWord(word: String): List<WordData>
 }
 
 enum class Language {
