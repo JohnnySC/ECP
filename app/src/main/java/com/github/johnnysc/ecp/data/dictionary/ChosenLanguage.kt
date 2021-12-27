@@ -1,6 +1,6 @@
 package com.github.johnnysc.ecp.data.dictionary
 
-import com.github.johnnysc.ecp.core.Save
+import com.github.johnnysc.ecp.data.core.Save
 import com.github.johnnysc.ecp.data.core.PreferenceDataSource
 import com.github.johnnysc.ecp.data.core.Read
 
