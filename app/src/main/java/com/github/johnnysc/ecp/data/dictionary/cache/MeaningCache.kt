@@ -7,13 +7,13 @@ interface MeaningCache {
     fun <T> map(mapper: Mapper<T>): T
 
     interface Mapper<T> {
-        fun map(partOfSpeech: String, definitions: List<MeaningCache>): T
+        fun map(partOfSpeech: String, definitions: List<DefinitionCache>): T
     }
 }
 
 open class BaseMeaningCache : RealmObject(), MeaningCache {
     var partOfSpeech: String = ""
-    var definitions: RealmList<MeaningCache> = RealmList()
+    var definitions: RealmList<DefinitionCache> = RealmList()
 
     override fun <T> map(mapper: MeaningCache.Mapper<T>) = mapper.map(partOfSpeech, definitions)
 
