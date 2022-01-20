@@ -4,7 +4,7 @@ import android.content.Context
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
-class ProvideDictionaryRealm(private val context: Context) {
+class ProvideDictionaryRealm(context: Context) {
 
     init {
         Realm.init(context)
