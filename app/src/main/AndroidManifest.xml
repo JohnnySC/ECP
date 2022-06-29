@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         tools:replace="android:theme"
-        android:theme="@style/Theme.ECP">
+        android:theme="@style/Theme.ECP"
+        android:name="com.github.johnnysc.ecp.sl.MainApplication"
+        >
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true">
