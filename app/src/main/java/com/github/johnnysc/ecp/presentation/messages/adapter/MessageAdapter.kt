@@ -10,4 +10,5 @@ interface MessageAdapter {
                 UserMessageViewHolderFactoryChain(ViewHolderFactoryChain.Exception())
             )
         )
-    )}
+    )
+}

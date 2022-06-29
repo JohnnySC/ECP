@@ -6,7 +6,7 @@ import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.ViewHolderFactoryChain
 import com.github.johnnysc.ecp.R
 
-class UserMessageViewHolderFactoryChain (private val viewHolderFactoryChain: ViewHolderFactoryChain<ItemUi>) :
+class UserMessageViewHolderFactoryChain(private val viewHolderFactoryChain: ViewHolderFactoryChain<ItemUi>) :
     ViewHolderFactoryChain<ItemUi> {
 
     override fun viewHolder(parent: ViewGroup, viewType: Int) =
