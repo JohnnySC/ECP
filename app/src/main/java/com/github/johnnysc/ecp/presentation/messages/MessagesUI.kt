@@ -1,23 +1,14 @@
 package com.github.johnnysc.ecp.presentation.messages
 
+import com.github.johnnysc.coremvvm.core.Mapper
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
-import com.github.johnnysc.coremvvm.core.Mapper as UnitMapper
 
-interface MessagesUI:UnitMapper.Unit<UnitMapper.Unit<List<ItemUi>>> {
-    fun<T> map(mapper: Mapper<T>):T
+interface MessagesUI : Mapper.Unit<Mapper.Unit<List<ItemUi>>> {
 
-    class Base(private val listOfMessages:List<MessageUI>):MessagesUI {
+    class Base(private val listOfMessages: List<ItemUi>) : MessagesUI {
 
-        override fun map(data: UnitMapper.Unit<List<ItemUi>>) {
+        override fun map(data: Mapper.Unit<List<ItemUi>>) {
             data.map(listOfMessages)
         }
-
-        override fun <T> map(mapper: Mapper<T>) = mapper.map(listOfMessages)
-
-    }
-
-    interface Mapper<T>
-    {
-        fun map(items:List<ItemUi>):T
     }
 }
