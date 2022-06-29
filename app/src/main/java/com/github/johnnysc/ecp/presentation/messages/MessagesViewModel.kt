@@ -8,33 +8,18 @@ class MessagesViewModel(
     canGoBackCallback: CanGoBack.Callback,
     dispatchers: Dispatchers,
     messageCommunication: MessageCommunication
-    ) : BackPress.ViewModel<MessagesUI>(canGoBackCallback, messageCommunication, dispatchers) {
+) : BackPress.ViewModel<MessagesUI>(canGoBackCallback, messageCommunication, dispatchers) {
+
     private var canGoBack = true
-    private val atFinish = {
-        canGoBack = true
-    }
 
     private val canGoBackCallbackInner = object : CanGoBack {
         override fun canGoBack() = canGoBack
     }
 
-    override fun updateCallbacks() =
+    override fun updateCallbacks() {
         canGoBackCallback.updateCallback(canGoBackCallbackInner)
 
-    init {
-        canGoBack = false
-
     }
-
-    fun handleMessage(message:String)
-    {
-
-    }
-
-
-
-
-
 
 
 }

@@ -15,8 +15,6 @@ class MainDependencyContainer(
             MainModule(
                 NavigationCommunication.Base(),
                 coreModule.provideCanGoBack(),
-                coreModule.dispatchers(),
-                coreModule.provideGlobalErrorCommunication()
             )
         else
             dependencyContainer.module(clazz)

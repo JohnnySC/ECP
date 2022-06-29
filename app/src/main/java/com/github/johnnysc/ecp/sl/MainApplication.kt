@@ -22,11 +22,11 @@ class MainApplication : Application(), ProvideViewModel {
             DependencyContainer.Error(),
             coreModule
         )
-        val messageDependencyContainer=MessageDependencyContainer(main,coreModule)
+        val messageDependencyContainer = MessageDependencyContainer(main, coreModule)
         viewModelsFactory = ViewModelsFactory(messageDependencyContainer)
     }
 
-    override fun <T : ViewModel> provideViewModel(clazz: Class<T>, owner: ViewModelStoreOwner): T {
-        return ViewModelProvider(owner, viewModelsFactory)[clazz]
-    }
+    override fun <T : ViewModel> provideViewModel(clazz: Class<T>, owner: ViewModelStoreOwner) =
+        ViewModelProvider(owner, viewModelsFactory)[clazz]
+
 }
