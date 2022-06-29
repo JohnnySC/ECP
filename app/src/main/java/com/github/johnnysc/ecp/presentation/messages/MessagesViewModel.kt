@@ -16,8 +16,6 @@ class MessagesViewModel(
         override fun canGoBack() = canGoBack
     }
 
-
-
     override fun updateCallbacks() {
         canGoBackCallback.updateCallback(canGoBackCallbackInner)
 
