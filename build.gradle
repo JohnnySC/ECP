@@ -15,7 +15,7 @@ allprojects {
         google()
         mavenCentral()
         maven {
-            url = uri("https://maven.pkg.github.com/berhram/CoreMVVM")
+            url "https://jitpack.io"
         }
     }
 }
