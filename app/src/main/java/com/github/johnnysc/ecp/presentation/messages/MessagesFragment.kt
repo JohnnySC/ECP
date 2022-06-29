@@ -28,7 +28,12 @@ class MessagesFragment : BackPress.Fragment<MessagesUI, MessagesViewModel>() {
         val sendMessageButton = view.findViewById<FloatingActionButton>(R.id.sendMessageButton)
         sendMessageButton.setOnClickListener {
             val message = messageInput.text.toString()
-            //todo trim input message and handle in view model
+            val trimmedMessage=message.trim()
+            if(trimmedMessage.isNotEmpty())
+            {
+                //todo  handle in view model
+            }
+
 
         }
         viewModel.observe(this) { messagesUI ->
