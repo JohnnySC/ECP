@@ -1,11 +1,11 @@
-package com.github.johnnysc.ecp.presentation.main
+package com.github.johnnysc.ecp
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelStoreOwner
 import com.github.johnnysc.coremvvm.presentation.BackPress
 import com.github.johnnysc.coremvvm.presentation.FragmentFactory
 import com.github.johnnysc.coremvvm.sl.ProvideViewModel
-import com.github.johnnysc.ecp.R
+import com.github.johnnysc.ecp.presentation.main.MainViewModel
 import com.github.johnnysc.ecp.presentation.main.nav_screen.BaseFragmentFactory
 
 class MainActivity : BackPress.Activity<MainViewModel>(), ProvideViewModel {
