@@ -5,20 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
-        style="@style/AiMessageCornersStyle"
+        style="@style/AiErrorMessageStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_margin_message_margin"
-        android:layout_marginTop="@dimen/default_margin_message_margin"
-        android:layout_marginEnd="@dimen/margin_for_message"
-        android:layout_marginBottom="@dimen/default_margin_message_margin"
-        app:cardBackgroundColor="@color/error_ai_answer_color">
+        >
 
         <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
             android:id="@+id/messageTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/stub_message"
-            android:layout_margin="@dimen/default_margin"/>
+            android:textAppearance="@style/MessageTextAppearance"/>
     </com.google.android.material.card.MaterialCardView>
 </FrameLayout>
