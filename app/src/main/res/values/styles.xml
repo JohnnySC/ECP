@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AiMessageCornersStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/biggest_corner_radius</item>
+        <item name="cornerSizeTopLeft">@dimen/biggest_corner_radius</item>
+        <item name="cornerSizeBottomRight">@dimen/biggest_corner_radius</item>
+        <item name="cornerSizeBottomLeft">@dimen/rectangle_corner_radius</item>
+    </style>
+
+    <style name="UserMessageCornersStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_user_card_custom_corners</item>
+    </style>
+    <style name="ShapeAppearanceOverlay_user_card_custom_corners" parent="ShapeAppearanceOverlay_card_custom_corners">
+        <item name="cornerSizeBottomRight">@dimen/rectangle_corner_radius</item>
+        <item name="cornerSizeBottomLeft">@dimen/biggest_corner_radius</item>
+    </style>
+
+
+
+
+</resources>

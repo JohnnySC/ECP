@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/UserMessageCornersStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_for_message"
+        android:layout_marginTop="@dimen/default_margin_message_margin"
+        android:layout_marginEnd="@dimen/default_margin_message_margin"
+        android:layout_marginBottom="@dimen/default_margin_message_margin"
+        app:cardBackgroundColor="@color/user_message_color">
+
+        <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
+            android:id="@+id/messageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/stub_message"
+            android:layout_margin="@dimen/default_margin"/>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>
