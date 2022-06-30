@@ -6,6 +6,7 @@ import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.ecp.R
 
 abstract class AbstractMessageViewHolder(view: View) : GenericViewHolder<ItemUi>(view) {
+
     override fun bind(item: ItemUi) {
         item.show(itemView.findViewById(R.id.messageTextView))
     }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".MainActivity"
+
    >
 
     <com.google.android.material.card.MaterialCardView
@@ -16,7 +16,7 @@
             android:id="@+id/messageTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:style="@style/MessageTextAppearance"
+            style="@style/MessageTextAppearance"
             tools:text="@string/stub_message"
             />
     </com.google.android.material.card.MaterialCardView>

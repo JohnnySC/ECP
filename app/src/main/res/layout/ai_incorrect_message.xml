@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+   >
 
     <com.google.android.material.card.MaterialCardView
         style="@style/AiErrorMessageStyle"
@@ -15,6 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/stub_message"
-            android:textAppearance="@style/MessageTextAppearance"/>
+            style="@style/MessageTextAppearance"/>
     </com.google.android.material.card.MaterialCardView>
 </FrameLayout>
