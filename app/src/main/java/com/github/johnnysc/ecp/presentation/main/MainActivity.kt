@@ -1,16 +1,17 @@
-package com.github.johnnysc.ecp
+package com.github.johnnysc.ecp.presentation.main
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelStoreOwner
-import com.github.johnnysc.coremvvm.presentation.BackPress
 import com.github.johnnysc.coremvvm.presentation.FragmentFactory
 import com.github.johnnysc.coremvvm.sl.ProvideViewModel
-import com.github.johnnysc.ecp.presentation.main.MainViewModel
+import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.presentation.main.nav_screen.BaseFragmentFactory
 
-class MainActivity : BackPress.Activity<MainViewModel>(), ProvideViewModel {
+class MainActivity : AppCompatActivity(), ProvideViewModel {
 
     private lateinit var fragmentFactory: FragmentFactory
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
