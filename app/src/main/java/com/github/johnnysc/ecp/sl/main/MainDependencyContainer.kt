@@ -13,8 +13,7 @@ class MainDependencyContainer(
     override fun <T : ViewModel> module(clazz: Class<T>) =
         if (clazz == MainViewModel::class.java)
             MainModule(
-                NavigationCommunication.Base(),
-                coreModule.provideCanGoBack(),
+                NavigationCommunication.Base()
             )
         else
             dependencyContainer.module(clazz)

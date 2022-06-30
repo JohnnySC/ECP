@@ -9,7 +9,7 @@ import com.github.johnnysc.coremvvm.sl.DependencyContainer
 import com.github.johnnysc.coremvvm.sl.ProvideViewModel
 import com.github.johnnysc.coremvvm.sl.ViewModelsFactory
 import com.github.johnnysc.ecp.sl.main.MainDependencyContainer
-import com.github.johnnysc.ecp.sl.message.MessageDependencyContainer
+import com.github.johnnysc.ecp.sl.message.MessagesDependencyContainer
 
 class MainApplication : Application(), ProvideViewModel {
 
@@ -22,8 +22,8 @@ class MainApplication : Application(), ProvideViewModel {
             DependencyContainer.Error(),
             coreModule
         )
-        val messageDependencyContainer = MessageDependencyContainer(main, coreModule)
-        viewModelsFactory = ViewModelsFactory(messageDependencyContainer)
+        val messagesDependencyContainer = MessagesDependencyContainer(main, coreModule)
+        viewModelsFactory = ViewModelsFactory(messagesDependencyContainer)
     }
 
     override fun <T : ViewModel> provideViewModel(clazz: Class<T>, owner: ViewModelStoreOwner) =

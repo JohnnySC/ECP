@@ -5,13 +5,13 @@ import android.view.View
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.johnnysc.coremvvm.presentation.BackPress
+import com.github.johnnysc.coremvvm.presentation.BaseFragment
 import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.presentation.messages.adapter.MessageAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class MessagesFragment : BackPress.Fragment<MessagesUI, MessagesViewModel>() {
+class MessagesFragment : BaseFragment<MessagesViewModel>() {
 
     override val layoutResId = R.layout.fragment_main
 
@@ -27,18 +27,9 @@ class MessagesFragment : BackPress.Fragment<MessagesUI, MessagesViewModel>() {
         val messageInput = view.findViewById<EditText>(R.id.messageEditText)
         val sendMessageButton = view.findViewById<FloatingActionButton>(R.id.sendMessageButton)
         sendMessageButton.setOnClickListener {
-            val message = messageInput.text.toString()
-            val trimmedMessage=message.trim()
-            if(trimmedMessage.isNotEmpty())
-            {
-                //todo  handle in view model
-            }
-
-
+            //todo trim message handle in view model
         }
-        viewModel.observe(this) { messagesUI ->
-            messagesUI.map(messageAdapter)
-        }
+
 
     }
 
