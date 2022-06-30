@@ -15,6 +15,4 @@ class MainDependencyContainer(
             )
         else
             dependencyContainer.module(clazz)
-
-
 }
