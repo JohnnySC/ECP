@@ -11,7 +11,6 @@ import com.github.johnnysc.ecp.presentation.main.nav_screen.MainNavScreen
 
 class MainViewModel(
     private val communication: NavigationCommunication.Base,
-
     ) : ViewModel(), Communication.Observe<NavigationScreen> {
 
     init {
