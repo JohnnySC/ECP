@@ -11,7 +11,7 @@ class UserMessageViewHolderFactoryChain(private val viewHolderFactoryChain: View
 
     override fun viewHolder(parent: ViewGroup, viewType: Int) =
         if (viewType == 1) {
-            CorrectAiMessageViewHolder(
+            UserMessageViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.user_message, parent, false)
             )

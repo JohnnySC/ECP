@@ -11,7 +11,7 @@ class ErrorAiMessageViewHolderFactoryChain(private val viewHolderFactoryChain: V
 
     override fun viewHolder(parent: ViewGroup, viewType: Int) =
         if (viewType == 3) {
-            CorrectAiMessageViewHolder(
+            ErrorAiMessageViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.ai_incorrect_message, parent, false)
             )
