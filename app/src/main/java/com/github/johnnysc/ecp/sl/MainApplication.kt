@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.coremvvm.sl.DependencyContainer
 import com.github.johnnysc.coremvvm.sl.ProvideViewModel
 import com.github.johnnysc.coremvvm.sl.ViewModelsFactory
@@ -17,12 +16,10 @@ class MainApplication : Application(), ProvideViewModel {
 
     override fun onCreate() {
         super.onCreate()
-        val coreModule = CoreModule.Base(this)
         val main = MainDependencyContainer(
-            DependencyContainer.Error(),
-            coreModule
+            DependencyContainer.Error()
         )
-        val messagesDependencyContainer = MessagesDependencyContainer(main, coreModule)
+        val messagesDependencyContainer = MessagesDependencyContainer(main)
         viewModelsFactory = ViewModelsFactory(messagesDependencyContainer)
     }
 
