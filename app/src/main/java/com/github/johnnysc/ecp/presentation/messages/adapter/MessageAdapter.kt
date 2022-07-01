@@ -5,6 +5,12 @@ import com.github.johnnysc.coremvvm.presentation.adapter.ViewHolderFactoryChain
 
 interface MessageAdapter {
     class Base : GenericAdapter.Base(
-        ViewHolderFactoryChain.Exception()
+        CorrectAiMessageViewHolderFactoryChain(
+            ErrorAiMessageViewHolderFactoryChain(
+                UserMessageViewHolderFactoryChain(
+                    ViewHolderFactoryChain.Exception()
+                )
+            )
+        )
     )
 }

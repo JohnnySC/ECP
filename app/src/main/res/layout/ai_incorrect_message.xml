@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AiErrorMessageStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
+        android:id="@+id/messageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/MessageTextAppearance"
+        tools:text="@string/stub_small_message" />
+</com.google.android.material.card.MaterialCardView>
