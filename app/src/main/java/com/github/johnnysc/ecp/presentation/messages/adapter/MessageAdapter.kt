@@ -7,7 +7,9 @@ interface MessageAdapter {
     class Base : GenericAdapter.Base(
         CorrectAiMessageViewHolderFactoryChain(
             ErrorAiMessageViewHolderFactoryChain(
-                UserMessageViewHolderFactoryChain(ViewHolderFactoryChain.Exception())
+                UserMessageViewHolderFactoryChain(
+                    ViewHolderFactoryChain.Exception()
+                )
             )
         )
     )
