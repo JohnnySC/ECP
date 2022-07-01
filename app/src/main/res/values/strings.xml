@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">ECP</string>
-    <string name="enter_message">Enter Message</string>
+    <string name="enter_message">Enter message</string>
     <string name="stub_message">"this is some stub message for messages text views bla bla bla "</string>
 </resources>
