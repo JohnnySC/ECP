@@ -13,7 +13,9 @@ interface MessagesCommunication {
 
     interface Mutable : Observe, Update
 
-    class Base(private val mutableLiveData: MutableLiveData<List<MessageUI>>) : Mutable {
+    class Base(
+        private val mutableLiveData: MutableLiveData<List<MessageUI>> = MutableLiveData()
+    ) : Mutable {
 
         override fun observe(owner: LifecycleOwner, observer: Observer<List<MessageUI>>) =
             mutableLiveData.observe(owner, observer)
