@@ -4,7 +4,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.github.johnnysc.coremvvm.presentation.Communication
-import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
 interface MessagesCommunication {
 
