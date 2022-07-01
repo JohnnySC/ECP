@@ -29,5 +29,7 @@ class MessagesFragment : BaseFragment<MessagesViewModel>() {
         sendMessageButton.setOnClickListener {
             //todo trim message handle in view model
         }
+
+        viewModel.observe(this, messageAdapter::map)
     }
 }
