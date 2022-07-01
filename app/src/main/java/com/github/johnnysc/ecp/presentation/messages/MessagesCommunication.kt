@@ -6,12 +6,14 @@ import androidx.lifecycle.Observer
 import com.github.johnnysc.coremvvm.presentation.Communication
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
-interface MessagesCommunication : Communication.Observe<List<MessageUI>>,
-    Communication.Update<MessageUI> {
+interface MessagesCommunication {
 
-    class Base(
-        private val mutableLiveData: MutableLiveData<List<MessageUI>>
-    ) : MessagesCommunication {
+    interface Observe : Communication.Observe<List<MessageUI>>
+    interface Update : Communication.Update<MessageUI>
+
+    interface Mutable : Observe, Update
+
+    class Base(private val mutableLiveData: MutableLiveData<List<MessageUI>>) : Mutable {
 
         override fun observe(owner: LifecycleOwner, observer: Observer<List<MessageUI>>) =
             mutableLiveData.observe(owner, observer)
