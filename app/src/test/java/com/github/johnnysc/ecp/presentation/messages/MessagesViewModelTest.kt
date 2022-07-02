@@ -1,11 +1,9 @@
 package com.github.johnnysc.ecp.presentation.messages
 
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import com.github.johnnysc.coremvvm.core.Dispatchers
-import io.mockk.mockkClass
 import org.junit.Assert
 import org.junit.Test
-
 
 internal class MessagesViewModelTest {
 
@@ -33,26 +31,23 @@ internal class MessagesViewModelTest {
 
     @Test
     fun whenMessageForFirstChain_shouldBeHandledByFirstChain() {
-        val testChainFactory = MessagesViewModelTest.TestChainFactory(TestChainOne())
-        val communication = MessagesCommunication.Base()
-        val lifecycleOwner = mockkClass(LifecycleOwner::class)
+        val testChainFactory = TestChainFactory(TestChainOne())
+        val liveData = MutableLiveData<List<MessageUI>>()
+        val communication = MessagesCommunication.Base(liveData)
         val dispatchers = Dispatchers.Base()
         val viewModel = MessagesViewModel(dispatchers, communication, testChainFactory)
-        communication.observe(lifecycleOwner) {
-            Assert.assertEquals(MessageUI.Ai("0", "first msg"), it[0])
-        }
         viewModel.handleInput("for first one")
+        Assert.assertEquals(MessageUI.Ai("0", "first msg"), liveData.value)
     }
 
     @Test
     fun whenMessageForSecondChain_shouldBeHandledByFirstChain() {
-        val testChainFactory = MessagesViewModelTest.TestChainFactory(TestChainOne())
-        val communication = MessagesCommunication.Base()
-        val lifecycleOwner = mockkClass(LifecycleOwner::class)
-        val viewModel = MessagesViewModel(communication, testChainFactory)
-        communication.observe(lifecycleOwner) {
-            Assert.assertEquals(MessageUI.Ai("0", "second msg"), it[0])
-        }
+        val testChainFactory = TestChainFactory(TestChainOne())
+        val liveData = MutableLiveData<List<MessageUI>>()
+        val communication = MessagesCommunication.Base(liveData)
+        val dispatchers = Dispatchers.Base()
+        val viewModel = MessagesViewModel(dispatchers, communication, testChainFactory)
         viewModel.handleInput("for second one")
+        Assert.assertEquals(MessageUI.Ai("0", "second msg"), liveData.value)
     }
 }
