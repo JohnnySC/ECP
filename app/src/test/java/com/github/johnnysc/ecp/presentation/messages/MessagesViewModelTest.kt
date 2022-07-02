@@ -1,6 +1,7 @@
 package com.github.johnnysc.ecp.presentation.messages
 
 import androidx.lifecycle.LifecycleOwner
+import com.github.johnnysc.coremvvm.core.Dispatchers
 import io.mockk.mockkClass
 import org.junit.Assert
 import org.junit.Test
@@ -35,7 +36,8 @@ internal class MessagesViewModelTest {
         val testChainFactory = MessagesViewModelTest.TestChainFactory(TestChainOne())
         val communication = MessagesCommunication.Base()
         val lifecycleOwner = mockkClass(LifecycleOwner::class)
-        val viewModel = MessagesViewModel(communication, testChainFactory)
+        val dispatchers = Dispatchers.Base()
+        val viewModel = MessagesViewModel(dispatchers, communication, testChainFactory)
         communication.observe(lifecycleOwner) {
             Assert.assertEquals(MessageUI.Ai("0", "first msg"), it[0])
         }
