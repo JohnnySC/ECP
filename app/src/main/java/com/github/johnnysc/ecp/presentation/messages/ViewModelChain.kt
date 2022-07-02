@@ -1,7 +1,5 @@
 package com.github.johnnysc.ecp.presentation.messages
 
-import com.github.johnnysc.coremvvm.core.Dispatchers
-
 abstract class ViewModelChain(
     private val featureChain: FeatureChain.CheckAndHandle,
 ) : FeatureChain.Handle {
