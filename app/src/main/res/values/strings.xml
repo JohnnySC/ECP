@@ -3,5 +3,5 @@
     <string name="enter_message">Enter Message</string>
     <string name="stub_message">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  "</string>
     <string name="stub_small_message">small</string>
-    <string name="i_dont_understand">"Я не знаю, что такое "</string>
+    <string name="i_dont_understand">"Я вас не понимаю"</string>
 </resources>

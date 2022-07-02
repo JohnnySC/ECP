@@ -23,7 +23,7 @@ interface FeatureChain {
         override suspend fun handle(message: String): MessageUI {
             return MessageUI.AiErrorMessageUI(
                 errorMessageId,
-                "${manageResources.string(R.string.i_dont_understand)} \"$message\""
+                "${manageResources.string(R.string.i_dont_understand)}"
             )
         }
     }
