@@ -25,4 +25,8 @@ interface MessageUI : ItemUi {
     class AiErrorMessageUI(id: String, text: String) : Message(id, text) {
         override fun type() = 3
     }
+
+    class EmptyMessageUI() : Message("", "") {
+        override fun type() = Int.MIN_VALUE
+    }
 }

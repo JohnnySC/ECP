@@ -24,4 +24,9 @@ interface FeatureChain {
             manageResources.string(R.string.i_dont_understand)
         )
     }
+
+    class Empty : FeatureChain.Handle {
+        override suspend fun handle(message: String) = MessageUI.EmptyMessageUI()
+    }
+
 }
