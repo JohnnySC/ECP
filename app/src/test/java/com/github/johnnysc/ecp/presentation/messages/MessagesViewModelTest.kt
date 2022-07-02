@@ -1,13 +1,34 @@
 package com.github.johnnysc.ecp.presentation.messages
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import org.junit.Assert
 import org.junit.Test
 
 internal class MessagesViewModelTest {
 
-    class TestChainFactory(private val chain: FeatureChain.CheckAndHandle) : FeatureChain.Handle {
+    @Test
+    fun whenMessageForFirstChain_shouldBeHandledByFirstChain() {
+        val testChainFactory = TestChainFactory(TestChainOne())
+        val communication = TestCommunication()
+        val dispatchers = TestDispatchers()
+        val viewModel = MessagesViewModel(dispatchers = dispatchers, communication = communication, viewModelChain = testChainFactory)
+        viewModel.handleInput("for first one")
+        Assert.assertEquals("first msg", communication.msg)
+    }
+
+    @Test
+    fun whenMessageForSecondChain_shouldBeHandledByFirstChain() {
+        val testChainFactory = TestChainFactory(TestChainOne())
+        val communication = TestCommunication()
+        val dispatchers = TestDispatchers()
+        val viewModel = MessagesViewModel(dispatchers = dispatchers, communication = communication, viewModelChain = testChainFactory)
+        viewModel.handleInput("for second one")
+        Assert.assertEquals("second msg", communication.msg)
+    }
+
+    private class TestChainFactory(private val chain: FeatureChain.CheckAndHandle) : FeatureChain.Handle {
         private val nextChain = TestChainTwo()
 
         override suspend fun handle(message: String): MessageUI {
@@ -29,25 +50,16 @@ internal class MessagesViewModelTest {
         override suspend fun handle(message: String): MessageUI = MessageUI.Ai("0", "second msg")
     }
 
-    @Test
-    fun whenMessageForFirstChain_shouldBeHandledByFirstChain() {
-        val testChainFactory = TestChainFactory(TestChainOne())
-        val liveData = MutableLiveData<List<MessageUI>>()
-        val communication = MessagesCommunication.Base(liveData)
-        val dispatchers = Dispatchers.Base()
-        val viewModel = MessagesViewModel(dispatchers, communication, testChainFactory)
-        viewModel.handleInput("for first one")
-        Assert.assertEquals(MessageUI.Ai("0", "first msg"), liveData.value)
+    private class TestCommunication : MessagesCommunication.Mutable {
+
+        var msg = ""
+
+        override fun map(data: MessageUI) {
+            msg = data.content()
+        }
+
+        override fun observe(owner: LifecycleOwner, observer: Observer<List<MessageUI>>) = Unit
     }
 
-    @Test
-    fun whenMessageForSecondChain_shouldBeHandledByFirstChain() {
-        val testChainFactory = TestChainFactory(TestChainOne())
-        val liveData = MutableLiveData<List<MessageUI>>()
-        val communication = MessagesCommunication.Base(liveData)
-        val dispatchers = Dispatchers.Base()
-        val viewModel = MessagesViewModel(dispatchers, communication, testChainFactory)
-        viewModel.handleInput("for second one")
-        Assert.assertEquals(MessageUI.Ai("0", "second msg"), liveData.value)
-    }
+    private class TestDispatchers : Dispatchers.Abstract(kotlinx.coroutines.Dispatchers.Unconfined, kotlinx.coroutines.Dispatchers.Unconfined)
 }
