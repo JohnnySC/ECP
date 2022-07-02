@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.github.johnnysc.coremvvm.core.Dispatchers
 
 abstract class ViewModelChain(
-    private val featureChain: FeatureChain.ChekAndHandle,
+    private val featureChain: FeatureChain.CheckAndHandle,
     private val dispatchers: Dispatchers,
     private val messagesCommunication: MessagesCommunication.Update
 ) : ViewModel(), FeatureChain.Check {
-    var nextFeatureChain: MutableList<FeatureChain.ChekAndHandle> = mutableListOf()
+    var nextFeatureChain: MutableList<FeatureChain.CheckAndHandle> = mutableListOf()
 
     override fun canHandle(message: String): Boolean {
         var result = false
@@ -32,7 +32,7 @@ abstract class ViewModelChain(
         messagesCommunication.map(messageUI)
     }
 
-    fun handleMessage(featureChain: FeatureChain.ChekAndHandle, message: String) {
+    fun handleMessage(featureChain: FeatureChain.CheckAndHandle, message: String) {
         dispatchers.launchBackground(viewModelScope)
         {
             val messageResult = featureChain.handle(message)
@@ -42,7 +42,7 @@ abstract class ViewModelChain(
         }
     }
 
-    fun setFeatureChain(featureChain: FeatureChain.ChekAndHandle) {
+    fun setFeatureChain(featureChain: FeatureChain.CheckAndHandle) {
         nextFeatureChain.add(featureChain)
     }
 }

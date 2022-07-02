@@ -12,9 +12,9 @@ interface FeatureChain {
         suspend fun handle(message: String): MessageUI
     }
 
-    interface ChekAndHandle : Check, Handle
+    interface CheckAndHandle : Check, Handle
 
-    class UnknownMessageChain(private val manageResources: ManageResources) : ChekAndHandle {
+    class UnknownMessageChain(private val manageResources: ManageResources) : CheckAndHandle {
         private val errorMessageId = "-1"
         override fun canHandle(message: String): Boolean {
             return true
