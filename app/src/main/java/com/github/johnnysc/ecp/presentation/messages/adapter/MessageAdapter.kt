@@ -2,9 +2,10 @@ package com.github.johnnysc.ecp.presentation.messages.adapter
 
 import com.github.johnnysc.coremvvm.presentation.adapter.GenericAdapter
 import com.github.johnnysc.coremvvm.presentation.adapter.ViewHolderFactoryChain
+import com.github.johnnysc.ecp.presentation.messages.MessageUI
 
 interface MessageAdapter {
-    class Base : GenericAdapter.Base(
+    class Base : GenericAdapter<MessageUI>(
         CorrectAiMessageViewHolderFactoryChain(
             ErrorAiMessageViewHolderFactoryChain(
                 UserMessageViewHolderFactoryChain(
