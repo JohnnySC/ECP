@@ -16,15 +16,12 @@ interface FeatureChain {
 
     class UnknownMessageChain(private val manageResources: ManageResources) : CheckAndHandle {
         private val errorMessageId = "-1"
-        override fun canHandle(message: String): Boolean {
-            return true
-        }
 
-        override suspend fun handle(message: String): MessageUI {
-            return MessageUI.AiErrorMessageUI(
-                errorMessageId,
-                "${manageResources.string(R.string.i_dont_understand)}"
-            )
-        }
+        override fun canHandle(message: String) = true
+
+        override suspend fun handle(message: String) = MessageUI.AiErrorMessageUI(
+            errorMessageId,
+            "${manageResources.string(R.string.i_dont_understand)}"
+        )
     }
 }

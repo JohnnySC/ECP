@@ -1,19 +1,15 @@
 package com.github.johnnysc.ecp.presentation.messages
 
-abstract class ViewModelChain(
+class ViewModelChain(
     private val featureChain: FeatureChain.CheckAndHandle,
+    private  val nextFeatureChain: FeatureChain.Handle
 ) : FeatureChain.Handle {
-    private lateinit var nextFeatureChain: FeatureChain.Handle
+
 
     override suspend fun handle(message: String) =
-        if (featureChain.canHandle(message)) {
+        if (featureChain.canHandle(message))
             featureChain.handle(message)
-        } else {
+         else
             nextFeatureChain.handle(message)
-        }
 
-
-    fun setNextFeatureChain(featureChain: FeatureChain.CheckAndHandle) {
-        nextFeatureChain = featureChain
-    }
 }
