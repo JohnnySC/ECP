@@ -21,7 +21,7 @@ interface FeatureChain {
 
         override suspend fun handle(message: String) = MessageUI.AiErrorMessageUI(
             errorMessageId,
-            "${manageResources.string(R.string.i_dont_understand)}"
+            manageResources.string(R.string.i_dont_understand)
         )
     }
 }
