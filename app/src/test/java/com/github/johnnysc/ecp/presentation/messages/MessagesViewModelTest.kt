@@ -4,28 +4,32 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 
 internal class MessagesViewModelTest {
 
     @Test
-    fun whenMessageForFirstChain_shouldBeHandledByFirstChain() {
+    fun whenMessageForFirstChain_shouldBeHandledByFirstChain() = runTest {
         val testChainFactory = TestChainFactory(TestChainOne())
         val communication = TestCommunication()
         val dispatchers = TestDispatchers()
         val viewModel = MessagesViewModel(dispatchers = dispatchers, communication = communication, viewModelChain = testChainFactory)
         viewModel.handleInput("for first one")
+        advanceUntilIdle()
         Assert.assertEquals("first msg", communication.msg)
     }
 
     @Test
-    fun whenMessageForSecondChain_shouldBeHandledByFirstChain() {
+    fun whenMessageForSecondChain_shouldBeHandledByFirstChain() = runTest {
         val testChainFactory = TestChainFactory(TestChainOne())
         val communication = TestCommunication()
         val dispatchers = TestDispatchers()
         val viewModel = MessagesViewModel(dispatchers = dispatchers, communication = communication, viewModelChain = testChainFactory)
         viewModel.handleInput("for second one")
+        advanceUntilIdle()
         Assert.assertEquals("second msg", communication.msg)
     }
 
