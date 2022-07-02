@@ -3,6 +3,7 @@ package com.github.johnnysc.ecp.presentation.messages
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.github.johnnysc.coremvvm.core.Dispatchers
+import kotlinx.coroutines.test.StandardTestDispatcher
 import org.junit.Assert
 import org.junit.Test
 
@@ -61,5 +62,5 @@ internal class MessagesViewModelTest {
         override fun observe(owner: LifecycleOwner, observer: Observer<List<MessageUI>>) = Unit
     }
 
-    private class TestDispatchers : Dispatchers.Abstract(kotlinx.coroutines.Dispatchers.Unconfined, kotlinx.coroutines.Dispatchers.Unconfined)
+    private class TestDispatchers : Dispatchers.Abstract(StandardTestDispatcher(), StandardTestDispatcher())
 }
