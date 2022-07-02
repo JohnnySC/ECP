@@ -1,6 +1,6 @@
 package com.github.johnnysc.ecp.presentation.messages
 
-class ViewModelChain(
+abstract class ViewModelChain(
     private val featureChain: FeatureChain.CheckAndHandle,
 ) : FeatureChain.Handle {
     private var nextFeatureChain: FeatureChain.Handle = FeatureChain.Empty()
