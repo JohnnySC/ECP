@@ -19,14 +19,14 @@ interface FeatureChain {
 
         override fun canHandle(message: String) = true
 
-        override suspend fun handle(message: String) = MessageUI.AiErrorMessageUI(
+        override suspend fun handle(message: String) = MessageUI.AiError(
             errorMessageId,
             manageResources.string(R.string.i_dont_understand)
         )
     }
 
-    class Empty : FeatureChain.Handle {
-        override suspend fun handle(message: String) = MessageUI.EmptyMessageUI()
+    class Empty : Handle {
+        override suspend fun handle(message: String) = MessageUI.Empty()
     }
 
 }
