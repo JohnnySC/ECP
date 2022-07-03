@@ -38,7 +38,6 @@ class ProvideViewModelChainTest {
         assertEquals(expectedThree, actualThree)
         assertEquals(expectedFour, actualFour)
 
-
     }
 
     private class ProvideViewModelChainOne : ProvideViewModelChain<ViewModelChainOne> {
