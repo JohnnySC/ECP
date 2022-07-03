@@ -11,10 +11,10 @@ import org.junit.Test
 class ProvideViewModelChainTest {
 
     @Test
-    fun viewModelChain() = runBlocking{
+    fun viewModelChain() = runBlocking {
         val input = listOf("For first one", "For second one", "For third one", "some string")
         val defaultMessageId = "1"
-        val errorMessageId="-1"
+        val errorMessageId = "-1"
         val expectedOne = MessageUI.Ai(defaultMessageId, "First message")
         val expectedTwo = MessageUI.Ai(defaultMessageId, "Second message")
         val expectedThree = MessageUI.Ai(defaultMessageId, "Third message")
@@ -26,17 +26,17 @@ class ProvideViewModelChainTest {
             ProvideViewModelChainThree(),
             ProvideViewModelChainFour()
         )
-        val viewModelChain=provideViewModelChain.viewModelChain()
+        val viewModelChain = provideViewModelChain.viewModelChain()
 
-        val actualOne=viewModelChain.handle(input[0])
-        val actualTwo=viewModelChain.handle(input[1])
-        val actualThree=viewModelChain.handle(input[2])
-        val actualFour=viewModelChain.handle(input[3])
+        val actualOne = viewModelChain.handle(input[0])
+        val actualTwo = viewModelChain.handle(input[1])
+        val actualThree = viewModelChain.handle(input[2])
+        val actualFour = viewModelChain.handle(input[3])
 
-        assertEquals(expectedOne,actualOne)
-        assertEquals(expectedTwo,actualTwo)
-        assertEquals(expectedThree,actualThree)
-        assertEquals(expectedFour,actualFour)
+        assertEquals(expectedOne, actualOne)
+        assertEquals(expectedTwo, actualTwo)
+        assertEquals(expectedThree, actualThree)
+        assertEquals(expectedFour, actualFour)
 
 
     }
