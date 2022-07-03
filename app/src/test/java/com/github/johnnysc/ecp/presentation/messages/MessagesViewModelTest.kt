@@ -14,6 +14,7 @@ internal class MessagesViewModelTest {
     @Test
     fun whenMessageForFirstChain_shouldBeHandledByFirstChain() = runTest {
         val testChainFactory = TestChainFactory(TestChainOne())
+        testChainFactory.setNextFeatureChain(TestChainTwo())
         val communication = TestCommunication()
         val testDispatcher = StandardTestDispatcher()
         val dispatchers = TestDispatchers(testDispatcher, testDispatcher)
@@ -30,6 +31,7 @@ internal class MessagesViewModelTest {
     @Test
     fun whenMessageForSecondChain_shouldBeHandledByFirstChain() = runTest {
         val testChainFactory = TestChainFactory(TestChainOne())
+        testChainFactory.setNextFeatureChain(TestChainTwo())
         val communication = TestCommunication()
         val testDispatcher = StandardTestDispatcher()
         val dispatchers = TestDispatchers(testDispatcher, testDispatcher)
@@ -43,17 +45,7 @@ internal class MessagesViewModelTest {
         Assert.assertEquals(MessageUI.User("1", "I don't understand you"), communication.messages[1])
     }
 
-    private class TestChainFactory(private val chain: FeatureChain.CheckAndHandle) : FeatureChain.Handle {
-        private val nextChain = TestChainTwo()
-
-        override suspend fun handle(message: String): MessageUI {
-            return if (chain.canHandle(message)) {
-                chain.handle(message)
-            } else {
-                nextChain.handle(message)
-            }
-        }
-    }
+    private class TestChainFactory(feature: FeatureChain.CheckAndHandle) : ViewModelChain(feature)
 
     private class TestChainOne : FeatureChain.CheckAndHandle {
         override fun canHandle(message: String): Boolean = message == "For first one"
