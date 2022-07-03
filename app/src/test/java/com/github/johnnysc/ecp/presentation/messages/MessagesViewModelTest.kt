@@ -4,19 +4,19 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Assert
 import org.junit.Test
 
 internal class MessagesViewModelTest {
 
     @Test
-    fun whenMessageForFirstChain_shouldBeHandledByFirstChain() = runTest {
+    fun `test successful response`() = runBlocking {
         val testChainFactory = TestChainFactory(TestChainOne())
         testChainFactory.setNextFeatureChain(TestChainTwo())
         val communication = TestCommunication()
-        val dispatchers = TestDispatchers(StandardTestDispatcher())
+        val dispatchers = TestDispatchers(TestCoroutineDispatcher())
         val viewModel = MessagesViewModel(
             dispatchers = dispatchers,
             communication = communication,
@@ -28,11 +28,11 @@ internal class MessagesViewModelTest {
     }
 
     @Test
-    fun whenMessageForSecondChain_shouldBeHandledByFirstChain() = runTest {
+    fun `test error response`() = runBlocking {
         val testChainFactory = TestChainFactory(TestChainOne())
         testChainFactory.setNextFeatureChain(TestChainTwo())
         val communication = TestCommunication()
-        val dispatchers = TestDispatchers(StandardTestDispatcher())
+        val dispatchers = TestDispatchers(TestCoroutineDispatcher())
         val viewModel = MessagesViewModel(
             dispatchers = dispatchers,
             communication = communication,
