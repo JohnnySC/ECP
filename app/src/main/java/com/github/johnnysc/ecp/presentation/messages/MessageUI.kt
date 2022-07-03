@@ -14,15 +14,15 @@ interface MessageUI : ItemUi {
         }
     }
 
-    class User(id: String, text: String) : Message(id, text) {
+    data class User(private val id: String, private val text: String) : Message(id, text) {
         override fun type() = 1
     }
 
-    class Ai(id: String, text: String) : Message(id, text) {
+    data class Ai(private val id: String, private val text: String) : Message(id, text) {
         override fun type() = 2
     }
 
-    class AiError(id: String, text: String) : Message(id, text) {
+    data class AiError(private val id: String, private val text: String) : Message(id, text) {
         override fun type() = 3
     }
 
