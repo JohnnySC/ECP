@@ -1,8 +1,8 @@
-package com.github.johnnysc.ecp.sl.view_model_chain
+package com.github.johnnysc.ecp.sl
 
 import com.github.johnnysc.ecp.presentation.messages.ViewModelChain
 
 interface ProvideViewModelChain<T : ViewModelChain> {
-    fun viewModelChain(): T
 
+    fun viewModelChain(): T
 }
