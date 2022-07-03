@@ -19,79 +19,83 @@ import org.junit.Test
 class MessagesModuleTest {
 
     @Test
-    fun `provide list of provides view models chain and check values in test message communication`() = runBlocking {
-        val input = listOf("For first one", "For second one", "For third one", "some string")
-        val defaultMessageId = "1"
-        val expectedOne = listOf(
-            MessageUI.User(defaultMessageId, input[0]),
-            MessageUI.Ai(defaultMessageId, "First message")
-        )
-        var middleExpected = expectedOne.toMutableList()
-        middleExpected.addAll(
-            listOf(
-                MessageUI.User(defaultMessageId, input[1]),
-                MessageUI.Ai(defaultMessageId, "Second message")
+    fun `provide list of provides view models chain and check values in test message communication`() =
+        runBlocking {
+            val input = listOf("For first one", "For second one", "For third one", "some string")
+            val defaultMessageId = "1"
+            val expectedOne = listOf(
+                MessageUI.User(defaultMessageId, input[0]),
+                MessageUI.Ai(defaultMessageId, "First message")
             )
-        )
-        val expectedTwo = middleExpected.toList()
-        middleExpected = expectedTwo.toMutableList()
-        middleExpected.addAll(
-            listOf(
-                MessageUI.User(defaultMessageId, input[2]),
-                MessageUI.Ai(defaultMessageId, "Third message")
+            var middleExpected = expectedOne.toMutableList()
+            middleExpected.addAll(
+                listOf(
+                    MessageUI.User(defaultMessageId, input[1]),
+                    MessageUI.Ai(defaultMessageId, "Second message")
+                )
             )
-        )
-        val expectedThree = middleExpected.toList()
-        middleExpected = expectedThree.toMutableList()
-        middleExpected.addAll(
-            listOf(
-                MessageUI.User(defaultMessageId, input[3]),
-                MessageUI.AiError(defaultMessageId, "я вас не понимаю")
+            val expectedTwo = middleExpected.toList()
+            middleExpected = expectedTwo.toMutableList()
+            middleExpected.addAll(
+                listOf(
+                    MessageUI.User(defaultMessageId, input[2]),
+                    MessageUI.Ai(defaultMessageId, "Third message")
+                )
             )
-        )
-        val expectedFour = middleExpected.toList()
+            val expectedThree = middleExpected.toList()
+            middleExpected = expectedThree.toMutableList()
+            middleExpected.addAll(
+                listOf(
+                    MessageUI.User(defaultMessageId, input[3]),
+                    MessageUI.AiError(defaultMessageId, "я вас не понимаю")
+                )
+            )
+            val expectedFour = middleExpected.toList()
 
-        val dispatchers = TestDispatchers(StandardTestDispatcher())
-        val listOfProvideViewModelChains = listOf(
-            ProvideViewModelChainOne(),
-            ProvideViewModelChainTwo(),
-            ProvideViewModelChainThree(),
-            ProvideViewModelChainFour()
-        )
-        val testCommunication = TestCommunication()
+            val dispatchers = TestDispatchers(StandardTestDispatcher())
+            val listOfProvideViewModelChains = listOf(
+                ProvideViewModelChainOne(),
+                ProvideViewModelChainTwo(),
+                ProvideViewModelChainThree(),
+                ProvideViewModelChainFour()
+            )
+            val testCommunication = TestCommunication()
 
-        val viewModel = MessagesModule(
-            providesViewModelChain = listOfProvideViewModelChains,
-            messagesCommunication = testCommunication,
-            dispatchers = dispatchers
-        ).viewModel()
+            val viewModel = MessagesModule(
+                providesViewModelChain = listOfProvideViewModelChains,
+                messagesCommunication = testCommunication,
+                dispatchers = dispatchers
+            ).viewModel()
 
-        viewModel.handleInput(input[0])
-        assertEquals(expectedOne, testCommunication.messages)
+            viewModel.handleInput(input[0])
+            assertEquals(expectedOne, testCommunication.messages)
 
-        viewModel.handleInput(input[1])
-        assertEquals(expectedTwo, testCommunication.messages)
+            viewModel.handleInput(input[1])
+            assertEquals(expectedTwo, testCommunication.messages)
 
-        viewModel.handleInput(input[2])
-        assertEquals(expectedThree, testCommunication.messages)
+            viewModel.handleInput(input[2])
+            assertEquals(expectedThree, testCommunication.messages)
 
-        viewModel.handleInpu(input[3])
-        assertEquals(expectedFour, testCommunication.messages)
+            viewModel.handleInpu(input[3])
+            assertEquals(expectedFour, testCommunication.messages)
 
-    }
+        }
 
     private class ProvideViewModelChainOne : ProvideViewModelChain<ViewModelChainOne> {
 
         override fun viewModelChain() = ViewModelChainOne()
     }
+
     private class ProvideViewModelChainTwo : ProvideViewModelChain<ViewModelChainTwo> {
 
         override fun viewModelChain() = ViewModelChainTwo()
     }
+
     private class ProvideViewModelChainThree : ProvideViewModelChain<ViewModelChainThree> {
 
         override fun viewModelChain() = ViewModelChainThree()
     }
+
     private class ProvideViewModelChainFour : ProvideViewModelChain<ViewModelChainError> {
 
         override fun viewModelChain() = ViewModelChainError()
@@ -107,11 +111,13 @@ class MessagesModuleTest {
 
         override suspend fun handle(message: String) = MessageUI.Ai("1", "First message")
     }
+
     private class TestChainTwo : FeatureChain.CheckAndHandle {
         override fun canHandle(message: String) = message == "For second one"
 
         override suspend fun handle(message: String) = MessageUI.Ai("1", "Second message")
     }
+
     private class TestChainThree : FeatureChain.CheckAndHandle {
         override fun canHandle(message: String) = message == "For third one"
 
