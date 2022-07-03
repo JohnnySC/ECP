@@ -16,8 +16,7 @@ internal class MessagesViewModelTest {
         val testChainFactory = TestChainFactory(TestChainOne())
         testChainFactory.setNextFeatureChain(TestChainTwo())
         val communication = TestCommunication()
-        val testDispatcher = StandardTestDispatcher()
-        val dispatchers = TestDispatchers(testDispatcher, testDispatcher)
+        val dispatchers = TestDispatchers(StandardTestDispatcher())
         val viewModel = MessagesViewModel(
             dispatchers = dispatchers,
             communication = communication,
@@ -33,8 +32,7 @@ internal class MessagesViewModelTest {
         val testChainFactory = TestChainFactory(TestChainOne())
         testChainFactory.setNextFeatureChain(TestChainTwo())
         val communication = TestCommunication()
-        val testDispatcher = StandardTestDispatcher()
-        val dispatchers = TestDispatchers(testDispatcher, testDispatcher)
+        val dispatchers = TestDispatchers(StandardTestDispatcher())
         val viewModel = MessagesViewModel(
             dispatchers = dispatchers,
             communication = communication,
@@ -68,6 +66,5 @@ internal class MessagesViewModelTest {
         override fun observe(owner: LifecycleOwner, observer: Observer<List<MessageUI>>) = Unit
     }
 
-    private class TestDispatchers(ui: CoroutineDispatcher, background: CoroutineDispatcher) :
-        Dispatchers.Abstract(ui, background)
+    private class TestDispatchers(dispatcher: CoroutineDispatcher) : Dispatchers.Abstract(dispatcher, dispatcher)
 }
