@@ -59,6 +59,7 @@ class MessagesModuleTest {
             ProvideViewModelChainFour()
         )
         val testCommunication = TestCommunication()
+
         val viewModel = MessagesModule(
             providesViewModelChain = listOfProvideViewModelChains,
             messagesCommunication = testCommunication,

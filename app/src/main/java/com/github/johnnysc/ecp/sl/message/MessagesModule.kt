@@ -22,6 +22,6 @@ class MessagesModule(
             if (index < listOfViewModelChain.lastIndex)
                 listOfViewModelChain[index].setNextFeatureChain(listOfViewModelChain[index + 1])
         }
-        return MessagesViewModel(messagesCommunication,finalChain)
+        return MessagesViewModel()
     }
 }
