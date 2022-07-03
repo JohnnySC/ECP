@@ -14,19 +14,19 @@ interface MessageUI : ItemUi {
         }
     }
 
-    class User(id: String, text: String) : Message(id, text) {
+    data class User(val id: String, val text: String) : Message(id, text) {
         override fun type() = 1
     }
 
-    class Ai(id: String, text: String) : Message(id, text) {
+    data class Ai(val id: String, val text: String) : Message(id, text) {
         override fun type() = 2
     }
 
-    class AiError(id: String, text: String) : Message(id, text) {
+    data class AiError(val id: String, val text: String) : Message(id, text) {
         override fun type() = 3
     }
 
-    class Empty() : Message("", "") {
+    class Empty : Message("", "") {
         override fun type() = Int.MIN_VALUE
     }
 }
