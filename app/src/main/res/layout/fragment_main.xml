@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
         android:clickable="true"
+        android:focusable="true"
         android:src="@android:drawable/ic_menu_send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -28,14 +28,12 @@
         android:id="@+id/messageEditText"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:ems="10"
-        android:inputType="text"
         android:layout_margin="@dimen/default_margin"
+        android:ems="10"
         android:hint="@string/enter_message"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sendMessageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messagesRecyclerView" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

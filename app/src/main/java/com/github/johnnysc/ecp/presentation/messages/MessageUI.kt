@@ -26,7 +26,7 @@ interface MessageUI : ItemUi {
         override fun type() = 3
     }
 
-    class Empty() : Message("", "") {
+    class Empty : Message("", "") {
         override fun type() = Int.MIN_VALUE
     }
 }

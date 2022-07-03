@@ -7,5 +7,4 @@ import com.github.johnnysc.ecp.presentation.messages.MessagesFragment
 class MainNavScreen(showStrategy: ShowStrategy = ShowStrategy.REPLACE) : NavigationScreen(
     "mainFragment",
     MessagesFragment::class.java, showStrategy
-) {
-}
+)
