@@ -4,7 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 
-class MessagesViewModel() : ViewModel() {
+class MessagesViewModel : ViewModel() {
 
     fun observe(owner: LifecycleOwner, observer: Observer<List<MessageUI>>) {
 
