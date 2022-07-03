@@ -7,5 +7,5 @@ class MessagesModule(
 
 ) : Module<MessagesViewModel> {
 
-    override fun viewModel() = MessagesViewModel()
+    override fun viewModel() = TODO()
 }
