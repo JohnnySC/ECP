@@ -15,7 +15,7 @@ class MessagesFragment : BaseFragment<MessagesViewModel>() {
 
     override val layoutResId = R.layout.fragment_main
 
-    override fun viewModelClass(): Class<MessagesViewModel> = MessagesViewModel::class.java
+    override fun viewModelClass() = MessagesViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,9 +25,9 @@ class MessagesFragment : BaseFragment<MessagesViewModel>() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
         messagesRecyclerView.adapter = messageAdapter
         val messageInput = view.findViewById<EditText>(R.id.messageEditText)
-        val sendMessageButton = view.findViewById<FloatingActionButton>(R.id.sendMessageButton)
-        sendMessageButton.setOnClickListener {
-            //todo trim message handle in view model
+        val sendMessage = view.findViewById<FloatingActionButton>(R.id.sendMessageButton)
+        sendMessage.setOnClickListener {
+            viewModel.handleInput(messageInput.toString())
         }
 
         viewModel.observe(this, messageAdapter::map)
