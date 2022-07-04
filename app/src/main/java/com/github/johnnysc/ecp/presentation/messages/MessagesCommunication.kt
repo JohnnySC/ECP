@@ -13,17 +13,30 @@ interface MessagesCommunication {
     interface Mutable : Observe, Update
 
     class Base(
-        private val mutableLiveData: MutableLiveData<List<MessageUI>> = MutableLiveData()
+        private val mutableLiveData: MutableLiveData<List<MessageUI>> = MutableLiveData(),
+        private val mapper: Mapper = Mapper.Base()
     ) : Mutable {
 
         override fun observe(owner: LifecycleOwner, observer: Observer<List<MessageUI>>) =
             mutableLiveData.observe(owner, observer)
 
         override fun map(data: MessageUI) {
-            val result = mutableListOf<MessageUI>()
-            mutableLiveData.value?.let(result::addAll)
-            result.add(data)
-            mutableLiveData.value = result
+            mutableLiveData.value = mapper.map(data, mutableLiveData.value ?: emptyList())
+        }
+    }
+
+    interface Mapper {
+
+        fun map(messageUI: MessageUI, list: List<MessageUI>): List<MessageUI>
+
+        class Base : Mapper {
+
+            override fun map(messageUI: MessageUI, list: List<MessageUI>): List<MessageUI> {
+                val result = list.toMutableList()
+                val id = result.size.toString()
+                result.add(messageUI.copyWithId(id))
+                return result
+            }
         }
     }
 }
