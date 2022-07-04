@@ -24,12 +24,11 @@ class MessagesFragment : BaseFragment<MessagesViewModel>() {
         messagesRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
         messagesRecyclerView.adapter = messageAdapter
-        val messageInput = view.findViewById<EditText>(R.id.messageEditText)
+        val messageInput = view.findViewById<MessageEditText>(R.id.messageEditText)
         val sendMessageButton = view.findViewById<FloatingActionButton>(R.id.sendMessageButton)
         sendMessageButton.setOnClickListener {
-            //todo trim message handle in view model
+            messageInput.handleInput(viewModel)
         }
-
         viewModel.observe(this, messageAdapter::map)
     }
 }

@@ -24,7 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <EditText
+    <com.github.johnnysc.ecp.presentation.messages.MessageEditText
         android:id="@+id/messageEditText"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -36,6 +36,4 @@
         app:layout_constraintEnd_toStartOf="@+id/sendMessageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messagesRecyclerView" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
