@@ -21,19 +21,19 @@ interface MessagesCommunication {
             mutableLiveData.observe(owner, observer)
 
         override fun map(data: MessageUI) {
-            mutableLiveData.value = mapper.map(data, mutableLiveData.value)
+            mutableLiveData.value = mapper.map(data, mutableLiveData.value ?: emptyList())
         }
     }
 
     interface Mapper {
 
-        fun map(messageUI: MessageUI, list: List<MessageUI>?): List<MessageUI>
+        fun map(messageUI: MessageUI, list: List<MessageUI>): List<MessageUI>
 
         class Base : Mapper {
 
-            override fun map(messageUI: MessageUI, list: List<MessageUI>?): List<MessageUI> {
+            override fun map(messageUI: MessageUI, list: List<MessageUI>): List<MessageUI> {
                 val result = mutableListOf<MessageUI>()
-                list?.let(result::addAll)
+                list.forEach(result::add)
                 val id = result.size.toString()
                 result.add(messageUI.copyWithId(id))
                 return result
