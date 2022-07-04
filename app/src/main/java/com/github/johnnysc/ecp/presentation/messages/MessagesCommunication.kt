@@ -33,7 +33,7 @@ interface MessagesCommunication {
 
             override fun map(messageUI: MessageUI, list: List<MessageUI>): List<MessageUI> {
                 val result = mutableListOf<MessageUI>()
-                list.forEach(result::add)
+                result.addAll(list)
                 val id = result.size.toString()
                 result.add(messageUI.copyWithId(id))
                 return result
