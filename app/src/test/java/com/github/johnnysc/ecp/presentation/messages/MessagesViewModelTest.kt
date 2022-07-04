@@ -55,27 +55,15 @@ internal class MessagesViewModelTest {
         override suspend fun handle(message: String): MessageUI = MessageUI.AiError("I don't understand you")
     }
 
-    private class TestCommunication(
-        private val mapper: MessagesCommunication.Mapper = TestCommunicationMapper()
-    ) : MessagesCommunication.Mutable {
+    private class TestCommunication : MessagesCommunication.Mutable {
 
-        var messages = emptyList<MessageUI>()
+        var messages = MessagesArrayList()
 
         override fun map(data: MessageUI) {
-            messages = mapper.map(data, messages)
+            messages.add(data)
         }
 
         override fun observe(owner: LifecycleOwner, observer: Observer<List<MessageUI>>) = Unit
-    }
-
-    private class TestCommunicationMapper : MessagesCommunication.Mapper {
-
-        override fun map(messageUI: MessageUI, list: List<MessageUI>): List<MessageUI> {
-            val result = list.toMutableList()
-            val id = result.size.toString()
-            result.add(messageUI.copyWithId(id))
-            return result
-        }
     }
 
     private class TestDispatchers(
