@@ -23,8 +23,8 @@ internal class MessagesViewModelTest {
             viewModelChain = testChainFactory
         )
         viewModel.handleInput("For first one")
-        Assert.assertEquals(MessageUI.User("0", "For first one"), communication.messages[0])
-        Assert.assertEquals(MessageUI.Ai("1", "First message"), communication.messages[1])
+        Assert.assertEquals(MessageUI.User("For first one"), communication.messages[0])
+        Assert.assertEquals(MessageUI.Ai("First message", "1"), communication.messages[1])
     }
 
     @Test
@@ -39,8 +39,8 @@ internal class MessagesViewModelTest {
             viewModelChain = testChainFactory
         )
         viewModel.handleInput("For second one")
-        Assert.assertEquals(MessageUI.User("0", "For second one"), communication.messages[0])
-        Assert.assertEquals(MessageUI.AiError("1", "I don't understand you"), communication.messages[1])
+        Assert.assertEquals(MessageUI.User("For second one"), communication.messages[0])
+        Assert.assertEquals(MessageUI.AiError("I don't understand you", "1"), communication.messages[1])
     }
 
     private class TestChainFactory(feature: FeatureChain.CheckAndHandle) : ViewModelChain(feature)
@@ -48,11 +48,11 @@ internal class MessagesViewModelTest {
     private class TestChainOne : FeatureChain.CheckAndHandle {
         override fun canHandle(message: String): Boolean = message == "For first one"
 
-        override suspend fun handle(message: String): MessageUI = MessageUI.Ai("1", "First message")
+        override suspend fun handle(message: String): MessageUI = MessageUI.Ai("First message", "1")
     }
 
     private class TestChainTwo : FeatureChain.Handle {
-        override suspend fun handle(message: String): MessageUI = MessageUI.AiError("1", "I don't understand you")
+        override suspend fun handle(message: String): MessageUI = MessageUI.AiError("I don't understand you", "1")
     }
 
     private class TestCommunication : MessagesCommunication.Mutable {
@@ -66,6 +66,7 @@ internal class MessagesViewModelTest {
         override fun observe(owner: LifecycleOwner, observer: Observer<List<MessageUI>>) = Unit
     }
 
-    private class TestDispatchers(dispatcher: CoroutineDispatcher = TestCoroutineDispatcher()) :
-        Dispatchers.Abstract(dispatcher, dispatcher)
+    private class TestDispatchers(
+        dispatcher: CoroutineDispatcher = TestCoroutineDispatcher()
+    ) : Dispatchers.Abstract(dispatcher, dispatcher)
 }
