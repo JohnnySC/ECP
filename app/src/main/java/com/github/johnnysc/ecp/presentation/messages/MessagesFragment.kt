@@ -2,7 +2,6 @@ package com.github.johnnysc.ecp.presentation.messages
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.johnnysc.coremvvm.presentation.BaseFragment
