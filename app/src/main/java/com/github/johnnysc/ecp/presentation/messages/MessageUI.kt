@@ -17,19 +17,19 @@ interface MessageUI : ItemUi {
         }
     }
 
-    data class User(private val id: String, private val text: String) : Message(id, text) {
+    data class User(private val id: String = "0", private val text: String) : Message(id, text) {
         override fun type() = 1
 
         override fun copyWithId(id: String) = copy(id = id)
     }
 
-    data class Ai(private val id: String, private val text: String) : Message(id, text) {
+    data class Ai(private val id: String = "0", private val text: String) : Message(id, text) {
         override fun type() = 2
 
         override fun copyWithId(id: String) = copy(id = id)
     }
 
-    data class AiError(private val id: String, private val text: String) : Message(id, text) {
+    data class AiError(private val id: String = "0", private val text: String) : Message(id, text) {
         override fun type() = 3
 
         override fun copyWithId(id: String) = copy(id = id)

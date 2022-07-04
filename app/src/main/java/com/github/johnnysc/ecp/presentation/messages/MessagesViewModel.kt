@@ -13,7 +13,7 @@ class MessagesViewModel(
 ) : ViewModel(), MessagesCommunication.Observe {
 
     fun handleInput(message: String) {
-        communication.map(MessageUI.User("0", message))
+        communication.map(MessageUI.User(text = message))
         dispatchers.launchBackground(viewModelScope) {
             val messageUI = viewModelChain.handle(message)
             dispatchers.changeToUI { communication.map(messageUI) }
