@@ -9,7 +9,7 @@ import org.junit.Test
 class ProvideViewModelChainTest {
 
     @Test
-    fun viewModelChain()
+    fun `test creation of ViewModelChain creation`()
     {
         val featureChainOne=FeatureTestChain()
 
