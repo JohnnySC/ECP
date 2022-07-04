@@ -10,9 +10,9 @@ class MessagesViewModel(
     private val dispatchers: Dispatchers,
     private val communication: MessagesCommunication.Mutable,
     private val viewModelChain: FeatureChain.Handle
-) : ViewModel(), MessagesCommunication.Observe {
+) : ViewModel(), MessagesCommunication.Observe, HandleInput {
 
-    fun handleInput(message: String) {
+    override fun handleInput(message: String) {
         communication.map(MessageUI.User(message))
         dispatchers.launchBackground(viewModelScope) {
             val messageUI = viewModelChain.handle(message)
