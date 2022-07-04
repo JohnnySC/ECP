@@ -32,8 +32,7 @@ interface MessagesCommunication {
         class Base : Mapper {
 
             override fun map(messageUI: MessageUI, list: List<MessageUI>): List<MessageUI> {
-                val result = mutableListOf<MessageUI>()
-                result.addAll(list)
+                val result = list.toMutableList()
                 val id = result.size.toString()
                 result.add(messageUI.copyWithId(id))
                 return result

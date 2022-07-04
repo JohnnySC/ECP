@@ -56,7 +56,7 @@ internal class MessagesViewModelTest {
     }
 
     private class TestCommunication(
-        private val mapper: MessagesCommunication.Mapper = MessagesCommunication.Mapper.Base()
+        private val mapper: MessagesCommunication.Mapper = TestCommunicationMapper()
     ) : MessagesCommunication.Mutable {
 
         var messages = emptyList<MessageUI>()
@@ -66,6 +66,16 @@ internal class MessagesViewModelTest {
         }
 
         override fun observe(owner: LifecycleOwner, observer: Observer<List<MessageUI>>) = Unit
+    }
+
+    private class TestCommunicationMapper : MessagesCommunication.Mapper {
+
+        override fun map(messageUI: MessageUI, list: List<MessageUI>): List<MessageUI> {
+            val result = list.toMutableList()
+            val id = result.size.toString()
+            result.add(messageUI.copyWithId(id))
+            return result
+        }
     }
 
     private class TestDispatchers(
