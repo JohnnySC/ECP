@@ -24,10 +24,10 @@ class ProvideViewModelChainTest {
             provideViewModelChainTestOne,
             provideViewModelChainTestTwo,
             provideViewModelChainTestThree
-        ).viewModelChain() as ViewModelChainTest
+        ).viewModelChain()
         Assert.assertEquals(viewModelChainBaseTestOne, result)
 
-        var nextFeatureChain = result.provideNextFeatureChain()
+        var nextFeatureChain = (result as ViewModelChainTest).provideNextFeatureChain()
         Assert.assertEquals(viewModelChainBaseTestTwo, nextFeatureChain)
 
         nextFeatureChain = (nextFeatureChain as ViewModelChainTest).provideNextFeatureChain()
