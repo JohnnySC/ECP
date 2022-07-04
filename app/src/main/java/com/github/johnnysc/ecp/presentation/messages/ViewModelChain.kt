@@ -3,7 +3,8 @@ package com.github.johnnysc.ecp.presentation.messages
 abstract class ViewModelChain(
     private val featureChain: FeatureChain.CheckAndHandle,
 ) : FeatureChain.Handle {
-    private var nextFeatureChain: FeatureChain.Handle = FeatureChain.Empty()
+    protected var nextFeatureChain: FeatureChain.Handle = FeatureChain.Empty()
+
 
     override suspend fun handle(message: String) =
         if (featureChain.canHandle(message))
@@ -11,7 +12,9 @@ abstract class ViewModelChain(
         else
             nextFeatureChain.handle(message)
 
-    fun setNextFeatureChain(featureChain: FeatureChain.Handle) {
+
+
+    fun nextFeatureChain(featureChain: FeatureChain.Handle) {
         nextFeatureChain = featureChain
     }
 

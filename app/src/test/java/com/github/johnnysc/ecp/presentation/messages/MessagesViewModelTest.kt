@@ -14,7 +14,7 @@ internal class MessagesViewModelTest {
     @Test
     fun `test successful response`() = runBlocking {
         val testChainFactory = TestChainFactory(TestChainOne())
-        testChainFactory.setNextFeatureChain(TestChainTwo())
+        testChainFactory.nextFeatureChain(TestChainTwo())
         val communication = TestCommunication()
         val dispatchers = TestDispatchers()
         val viewModel = MessagesViewModel(
@@ -30,7 +30,7 @@ internal class MessagesViewModelTest {
     @Test
     fun `test error response`() = runBlocking {
         val testChainFactory = TestChainFactory(TestChainOne())
-        testChainFactory.setNextFeatureChain(TestChainTwo())
+        testChainFactory.nextFeatureChain(TestChainTwo())
         val communication = TestCommunication()
         val dispatchers = TestDispatchers()
         val viewModel = MessagesViewModel(
