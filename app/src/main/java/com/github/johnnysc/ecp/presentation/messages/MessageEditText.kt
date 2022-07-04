@@ -13,11 +13,11 @@ class MessageEditText : androidx.appcompat.widget.AppCompatEditText {
         defStyleAttr
     )
 
-    fun getFormattedText(handleInput: HandleInput) {
-        val formattedText = text?.trim()
-        if (formattedText?.isNotEmpty() == true) {
+    fun handleInput(handleInput: HandleInput) {
+        var formattedText = text ?: ""
+        formattedText = formattedText.trim()
+        if (formattedText.isNotEmpty())
             handleInput.handleInput(formattedText.toString())
-        }
-        text?.clear()
+        setText("")
     }
 }
