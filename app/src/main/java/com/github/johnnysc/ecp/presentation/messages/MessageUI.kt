@@ -4,7 +4,10 @@ import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.MyView
 
 interface MessageUI : ItemUi {
-    abstract class Message(private val id: String, private val text: String) : MessageUI {
+
+    fun copyWithId(id: String): MessageUI
+
+    abstract class Message(private val text: String, private val id: String) : MessageUI {
         override fun content() = text
 
         override fun id() = id
@@ -14,19 +17,31 @@ interface MessageUI : ItemUi {
         }
     }
 
-    data class User(private val id: String, private val text: String) : Message(id, text) {
+    data class User(private val text: String, private val id: String = "") : Message(text, id) {
         override fun type() = 1
+
+        override fun copyWithId(id: String) = copy(id = id)
     }
 
-    data class Ai(private val id: String, private val text: String) : Message(id, text) {
+    data class Ai(private val text: String, private val id: String = "") : Message(text, id) {
         override fun type() = 2
+
+        override fun copyWithId(id: String) = copy(id = id)
     }
 
-    data class AiError(private val id: String, private val text: String) : Message(id, text) {
+    data class AiError(private val text: String, private val id: String = "") : Message(text, id) {
         override fun type() = 3
+
+        override fun copyWithId(id: String) = copy(id = id)
     }
 
-    class Empty : Message("", "") {
+    data class Empty(
+        private val text: String = "",
+        private val id: String = ""
+    ) : Message(text, id) {
+
         override fun type() = Int.MIN_VALUE
+
+        override fun copyWithId(id: String) = copy(id = id)
     }
 }
