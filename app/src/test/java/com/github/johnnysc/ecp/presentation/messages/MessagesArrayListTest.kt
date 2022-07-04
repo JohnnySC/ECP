@@ -3,7 +3,7 @@ package com.github.johnnysc.ecp.presentation.messages
 import org.junit.Assert
 import org.junit.Test
 
-internal class MessagesCommunicationMapperTest {
+internal class MessagesArrayListTest {
 
     @Test
     fun `test list`() {
