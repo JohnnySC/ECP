@@ -22,7 +22,8 @@ interface MessagesCommunication {
         override fun map(data: MessageUI) {
             val result = mutableListOf<MessageUI>()
             mutableLiveData.value?.let(result::addAll)
-            result.add(data)
+            val id = result.size.toString()
+            result.add(data.copyWithId(id))
             mutableLiveData.value = result
         }
     }
