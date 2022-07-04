@@ -23,7 +23,7 @@ internal class MessagesViewModelTest {
             viewModelChain = testChainFactory
         )
         viewModel.handleInput("For first one")
-        Assert.assertEquals(MessageUI.User("For first one"), communication.messages[0])
+        Assert.assertEquals(MessageUI.User("For first one", "0"), communication.messages[0])
         Assert.assertEquals(MessageUI.Ai("First message", "1"), communication.messages[1])
     }
 
@@ -39,7 +39,7 @@ internal class MessagesViewModelTest {
             viewModelChain = testChainFactory
         )
         viewModel.handleInput("For second one")
-        Assert.assertEquals(MessageUI.User("For second one"), communication.messages[0])
+        Assert.assertEquals(MessageUI.User("For second one", "0"), communication.messages[0])
         Assert.assertEquals(MessageUI.AiError("I don't understand you", "1"), communication.messages[1])
     }
 
@@ -48,19 +48,21 @@ internal class MessagesViewModelTest {
     private class TestChainOne : FeatureChain.CheckAndHandle {
         override fun canHandle(message: String): Boolean = message == "For first one"
 
-        override suspend fun handle(message: String): MessageUI = MessageUI.Ai("First message", "1")
+        override suspend fun handle(message: String): MessageUI = MessageUI.Ai("First message")
     }
 
     private class TestChainTwo : FeatureChain.Handle {
-        override suspend fun handle(message: String): MessageUI = MessageUI.AiError("I don't understand you", "1")
+        override suspend fun handle(message: String): MessageUI = MessageUI.AiError("I don't understand you")
     }
 
-    private class TestCommunication : MessagesCommunication.Mutable {
+    private class TestCommunication(
+        private val mapper: MessagesCommunication.Mapper = MessagesCommunication.Mapper.Base()
+    ) : MessagesCommunication.Mutable {
 
-        val messages = mutableListOf<MessageUI>()
+        var messages = emptyList<MessageUI>()
 
         override fun map(data: MessageUI) {
-            messages.add(data)
+            messages = mapper.map(data, messages)
         }
 
         override fun observe(owner: LifecycleOwner, observer: Observer<List<MessageUI>>) = Unit
