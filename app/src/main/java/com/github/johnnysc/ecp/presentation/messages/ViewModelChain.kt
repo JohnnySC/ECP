@@ -12,8 +12,9 @@ abstract class ViewModelChain(
         else
             nextFeatureChain.handle(message)
 
-    @JvmName("setNextFeatureChain1")
-    fun setNextFeatureChain(featureChain: FeatureChain.Handle) {
+
+
+    fun nextFeatureChain(featureChain: FeatureChain.Handle) {
         nextFeatureChain = featureChain
     }
 

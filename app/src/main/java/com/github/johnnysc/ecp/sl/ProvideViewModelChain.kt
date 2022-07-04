@@ -17,7 +17,7 @@ interface ProvideViewModelChain<T : ViewModelChain> {
 
             listOfViewModelChain.forEachIndexed { index, viewModelChain ->
                 if (index < listOfViewModelChain.lastIndex)
-                    viewModelChain.setNextFeatureChain(listOfViewModelChain[index + 1])
+                    viewModelChain.nextFeatureChain(listOfViewModelChain[index + 1])
 
             }
             return finalChain

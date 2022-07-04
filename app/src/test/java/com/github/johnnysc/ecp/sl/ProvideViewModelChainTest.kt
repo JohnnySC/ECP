@@ -12,9 +12,9 @@ class ProvideViewModelChainTest {
     fun `test creation of ViewModelChain creation`() {
         val featureChainOne = FeatureTestChain()
 
-        val viewModelChainBaseTestOne = ViewModelChainBaseTest(featureChainOne)
-        val viewModelChainBaseTestTwo = ViewModelChainBaseTest(featureChainOne)
-        val viewModelChainBaseTestThree = ViewModelChainBaseTest(featureChainOne)
+        val viewModelChainBaseTestOne = ViewModelChainTest(featureChainOne)
+        val viewModelChainBaseTestTwo = ViewModelChainTest(featureChainOne)
+        val viewModelChainBaseTestThree = ViewModelChainTest(featureChainOne)
 
         val provideViewModelChainTestOne = ProvideViewModelChainTest(viewModelChainBaseTestOne)
         val provideViewModelChainTestTwo = ProvideViewModelChainTest(viewModelChainBaseTestTwo)
@@ -34,7 +34,7 @@ class ProvideViewModelChainTest {
         Assert.assertEquals(viewModelChainBaseTestThree, nextFeatureChain)
     }
 
-    private open class ViewModelChainTest(featureChain: FeatureChain.CheckAndHandle) :
+    private class ViewModelChainTest(featureChain: FeatureChain.CheckAndHandle) :
         ViewModelChain(featureChain) {
         fun provideNextFeatureChain(): FeatureChain.Handle {
             return nextFeatureChain
@@ -45,11 +45,6 @@ class ProvideViewModelChainTest {
         ProvideViewModelChain<ViewModelChainTest> {
         override fun viewModelChain() = viewModelChain
     }
-
-
-    private class ViewModelChainBaseTest(nextFeatureChain: FeatureChain.CheckAndHandle) :
-        ViewModelChainTest(nextFeatureChain)
-
 
     private class FeatureTestChain : FeatureChain.CheckAndHandle {
         override fun canHandle(message: String): Boolean {
