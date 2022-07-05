@@ -1,8 +1,3 @@
 package com.github.johnnysc.ecp.data.weather
 
-interface WeatherInteractor {
-
-    fun weatherInDefaultCity(): String
-
-    fun defaultCitySet(): Boolean
-}
+interface WeatherInteractor : GetWeatherInCity, ChangeDefaultCity

@@ -8,25 +8,24 @@ import com.github.johnnysc.ecp.presentation.messages.FeatureChain
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 
 class WeatherChain(
-    private val commands: List<Command<WeatherInteractor>>,
     private val interactor: WeatherInteractor,
-    private val manageResources: ManageResources
+    private val commands: List<Command>
 ) : FeatureChain.CheckAndHandle {
 
-    private var currentCommand: Command<WeatherInteractor>? = null
+    private var currentCommand: Command = Command.Empty()
 
     override fun canHandle(message: String): Boolean {
-        commands.forEach {
-            if (it.canHandle(message))
-                currentCommand = it
+        var canHandle = false
+        commands.find {
+            it.canHandle(message)
+        }?.let {
+            currentCommand = it
+            canHandle = true
         }
-        return currentCommand != null
+        return canHandle
     }
 
     override suspend fun handle(message: String): MessageUI {
-        return (currentCommand?.handle(interactor)
-            ?: MessageUI.AiError(manageResources.string(R.string.unexpected_error_message))).also {
-            currentCommand = null
-        }
+        return currentCommand.handle(interactor).also { currentCommand = Command.Empty() }
     }
 }
