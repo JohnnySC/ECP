@@ -3,11 +3,11 @@ package com.github.johnnysc.ecp.presentation.commands
 import com.github.johnnysc.ecp.presentation.messages.FeatureChain
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 
-interface Command : FeatureChain.Check {
-    fun <T> handle(useCase: T): MessageUI
+interface Command<T> : FeatureChain.Check {
+    fun handle(useCase: T): MessageUI
 
-    class Empty : Command {
-        override fun <T> handle(useCase: T): MessageUI = MessageUI.Empty()
+    class Empty : Command<Unit> {
+        override fun handle(useCase: Unit): MessageUI = MessageUI.Empty()
 
         override fun canHandle(message: String): Boolean = true
     }

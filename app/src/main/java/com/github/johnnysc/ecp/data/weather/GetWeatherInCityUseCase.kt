@@ -1,6 +1,6 @@
 package com.github.johnnysc.ecp.data.weather
 
-interface GetWeatherInCity {
+interface GetWeatherInCityUseCase {
 
     fun getWeather(city: String): String
 }
