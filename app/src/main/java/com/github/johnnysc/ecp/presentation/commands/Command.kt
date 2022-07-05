@@ -4,10 +4,10 @@ import com.github.johnnysc.ecp.presentation.messages.FeatureChain
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 
 interface Command<T> : FeatureChain.Check {
-    fun handle(useCase: T): MessageUI
+    suspend fun handle(useCase: T): MessageUI
 
     class Empty : Command<Unit> {
-        override fun handle(useCase: Unit): MessageUI = MessageUI.Empty()
+        override suspend fun handle(useCase: Unit): MessageUI = MessageUI.Empty()
 
         override fun canHandle(message: String): Boolean = true
     }

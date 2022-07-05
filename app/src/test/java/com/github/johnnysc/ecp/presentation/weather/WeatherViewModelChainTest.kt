@@ -1,7 +1,7 @@
 package com.github.johnnysc.ecp.presentation.weather
 
 import com.github.johnnysc.coremvvm.core.ManageResources
-import com.github.johnnysc.ecp.data.weather.WeatherInteractor
+import com.github.johnnysc.ecp.domain.weather.WeatherInteractor
 import com.github.johnnysc.ecp.presentation.commands.Command
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 import org.junit.Assert.*
