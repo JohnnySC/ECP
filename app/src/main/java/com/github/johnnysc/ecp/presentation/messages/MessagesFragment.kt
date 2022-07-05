@@ -19,7 +19,7 @@ class MessagesFragment : BaseFragment<MessagesViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val messagesRecyclerView = view.findViewById<RecyclerView>(R.id.messagesRecyclerView)
-        val messageAdapter = MessageAdapter.Base()
+        val messageAdapter = MessageAdapter()
         messagesRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
         messagesRecyclerView.adapter = messageAdapter

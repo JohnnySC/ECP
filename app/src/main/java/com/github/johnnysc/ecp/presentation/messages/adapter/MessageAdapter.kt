@@ -4,14 +4,12 @@ import com.github.johnnysc.coremvvm.presentation.adapter.GenericAdapter
 import com.github.johnnysc.coremvvm.presentation.adapter.ViewHolderFactoryChain
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 
-interface MessageAdapter {
-    class Base : GenericAdapter<MessageUI>(
-        CorrectAiMessageViewHolderFactoryChain(
-            ErrorAiMessageViewHolderFactoryChain(
-                UserMessageViewHolderFactoryChain(
-                    ViewHolderFactoryChain.Exception()
-                )
+class MessageAdapter : GenericAdapter<MessageUI>(
+    CorrectAiMessageViewHolderFactoryChain(
+        ErrorAiMessageViewHolderFactoryChain(
+            UserMessageViewHolderFactoryChain(
+                ViewHolderFactoryChain.Exception()
             )
         )
     )
-}
+)
