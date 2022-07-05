@@ -19,6 +19,16 @@ class WeatherInDefaultCityCommand(private val manageResources: ManageResources) 
         return canHandle
     }
 
-    override fun handle(useCase: WeatherInteractor): MessageUI =
-        MessageUI.Ai(String.format(manageResources.string(R.string.weather_response), useCase.weatherInDefaultCity()))
+    override fun handle(useCase: WeatherInteractor): MessageUI {
+        return if (useCase.defaultCitySet()) {
+            MessageUI.Ai(
+                String.format(
+                    manageResources.string(R.string.weather_response),
+                    useCase.weatherInDefaultCity()
+                )
+            )
+        } else {
+            MessageUI.AiError(manageResources.string(R.string.weather_no_default_city))
+        }
+    }
 }

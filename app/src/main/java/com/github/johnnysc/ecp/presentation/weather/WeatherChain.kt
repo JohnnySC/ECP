@@ -24,9 +24,9 @@ class WeatherChain(
     }
 
     override suspend fun handle(message: String): MessageUI {
-        val result = currentCommand?.handle(interactor)
-            ?: MessageUI.AiError(manageResources.string(R.string.weather_no_default_city))
-        currentCommand = null
-        return result
+        return (currentCommand?.handle(interactor)
+            ?: MessageUI.AiError(manageResources.string(R.string.unexpected_error_message))).also {
+            currentCommand = null
+        }
     }
 }
