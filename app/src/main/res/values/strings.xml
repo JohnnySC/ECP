@@ -4,4 +4,8 @@
     <string name="stub_message">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  "</string>
     <string name="stub_small_message">small</string>
     <string name="i_dont_understand">"Я вас не понимаю"</string>
+    <string name="weather_excluded">какая,в,сейчас</string>
+    <string name="weather_triggers">погода,температура</string>
+    <string name="weather_no_default_city">Ошибка! Установите город по-умолчанию.</string>
+    <string name="weather_response">Сейчас %1$s\u2103.</string>
 </resources>
