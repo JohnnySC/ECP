@@ -9,12 +9,8 @@ import com.github.johnnysc.ecp.presentation.messages.MessageUI
 interface Command<T> : FeatureChain.Check, HandleUseCase<T> {
 
     class Empty<T> : Command<T> {
-        override suspend fun handle(useCase: T): MessageUI {
-            return MessageUI.Empty()
-        }
+        override suspend fun handle(useCase: T): MessageUI = MessageUI.Empty()
 
-        override fun canHandle(message: String): Boolean {
-            return false
-        }
+        override fun canHandle(message: String): Boolean = false
     }
 }

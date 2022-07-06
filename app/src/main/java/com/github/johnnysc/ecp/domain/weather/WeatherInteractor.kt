@@ -1,3 +1,3 @@
 package com.github.johnnysc.ecp.domain.weather
 
-interface WeatherInteractor : WeatherInCityUseCase, DefaultCityUseCase
+interface WeatherInteractor : WeatherInCityUseCase, DefaultCityUseCase, WeatherDefaultCityUseCase
