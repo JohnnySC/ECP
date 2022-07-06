@@ -1,32 +1,36 @@
 package com.github.johnnysc.ecp.presentation.weather
 
 import com.github.johnnysc.coremvvm.core.ManageResources
-import com.github.johnnysc.ecp.domain.weather.WeatherInteractor
-import com.github.johnnysc.ecp.presentation.messages.MessageUI
+import com.github.johnnysc.ecp.presentation.weather.commands.setdefault.ParseCity
+import com.github.johnnysc.ecp.presentation.weather.commands.setdefault.SetDefaultCity
 import com.github.johnnysc.ecp.presentation.weather.commands.weatherdefault.ParseDefaultWeather
 import com.github.johnnysc.ecp.presentation.weather.commands.weatherdefault.WeatherInCityNotMentioned
+import com.github.johnnysc.ecp.presentation.weather.commands.weatherincity.ParseWeatherInCity
+import com.github.johnnysc.ecp.presentation.weather.commands.weatherincity.WeatherInCity
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 
 internal class WeatherParsersTest {
 
+    //TODO write tests
     @Test
     fun `success parsings`() = runBlocking {
         val testManageResources = TestManageResources()
-        val defaultParser = ParseDefaultWeather(testManageResources)
-        val parseWeatherInCity
+        val parseDefaultWeather = ParseDefaultWeather(testManageResources)
+        val parseWeatherInCity = ParseWeatherInCity(testManageResources)
+        val parseCity = ParseCity(testManageResources)
         Assert.assertEquals(
-            WeatherInCityNotMentioned::class.simpleName,
-            defaultParser.map("Some test string")!!::class.simpleName
+            WeatherInCityNotMentioned,
+            parseDefaultWeather.map("Some test string")
         )
         Assert.assertEquals(
-            WeatherInCityNotMentioned::class.simpleName,
-            defaultParser.map("Some test string")!!::class.simpleName
+            WeatherInCity("Daytona Beach"),
+            parseWeatherInCity.map("Some test string Daytona Beach")
         )
         Assert.assertEquals(
-            WeatherInCityNotMentioned::class.simpleName,
-            defaultParser.map("Some test string")!!::class.simpleName
+            SetDefaultCity(testManageResources, "Spooky town"),
+            parseCity.map("Some test string")
         )
     }
 

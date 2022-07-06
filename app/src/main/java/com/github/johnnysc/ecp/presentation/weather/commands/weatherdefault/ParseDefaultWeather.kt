@@ -17,7 +17,7 @@ class ParseDefaultWeather(private val manageResources: ManageResources) : Parser
                 true
             )
         ) {
-            return WeatherInCityNotMentioned()
+            return WeatherInCityNotMentioned
         }
         return null
     }

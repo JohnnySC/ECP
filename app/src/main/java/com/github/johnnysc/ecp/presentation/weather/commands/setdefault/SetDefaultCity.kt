@@ -6,7 +6,7 @@ import com.github.johnnysc.ecp.domain.weather.DefaultCityUseCase
 import com.github.johnnysc.ecp.presentation.commands.HandleUseCase
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 
-class SetDefaultCity(
+data class SetDefaultCity(
     private val manageResources: ManageResources,
     private val city: String
 ) : HandleUseCase<DefaultCityUseCase> {

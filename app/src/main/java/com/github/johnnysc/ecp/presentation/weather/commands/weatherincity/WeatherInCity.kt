@@ -4,7 +4,7 @@ import com.github.johnnysc.ecp.domain.weather.WeatherInCityUseCase
 import com.github.johnnysc.ecp.presentation.commands.HandleUseCase
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 
-class WeatherInCity(private val city: String) : HandleUseCase<WeatherInCityUseCase> {
+data class WeatherInCity(private val city: String) : HandleUseCase<WeatherInCityUseCase> {
 
     override suspend fun handle(useCase: WeatherInCityUseCase): MessageUI =
         MessageUI.Ai(useCase.getWeather(city))
