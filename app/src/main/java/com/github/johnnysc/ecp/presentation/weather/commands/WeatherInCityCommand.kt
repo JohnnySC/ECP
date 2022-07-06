@@ -1,26 +1,25 @@
 package com.github.johnnysc.ecp.presentation.weather.commands
 
 import com.github.johnnysc.ecp.presentation.commands.CommandHandler
-import com.github.johnnysc.ecp.domain.weather.GetWeatherInCityUseCase
+import com.github.johnnysc.ecp.domain.weather.WeatherInCityUseCase
 import com.github.johnnysc.ecp.domain.weather.WeatherInteractor
 import com.github.johnnysc.ecp.presentation.commands.Command
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 
 class WeatherInCityCommand(
-    private val parsers: WeatherParser
+    private val parser: WeatherParser
 ) : Command<WeatherInteractor> {
 
-    private var domainObject: CommandHandler<GetWeatherInCityUseCase>? = null
+    private var handler: CommandHandler<WeatherInCityUseCase>? = null
 
     override suspend fun handle(useCase: WeatherInteractor): MessageUI {
-        return domainObject!!.handle(useCase)
+        return handler!!.handle(useCase)
     }
 
     override fun canHandle(message: String): Boolean {
-        domainObject = parser.map(message)
-        return if (domainObject == null) {
-            //domainObject = secondparser.map(message)
-            domainObject != null
+        handler = parser.map(message)
+        return if (handler == null) {
+            handler != null
         } else true
     }
 }

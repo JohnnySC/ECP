@@ -1,6 +1,6 @@
 package com.github.johnnysc.ecp.domain.weather
 
-interface SetDefaultCityUseCase {
+interface DefaultCityUseCase {
 
     suspend fun setDefault(newCity: String)
 }

@@ -10,4 +10,5 @@
     <string name="what_is_weather_like">what is the weather like</string>
     <string name="whats_weather_like">what\'s the weather like</string>
     <string name="what_weather_command_start">What the weather is like in</string>
+    <string name="set_weather_command_success">Default city set!</string>
 </resources>

@@ -1,6 +1,6 @@
 package com.github.johnnysc.ecp.domain.weather
 
-interface GetWeatherInCityUseCase {
+interface WeatherInCityUseCase {
 
     suspend fun getWeather(city: String): String
 
