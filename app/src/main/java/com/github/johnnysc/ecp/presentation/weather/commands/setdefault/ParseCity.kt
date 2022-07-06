@@ -9,8 +9,9 @@ import com.github.johnnysc.ecp.presentation.commands.Parser
 class ParseCity(private val manageResources: ManageResources) : Parser<DefaultCityUseCase> {
 
     override fun map(data: String): HandleUseCase<DefaultCityUseCase>? {
-        if (data.startsWith(manageResources.string(R.string.set_weather_command_start), true)) {
-            val city = data.substring(R.string.set_weather_command_start).trim()
+        val commandStart = manageResources.string(R.string.set_weather_command_start)
+        if (data.startsWith(commandStart, true)) {
+            val city = data.substring(commandStart.length).trim()
             if (city.isNotEmpty()) {
                 return SetDefaultCity(manageResources, city)
             }
