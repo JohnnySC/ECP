@@ -9,4 +9,7 @@
     <string name="weather_response">Сейчас %1$s\u2103.</string>
     <string name="weather_excluded">какая,в</string>
     <string name="weather_ignored">\?</string>
+    <string name="set_default_city_ignored">.</string>
+    <string name="set_default_city_excluded">по,город</string>
+    <string name="set_default_city_triggers">умолчанию,дефолтный</string>
 </resources>
