@@ -9,11 +9,11 @@ import com.github.johnnysc.ecp.presentation.commands.Parser
 class ParseDefaultWeather(private val manageResources: ManageResources) : Parser<WeatherDefaultCityUseCase> {
 
     override fun map(data: String): HandleUseCase<WeatherDefaultCityUseCase>? {
-        if (data.equals(
-                manageResources.string(R.string.what_is_weather_like),
+        if (manageResources.string(R.string.what_is_weather_like).equals(
+                data,
                 true
-            ) || data.equals(
-                manageResources.string(R.string.whats_weather_like),
+            ) || manageResources.string(R.string.whats_weather_like).equals(
+                data,
                 true
             )
         ) {
