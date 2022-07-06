@@ -5,7 +5,8 @@
     <string name="stub_small_message">small</string>
     <string name="i_dont_understand">"Я вас не понимаю"</string>
     <string name="weather_triggers">погода,температура</string>
-    <string name="weather_no_default_city">Ошибка! Установите город по-умолчанию.</string>
+    <string name="weather_no_default_city">Ошибка! Установите город по-умолчанию. для этого используйте команду Установи мой город как</string>
+    <string name="set_weather_command_start">Установи мой город как </string>
     <string name="weather_response">Сейчас %1$s\u2103.</string>
     <string name="weather_excluded">какая,в</string>
     <string name="weather_ignored">\?</string>
