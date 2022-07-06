@@ -13,41 +13,51 @@ import org.junit.Test
 
 internal class WeatherParsersTest {
 
-    //TODO write tests
     @Test
-    fun `success parsings`() = runBlocking {
-        val testManageResources = TestManageResources()
-        val parseDefaultWeather = ParseDefaultWeather(testManageResources)
-        val parseWeatherInCity = ParseWeatherInCity(testManageResources)
-        val parseCity = ParseCity(testManageResources)
-        Assert.assertEquals(
-            WeatherInCityNotMentioned,
-            parseDefaultWeather.map("Some test string")
-        )
-        Assert.assertEquals(
-            WeatherInCity("Daytona Beach"),
-            parseWeatherInCity.map("Some test string Daytona Beach")
-        )
-        Assert.assertEquals(
-            SetDefaultCity(testManageResources, "Spooky town"),
-            parseCity.map("Some test string")
-        )
+    fun `success default weather`() = runBlocking {
+        val testManageResources = TestManageResources("What's the weather like")
+        val parser = ParseDefaultWeather(testManageResources)
+        Assert.assertEquals(WeatherInCityNotMentioned, parser.map("what's The WeaThEr lIKE"))
     }
 
-//    private class TestInteractor(private val defaultCitySet: Boolean) : WeatherInteractor {
-//
-//        var defaultCity = "default one"
-//
-//        override suspend fun getWeather(city: String): String = "30"
-//
-//        override suspend fun getWeather(): String = "20"
-//
-//        override suspend fun setDefault(newCity: String) {
-//            defaultCity = newCity
-//        }
-//    }
+    @Test
+    fun `failed default weather`() = runBlocking {
+        val testManageResources = TestManageResources("What's the weather like")
+        val parser = ParseDefaultWeather(testManageResources)
+        Assert.assertEquals(null, parser.map("Alexa, tell some joke!"))
+    }
 
-    private class TestManageResources : ManageResources {
-        override fun string(id: Int): String = "Some test string"
+    @Test
+    fun `success weather in city`() = runBlocking {
+        val testManageResources = TestManageResources("What the weather is like in")
+        val parser = ParseWeatherInCity(testManageResources)
+        Assert.assertEquals(WeatherInCity("Miami"), parser.map("what the WeATHer is lIKE in Miami"))
+    }
+
+    @Test
+    fun `failed weather in city`() = runBlocking {
+        val testManageResources = TestManageResources("What the weather is like in")
+        val parser = ParseWeatherInCity(testManageResources)
+        Assert.assertEquals(null, parser.map("Whot da weader is like in Miame"))
+        Assert.assertEquals(null, parser.map("What the weather is like in     "))
+    }
+
+    @Test
+    fun `success set city`() = runBlocking {
+        val testManageResources = TestManageResources("My city is")
+        val parser = ParseCity(testManageResources)
+        Assert.assertEquals(SetDefaultCity(testManageResources, "Miami"), parser.map("My city is Miami"))
+    }
+
+    @Test
+    fun `failed set city`() = runBlocking {
+        val testManageResources = TestManageResources("My city is")
+        val parser = ParseCity(testManageResources)
+        Assert.assertEquals(null, parser.map("Mai sity is Daytona beach"))
+        Assert.assertEquals(null, parser.map("My city is   "))
+    }
+
+    private class TestManageResources(private val value: String) : ManageResources {
+        override fun string(id: Int): String = value
     }
 }
