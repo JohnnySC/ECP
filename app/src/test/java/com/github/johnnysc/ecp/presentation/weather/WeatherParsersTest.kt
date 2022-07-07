@@ -46,7 +46,7 @@ internal class WeatherParsersTest {
     fun `success set city`() = runBlocking {
         val testManageResources = TestManageResources("My city is")
         val parser = ParseCity(testManageResources)
-        Assert.assertEquals(SetDefaultCity(testManageResources, "Miami"), parser.map("My city is Miami"))
+        Assert.assertEquals(SetDefaultCity("Miami"), parser.map("My city is Miami"))
     }
 
     @Test
