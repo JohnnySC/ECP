@@ -1,7 +1,14 @@
 <resources>
     <string name="app_name">ECP</string>
     <string name="enter_message">Enter Message</string>
-    <string name="stub_message">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  "</string>
+    <string name="stub_message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="stub_small_message">small</string>
-    <string name="i_dont_understand">"Я вас не понимаю"</string>
+    <string name="i_dont_understand">I don\'t understand you!</string>
+    <string name="weather_no_default_city">Error! Set default city using this command: My city is X, where X is the name of the city</string>
+    <string name="set_weather_command_start">My city is</string>
+    <string name="weather_response">Current temperature: %1$s\u2103.</string>
+    <string name="what_is_weather_like">what is the weather like</string>
+    <string name="whats_weather_like">what\'s the weather like</string>
+    <string name="what_weather_command_start">What the weather is like in</string>
+    <string name="set_weather_command_success">Default city set!</string>
 </resources>
