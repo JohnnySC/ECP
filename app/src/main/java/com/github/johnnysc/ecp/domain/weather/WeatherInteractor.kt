@@ -17,6 +17,7 @@ interface WeatherInteractor : WeatherInCityUseCase, DefaultCityUseCase, WeatherD
         private val handleException: HandleError,
         private val domainExceptionToMessageUIMapper: DomainException.Mapper<MessageUI>
     ) : WeatherInteractor {
+
         override suspend fun getWeather(city: String): MessageUI {
             var result: MessageUI
             try {

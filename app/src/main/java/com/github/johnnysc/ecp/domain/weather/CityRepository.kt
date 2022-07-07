@@ -7,11 +7,11 @@ import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
 
 interface CityRepository {
     @Throws(ThereIsNoDefaultCity::class)
-    fun getDefaultCity(): CityData
+    suspend fun getDefaultCity(): CityData
 
-    @Throws(ThereIsNoConnection::class,ThereIsNoCityWithSuchTitle::class)
-    fun getCityCoordinatesByName(cityName:String):CityData
+    @Throws(ThereIsNoConnection::class, ThereIsNoCityWithSuchTitle::class)
+    suspend fun getCityCoordinatesByName(cityName: String): CityData
 
-    fun saveDefaultCity(cityDomain: CityDomain)
+    suspend fun saveDefaultCity(cityDomain: CityDomain)
 
 }

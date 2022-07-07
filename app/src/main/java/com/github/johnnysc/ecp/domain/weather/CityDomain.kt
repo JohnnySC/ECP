@@ -25,22 +25,18 @@ interface CityDomain {
 
         }
 
-        class BaseToTitle:Mapper<String>
-        {
-            override fun map(title: String, longitude: Float, latitude: Float)=title
+        class BaseToCoordinates : Mapper<Pair<Float, Float>> {
+            override fun map(title: String, longitude: Float, latitude: Float) =
+                Pair(longitude, latitude)
 
         }
 
-        class BaseToCoordinates:Mapper<Pair<Float,Float>>
-        {
-            override fun map(title: String, longitude: Float, latitude: Float)=Pair(longitude,latitude)
-
-        }
-
-        class BaseToMessageUi(private val manageResources: ManageResources):Mapper<MessageUI>
-        {
-            override fun map(title: String, longitude: Float, latitude: Float)=MessageUI.Ai(manageResources.string(
-                R.string.set_weather_command_success))
+        class BaseToMessageUi(private val manageResources: ManageResources) : Mapper<MessageUI> {
+            override fun map(title: String, longitude: Float, latitude: Float) = MessageUI.Ai(
+                manageResources.string(
+                    R.string.set_weather_command_success
+                )
+            )
         }
 
     }

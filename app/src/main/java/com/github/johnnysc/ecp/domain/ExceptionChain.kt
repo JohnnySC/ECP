@@ -26,7 +26,7 @@ interface ExceptionChain {
 
         override fun check(exception: Exception) = exception is ThereIsNoCityWithSuchTitle
 
-        override fun handle(error: Exception)= DomainException.ThereIsNoCityWithSuchTitle()
+        override fun handle(error: Exception) = DomainException.ThereIsNoCityWithSuchTitle()
     }
 
     class ThereIsNoConnectionChain : CheckAndHandle {
