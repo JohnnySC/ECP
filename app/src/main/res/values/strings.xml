@@ -11,4 +11,8 @@
     <string name="whats_weather_like">what\'s the weather like</string>
     <string name="what_weather_command_start">What the weather is like in</string>
     <string name="set_weather_command_success">Default city set!</string>
+    <string name="unknown_exception">Unknown exception</string>
+    <string name="there_is_no_city_with_such_title">There is no city with such title</string>
+    <string name="there_is_no_connection">There is no connection</string>
+
 </resources>
