@@ -13,7 +13,7 @@ class ParseCity(private val manageResources: ManageResources) : Parser<DefaultCi
         if (data.startsWith(commandStart, true)) {
             val city = data.substring(commandStart.length).trim()
             if (city.isNotEmpty()) {
-                return SetDefaultCity(manageResources, city)
+                return SetDefaultCity(city)
             }
         }
         return null
