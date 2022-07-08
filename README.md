@@ -1,3 +1,6 @@
+**Last update:** 07.07.2022
+
+---
 # ECP v2.0
 Проект представляет собой чат-бота, выполняющего различные команды.
 Вторая итерация проекта [ECP](https://youtube.com/playlist?list=PLQRyeBV1rkk0Umdr05YRvf7LxTSsX6pch) (первая находится в ветке `olddev`). 
