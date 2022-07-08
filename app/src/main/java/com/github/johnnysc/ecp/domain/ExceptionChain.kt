@@ -5,42 +5,48 @@ import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitl
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoConnection
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
 
-interface ExceptionChain {
-    interface Check : ExceptionChain {
-        fun check(exception: Exception): Boolean
+interface ExceptionChain : HandleError {
+
+    abstract class Base(private val nextExceptionChain: ExceptionChain = DefaultExceptionChain()) : ExceptionChain {
+
+        protected abstract val exceptionClass: Class<out Exception>
+
+        override fun handle(error: Exception) = if (error.javaClass == exceptionClass)
+            createDomainException()
+        else
+            nextExceptionChain.handle(error)
+
+        protected abstract fun createDomainException(): Exception
     }
 
-    interface Handle : HandleError
+    class ThereIsNoSuchCityChain(exceptionChain: ExceptionChain) : Base(exceptionChain) {
 
-    interface CheckAndHandle : Check, Handle
+        override val exceptionClass = ThereIsNoCityWithSuchTitle::class.java
 
+        override fun createDomainException() = DomainException.ThereIsNoCityWithSuchTitle()
 
-    class Empty : Handle {
-        override fun handle(error: Exception): Exception {
-            return DomainException.UnknownDomainException()
-        }
 
     }
 
-    class ThereIsNoSuchCityChain : CheckAndHandle {
+    class ThereIsNoConnectionChain(exceptionChain: ExceptionChain) : Base(exceptionChain) {
 
-        override fun check(exception: Exception) = exception is ThereIsNoCityWithSuchTitle
+        override val exceptionClass = ThereIsNoConnection::class.java
 
-        override fun handle(error: Exception) = DomainException.ThereIsNoCityWithSuchTitle()
+        override fun createDomainException() = DomainException.ThereIsNoConnection()
+
     }
 
-    class ThereIsNoConnectionChain : CheckAndHandle {
+    class ThereIsNoDefaultCityChain(exceptionChain: ExceptionChain) : Base(exceptionChain) {
 
-        override fun check(exception: Exception) = exception is ThereIsNoConnection
+        override val exceptionClass = ThereIsNoDefaultCity::class.java
 
-        override fun handle(error: Exception) = DomainException.ThereIsNoConnection()
+        override fun createDomainException() = DomainException.ThereIsNoDefaultCity()
+
     }
 
-    class ThereIsNoDefaultCityChain : CheckAndHandle {
-
-        override fun check(exception: Exception) = exception is ThereIsNoDefaultCity
-
-        override fun handle(error: Exception) = DomainException.ThereIsNoDefaultCity()
+    class DefaultExceptionChain:ExceptionChain
+    {
+        override fun handle(error: Exception)=DomainException.Unknown()
     }
 
 

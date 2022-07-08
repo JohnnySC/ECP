@@ -13,7 +13,7 @@ interface DomainException {
 
     }
 
-    class UnknownDomainException :
+    class Unknown :
         AbstractDomainException(R.string.unknown_exception, "Unknown exception")
 
     class ThereIsNoCityWithSuchTitle : AbstractDomainException(

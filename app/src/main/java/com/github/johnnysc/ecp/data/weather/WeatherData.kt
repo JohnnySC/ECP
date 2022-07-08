@@ -1,6 +1,9 @@
 package com.github.johnnysc.ecp.data.weather
 
-import com.github.johnnysc.ecp.domain.weather.WeatherDomain
+import com.github.johnnysc.coremvvm.core.ManageResources
+import com.github.johnnysc.ecp.R
+import com.github.johnnysc.ecp.presentation.messages.MessageUI
+
 
 interface WeatherData {
 
@@ -12,10 +15,13 @@ interface WeatherData {
 
     interface Mapper<T> {
         fun map(temperature: Float): T
-        class BaseToDomain : Mapper<WeatherDomain> {
 
-            override fun map(temperature: Float) = WeatherDomain.Base(temperature)
-
+        class BaseToWeatherUI(private val manageResources: ManageResources) : Mapper<MessageUI>
+        {
+            override fun map(temperature: Float): MessageUI {
+                return MessageUI.Ai(manageResources.string(R.string.weather_response).format(temperature))
+            }
         }
+
     }
 }

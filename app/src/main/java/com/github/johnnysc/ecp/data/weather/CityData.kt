@@ -1,6 +1,9 @@
 package com.github.johnnysc.ecp.data.weather
 
-import com.github.johnnysc.ecp.domain.weather.CityDomain
+import com.github.johnnysc.coremvvm.core.ManageResources
+import com.github.johnnysc.ecp.R
+import com.github.johnnysc.ecp.presentation.messages.MessageUI
+
 
 interface CityData {
     fun <T> map(mapper: Mapper<T>): T
@@ -17,11 +20,11 @@ interface CityData {
     interface Mapper<T> {
         fun map(title: String, longitude: Float, latitude: Float): T
 
-        class MapperToDomain : Mapper<CityDomain> {
-
-            override fun map(title: String, longitude: Float, latitude: Float) =
-                CityDomain.Base(title, longitude, latitude)
-
+        class BaseToMessageUI(private val manageResources: ManageResources):Mapper<MessageUI>
+        {
+            override fun map(title: String, longitude: Float, latitude: Float): MessageUI {
+                return MessageUI.Ai(manageResources.string(R.string.set_weather_command_success))
+            }
         }
     }
 }

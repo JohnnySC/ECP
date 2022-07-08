@@ -1,0 +1,62 @@
+package com.github.johnnysc.ecp.domain
+
+import com.github.johnnysc.coremvvm.core.ManageResources
+import com.github.johnnysc.ecp.R
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitle
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoConnection
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
+import com.github.johnnysc.ecp.presentation.messages.MessageUI
+import org.junit.Assert.assertEquals
+import org.junit.Test
+
+class ExceptionChainTest {
+
+    private val chain = ExceptionChain.ThereIsNoSuchCityChain(
+        ExceptionChain.ThereIsNoDefaultCityChain(
+            ExceptionChain.ThereIsNoConnectionChain(
+                ExceptionChain.DefaultExceptionChain()
+            )
+        )
+    )
+    private val mapper = DomainException.Mapper.Base(TestManageResource())
+
+    @Test
+    fun `test exception chain with standard exceptions from data layer of weather feature`() {
+        val expectedOne = MessageUI.AiError("There is no connection")
+        val expectedTwo = MessageUI.AiError("There is no city with such title")
+        val expectedThree =
+            MessageUI.AiError("Error! Set default city using this command: My city is X, where X is the name of the city")
+
+        val inputOne = ThereIsNoConnection()
+        val inputTwo = ThereIsNoCityWithSuchTitle()
+        val inputThree = ThereIsNoDefaultCity()
+
+        val actualOne = (chain.handle(inputOne) as DomainException).map(mapper)
+        assertEquals(expectedOne, actualOne)
+        val actualTwo = (chain.handle(inputTwo) as DomainException).map(mapper)
+        assertEquals(expectedTwo, actualTwo)
+        val actualThree = (chain.handle(inputThree) as DomainException).map(mapper)
+        assertEquals(expectedThree, actualThree)
+
+    }
+
+    @Test
+    fun `test exception chain with unknown exception`() {
+        val expected = MessageUI.AiError("Unknown exception")
+        val input = IndexOutOfBoundsException()
+        val actual = (chain.handle(input) as DomainException).map(mapper)
+        assertEquals(expected, actual)
+    }
+
+    class TestManageResource : ManageResources {
+        override fun string(id: Int): String {
+            return when (id) {
+                R.string.unknown_exception -> "Unknown exception"
+                R.string.there_is_no_city_with_such_title -> "There is no city with such title"
+                R.string.there_is_no_connection -> "There is no connection"
+                R.string.weather_no_default_city -> "Error! Set default city using this command: My city is X, where X is the name of the city"
+                else -> "Something went wrong"
+            }
+        }
+    }
+}

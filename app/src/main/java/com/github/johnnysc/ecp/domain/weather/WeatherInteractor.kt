@@ -8,26 +8,18 @@ import com.github.johnnysc.ecp.presentation.messages.MessageUI
 
 interface WeatherInteractor : WeatherInCityUseCase, DefaultCityUseCase, WeatherDefaultCityUseCase {
     class Base(
-        private val cityRepository: CityRepository,
         private val weatherRepository: WeatherRepository,
-        private val cityDataToCityDomainMapper: CityData.Mapper<CityDomain>,
-        private val cityDomainToMessageUIMapper: CityDomain.Mapper<MessageUI>,
-        private val weatherDataToWeatherDomain: WeatherData.Mapper<WeatherDomain>,
-        private val weatherDomainToMessageUI: WeatherDomain.Mapper<MessageUI>,
+        private val weatherDataToMessageUIMapper: WeatherData.Mapper<MessageUI>,
+        private val cityDataToMessageUIMapper: CityData.Mapper<MessageUI>,
         private val handleException: HandleError,
         private val domainExceptionToMessageUIMapper: DomainException.Mapper<MessageUI>
     ) : WeatherInteractor {
 
         override suspend fun getWeather(city: String): MessageUI {
-            var result: MessageUI
-            try {
-                val cityDomain =
-                    cityRepository.getCityCoordinatesByName(city).map(cityDataToCityDomainMapper)
-                val weatherDomain =
-                    weatherRepository.getWeatherInCity(cityDomain).map(weatherDataToWeatherDomain)
-                result = weatherDomain.map(weatherDomainToMessageUI)
+            val result: MessageUI = try {
+                weatherRepository.getWeatherInCity(city).map(weatherDataToMessageUIMapper)
             } catch (exception: Exception) {
-                result = (handleException.handle(exception) as DomainException).map(
+                (handleException.handle(exception) as DomainException).map(
                     domainExceptionToMessageUIMapper
                 )
             }
@@ -35,14 +27,10 @@ interface WeatherInteractor : WeatherInCityUseCase, DefaultCityUseCase, WeatherD
         }
 
         override suspend fun getWeather(): MessageUI {
-            var result: MessageUI
-            try {
-                val cityDomain = cityRepository.getDefaultCity().map(cityDataToCityDomainMapper)
-                val weatherDomain =
-                    weatherRepository.getWeatherInCity(cityDomain).map(weatherDataToWeatherDomain)
-                result = weatherDomain.map(weatherDomainToMessageUI)
+            val result: MessageUI = try {
+                weatherRepository.getWeatherInDefaultCity().map(weatherDataToMessageUIMapper)
             } catch (exception: Exception) {
-                result = (handleException.handle(exception) as DomainException).map(
+                (handleException.handle(exception) as DomainException).map(
                     domainExceptionToMessageUIMapper
                 )
             }
@@ -50,14 +38,10 @@ interface WeatherInteractor : WeatherInCityUseCase, DefaultCityUseCase, WeatherD
         }
 
         override suspend fun setDefault(newCity: String): MessageUI {
-            var result: MessageUI
-            try {
-                val cityDomain =
-                    cityRepository.getCityCoordinatesByName(newCity).map(cityDataToCityDomainMapper)
-                cityRepository.saveDefaultCity(cityDomain)
-                result = cityDomain.map(cityDomainToMessageUIMapper)
+            val result: MessageUI = try {
+                weatherRepository.saveDefaultCity(newCity).map(cityDataToMessageUIMapper)
             } catch (exception: Exception) {
-                result = (handleException.handle(exception) as DomainException).map(
+                (handleException.handle(exception) as DomainException).map(
                     domainExceptionToMessageUIMapper
                 )
             }
