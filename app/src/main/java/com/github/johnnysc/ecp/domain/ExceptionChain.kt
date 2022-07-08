@@ -7,7 +7,7 @@ import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
 
 interface ExceptionChain : HandleError {
 
-    abstract class Base(private val nextExceptionChain: ExceptionChain = DefaultExceptionChain()) : ExceptionChain {
+    abstract class Base(private val nextExceptionChain: ExceptionChain) : ExceptionChain {
 
         protected abstract val exceptionClass: Class<out Exception>
 
