@@ -8,7 +8,7 @@ interface CityDomain {
     fun <T> map(mapper: Mapper<T>): T
 
     class Base(private val cityName: String) : CityDomain {
-        override fun <T> map(mapper: Mapper<T>)=mapper.map(cityName)
+        override fun <T> map(mapper: Mapper<T>) = mapper.map(cityName)
     }
 
     interface Mapper<T> {

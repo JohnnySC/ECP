@@ -6,7 +6,8 @@ import com.github.johnnysc.ecp.domain.weather.WeatherDefaultCityUseCase
 import com.github.johnnysc.ecp.presentation.commands.HandleUseCase
 import com.github.johnnysc.ecp.presentation.commands.Parser
 
-class ParseDefaultWeather(private val manageResources: ManageResources) : Parser<WeatherDefaultCityUseCase> {
+class ParseDefaultWeather(private val manageResources: ManageResources) :
+    Parser<WeatherDefaultCityUseCase> {
 
     override fun map(data: String): HandleUseCase<WeatherDefaultCityUseCase>? {
         if (manageResources.string(R.string.what_is_weather_like).equals(
