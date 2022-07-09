@@ -210,7 +210,7 @@ class WeatherInteractorTest {
         fun checkInternetConnection() {
             if (isInternetAvailable)
                 return
-            else throw NoInternetConnectionException()
+            throw NoInternetConnectionException()
         }
 
     }
