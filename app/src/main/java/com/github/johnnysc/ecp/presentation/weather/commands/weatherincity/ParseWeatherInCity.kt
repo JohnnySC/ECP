@@ -6,7 +6,8 @@ import com.github.johnnysc.ecp.domain.weather.WeatherInCityUseCase
 import com.github.johnnysc.ecp.presentation.commands.HandleUseCase
 import com.github.johnnysc.ecp.presentation.commands.Parser
 
-class ParseWeatherInCity(private val manageResources: ManageResources) : Parser<WeatherInCityUseCase> {
+class ParseWeatherInCity(private val manageResources: ManageResources) :
+    Parser<WeatherInCityUseCase> {
 
     override fun map(data: String): HandleUseCase<WeatherInCityUseCase>? {
         val commandStart = manageResources.string(R.string.what_weather_command_start)

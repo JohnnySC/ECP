@@ -13,7 +13,8 @@ interface WeatherInteractor : WeatherInCityUseCase, DefaultCityUseCase, WeatherD
         private val cityDomainToMessageUIMapper: CityDomain.Mapper<MessageUI>,
         handleException: ExceptionChain,
         domainExceptionToMessageUIMapper: DomainException.Mapper<MessageUI>
-    ) : AbstractBaseInteractor(handleException, domainExceptionToMessageUIMapper),WeatherInteractor {
+    ) : AbstractBaseInteractor(handleException, domainExceptionToMessageUIMapper),
+        WeatherInteractor {
 
         override suspend fun getWeather(city: String) = handle {
             weatherRepository.getWeatherInCity(city).map(weatherDomainToMessageUIMapper)
