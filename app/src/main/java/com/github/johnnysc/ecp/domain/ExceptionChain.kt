@@ -1,8 +1,8 @@
 package com.github.johnnysc.ecp.domain
 
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitle
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoConnection
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
+import com.github.johnnysc.coremvvm.domain.NoInternetConnectionException
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitleException
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCityException
 
 interface ExceptionChain {
     fun handle(error: Exception): DomainException
@@ -21,14 +21,14 @@ interface ExceptionChain {
 
     class ThereIsNoSuchCityChain(exceptionChain: ExceptionChain) : Base(exceptionChain) {
 
-        override val exceptionClass = ThereIsNoCityWithSuchTitle::class.java
+        override val exceptionClass = ThereIsNoCityWithSuchTitleException::class.java
 
         override fun createDomainException() = DomainException.ThereIsNoCityWithSuchTitle()
     }
 
     class ThereIsNoConnectionChain(exceptionChain: ExceptionChain) : Base(exceptionChain) {
 
-        override val exceptionClass = ThereIsNoConnection::class.java
+        override val exceptionClass = NoInternetConnectionException::class.java
 
         override fun createDomainException() = DomainException.ThereIsNoConnection()
 
@@ -36,7 +36,7 @@ interface ExceptionChain {
 
     class ThereIsNoDefaultCityChain(exceptionChain: ExceptionChain) : Base(exceptionChain) {
 
-        override val exceptionClass = ThereIsNoDefaultCity::class.java
+        override val exceptionClass = ThereIsNoDefaultCityException::class.java
 
         override fun createDomainException() = DomainException.ThereIsNoDefaultCity()
     }

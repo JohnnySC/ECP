@@ -1,10 +1,10 @@
 package com.github.johnnysc.ecp.domain
 
 import com.github.johnnysc.coremvvm.core.ManageResources
+import com.github.johnnysc.coremvvm.domain.NoInternetConnectionException
 import com.github.johnnysc.ecp.R
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitle
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoConnection
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitleException
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCityException
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -27,9 +27,9 @@ class ExceptionChainTest {
         val expectedThree =
             MessageUI.AiError("Error! Set default city using this command: My city is X, where X is the name of the city")
 
-        val inputOne = ThereIsNoConnection()
-        val inputTwo = ThereIsNoCityWithSuchTitle()
-        val inputThree = ThereIsNoDefaultCity()
+        val inputOne = NoInternetConnectionException()
+        val inputTwo = ThereIsNoCityWithSuchTitleException()
+        val inputThree = ThereIsNoDefaultCityException()
 
         val actualOne = chain.handle(inputOne).map(mapper)
         assertEquals(expectedOne, actualOne)

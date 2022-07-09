@@ -1,18 +1,18 @@
 package com.github.johnnysc.ecp.domain.weather
 
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitle
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoConnection
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
+import com.github.johnnysc.coremvvm.domain.NoInternetConnectionException
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitleException
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCityException
 
 interface WeatherRepository {
 
-    @Throws(ThereIsNoConnection::class, ThereIsNoCityWithSuchTitle::class)
+    @Throws(NoInternetConnectionException::class, ThereIsNoCityWithSuchTitleException::class)
     suspend fun getWeatherInCity(city: String): WeatherDomain
 
-    @Throws(ThereIsNoDefaultCity::class, ThereIsNoConnection::class)
+    @Throws(ThereIsNoDefaultCityException::class, NoInternetConnectionException::class)
     suspend fun getWeatherInDefaultCity(): WeatherDomain
 
-    @Throws(ThereIsNoCityWithSuchTitle::class, ThereIsNoConnection::class)
+    @Throws(ThereIsNoCityWithSuchTitleException::class, NoInternetConnectionException::class)
     suspend fun saveDefaultCity(newCity: String): CityDomain
 
 
