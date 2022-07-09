@@ -6,6 +6,5 @@ import com.github.johnnysc.ecp.presentation.messages.MessageUI
 
 object WeatherInCityNotMentioned : HandleUseCase<WeatherDefaultCityUseCase> {
 
-    override suspend fun handle(useCase: WeatherDefaultCityUseCase): MessageUI =
-        useCase.getWeather()
+    override suspend fun handle(useCase: WeatherDefaultCityUseCase): MessageUI = useCase.getWeather()
 }
