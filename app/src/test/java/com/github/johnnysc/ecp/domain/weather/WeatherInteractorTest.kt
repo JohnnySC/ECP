@@ -1,10 +1,10 @@
 package com.github.johnnysc.ecp.domain.weather
 
 import com.github.johnnysc.coremvvm.core.ManageResources
+import com.github.johnnysc.coremvvm.domain.NoInternetConnectionException
 import com.github.johnnysc.ecp.R
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitle
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoConnection
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitleException
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCityException
 import com.github.johnnysc.ecp.domain.DomainException
 import com.github.johnnysc.ecp.domain.ExceptionChain
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
@@ -185,9 +185,9 @@ class WeatherInteractorTest {
                 if (weatherDomainMap.contains(city))
                     return weatherDomainMap[city]!!
                 else
-                    throw ThereIsNoCityWithSuchTitle()
+                    throw ThereIsNoCityWithSuchTitleException()
             else
-                throw ThereIsNoConnection()
+                throw NoInternetConnectionException()
 
         }
 
@@ -195,8 +195,8 @@ class WeatherInteractorTest {
             if (isDefaultCitySet)
                 if (isInternetAvailable)
                     return weatherDomainMap[defaultCity]!!
-                else throw ThereIsNoConnection()
-            else throw ThereIsNoDefaultCity()
+                else throw NoInternetConnectionException()
+            else throw ThereIsNoDefaultCityException()
         }
 
         override suspend fun saveDefaultCity(newCity: String): CityDomain {
@@ -204,8 +204,8 @@ class WeatherInteractorTest {
             if (isInternetAvailable)
                 if (cities.contains(newCity))
                     return CityDomain.Base(newCity)
-                else throw ThereIsNoCityWithSuchTitle()
-            else throw ThereIsNoConnection()
+                else throw ThereIsNoCityWithSuchTitleException()
+            else throw NoInternetConnectionException()
 
         }
 
