@@ -1,12 +1,11 @@
 package com.github.johnnysc.ecp.domain
 
-import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitle
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoConnection
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
 
 interface ExceptionChain  {
-    fun handle(exception: Exception):DomainException
+    fun handle(error:Exception):DomainException
 
     abstract class Base(private val nextExceptionChain: ExceptionChain) : ExceptionChain {
 
@@ -25,8 +24,6 @@ interface ExceptionChain  {
         override val exceptionClass = ThereIsNoCityWithSuchTitle::class.java
 
         override fun createDomainException() = DomainException.ThereIsNoCityWithSuchTitle()
-
-
     }
 
     class ThereIsNoConnectionChain(exceptionChain: ExceptionChain) : Base(exceptionChain) {
@@ -42,7 +39,6 @@ interface ExceptionChain  {
         override val exceptionClass = ThereIsNoDefaultCity::class.java
 
         override fun createDomainException() = DomainException.ThereIsNoDefaultCity()
-
     }
 
     class DefaultExceptionChain:ExceptionChain
