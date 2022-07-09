@@ -181,34 +181,37 @@ class WeatherInteractorTest {
         }
 
         override suspend fun getWeatherInCity(city: String): WeatherDomain {
-            if (isInternetAvailable)
-                if (weatherDomainMap.contains(city))
-                    return weatherDomainMap[city]!!
-                else
-                    throw ThereIsNoCityWithSuchTitleException()
-            else
-                throw NoInternetConnectionException()
+            checkInternetConnection()
+            if (weatherDomainMap.contains(city))
+                return weatherDomainMap[city]!!
+            throw ThereIsNoCityWithSuchTitleException()
+
 
         }
 
         override suspend fun getWeatherInDefaultCity(): WeatherDomain {
-            if (isDefaultCitySet)
-                if (isInternetAvailable)
-                    return weatherDomainMap[defaultCity]!!
-                else throw NoInternetConnectionException()
-            else throw ThereIsNoDefaultCityException()
+            if (isDefaultCitySet) {
+                checkInternetConnection()
+                return weatherDomainMap[defaultCity]!!
+            }
+            throw ThereIsNoDefaultCityException()
         }
 
         override suspend fun saveDefaultCity(newCity: String): CityDomain {
             val cities = weatherDomainMap.keys
-            if (isInternetAvailable)
-                if (cities.contains(newCity))
-                    return CityDomain.Base(newCity)
-                else throw ThereIsNoCityWithSuchTitleException()
-            else throw NoInternetConnectionException()
+            checkInternetConnection()
+            if (cities.contains(newCity))
+                return CityDomain.Base(newCity)
+            throw ThereIsNoCityWithSuchTitleException()
+
 
         }
 
+        fun checkInternetConnection() {
+            if (isInternetAvailable)
+                return
+            else throw NoInternetConnectionException()
+        }
 
     }
 
