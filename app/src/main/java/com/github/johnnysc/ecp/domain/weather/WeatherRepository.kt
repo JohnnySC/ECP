@@ -1,7 +1,5 @@
 package com.github.johnnysc.ecp.domain.weather
 
-import com.github.johnnysc.ecp.data.weather.CityData
-import com.github.johnnysc.ecp.data.weather.WeatherData
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitle
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoConnection
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
@@ -9,13 +7,13 @@ import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
 interface WeatherRepository {
 
     @Throws(ThereIsNoConnection::class, ThereIsNoCityWithSuchTitle::class)
-    suspend fun getWeatherInCity(city: String): WeatherData
+    suspend fun getWeatherInCity(city: String): WeatherDomain
 
     @Throws(ThereIsNoDefaultCity::class, ThereIsNoConnection::class)
-    suspend fun getWeatherInDefaultCity(): WeatherData
+    suspend fun getWeatherInDefaultCity(): WeatherDomain
 
     @Throws(ThereIsNoCityWithSuchTitle::class, ThereIsNoConnection::class)
-    suspend fun saveDefaultCity(newCity: String): CityData
+    suspend fun saveDefaultCity(newCity: String): CityDomain
 
 
 }

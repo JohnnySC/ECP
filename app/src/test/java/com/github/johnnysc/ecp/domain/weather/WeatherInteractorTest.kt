@@ -2,8 +2,6 @@ package com.github.johnnysc.ecp.domain.weather
 
 import com.github.johnnysc.coremvvm.core.ManageResources
 import com.github.johnnysc.ecp.R
-import com.github.johnnysc.ecp.data.weather.CityData
-import com.github.johnnysc.ecp.data.weather.WeatherData
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitle
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoConnection
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
@@ -23,9 +21,9 @@ class WeatherInteractorTest {
         )
     )
     private val testManageResource = TestManageResource()
-    private val weatherDataToMessageUIMapper =
-        WeatherData.Mapper.BaseToWeatherUI(testManageResource)
-    private val cityDataToMessageUIMapper = CityData.Mapper.BaseToMessageUI(testManageResource)
+    private val weatherDomainToMessageUIMapper =
+        WeatherDomain.Mapper.BaseToMessage(testManageResource)
+    private val cityDomainToMessageUIMapper = CityDomain.Mapper.Base(testManageResource)
     private val domainExceptionToUIMapper = DomainException.Mapper.Base(testManageResource)
     private val city = "Астана"
 
@@ -36,8 +34,8 @@ class WeatherInteractorTest {
             TestWeatherRepository(isInternetAvailable = false, isDefaultCitySet = true)
         val weatherInteractor = WeatherInteractor.Base(
             weatherRepository,
-            weatherDataToMessageUIMapper,
-            cityDataToMessageUIMapper, chain, domainExceptionToUIMapper
+            weatherDomainToMessageUIMapper,
+            cityDomainToMessageUIMapper, chain, domainExceptionToUIMapper
         )
         val expected = MessageUI.AiError(testManageResource.string(R.string.there_is_no_connection))
 
@@ -55,8 +53,8 @@ class WeatherInteractorTest {
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = false)
         val weatherInteractor = WeatherInteractor.Base(
             weatherRepository,
-            weatherDataToMessageUIMapper,
-            cityDataToMessageUIMapper, chain, domainExceptionToUIMapper
+            weatherDomainToMessageUIMapper,
+            cityDomainToMessageUIMapper, chain, domainExceptionToUIMapper
         )
 
         val expected =
@@ -73,8 +71,8 @@ class WeatherInteractorTest {
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
         val weatherInteractor = WeatherInteractor.Base(
             weatherRepository,
-            weatherDataToMessageUIMapper,
-            cityDataToMessageUIMapper, chain, domainExceptionToUIMapper
+            weatherDomainToMessageUIMapper,
+            cityDomainToMessageUIMapper, chain, domainExceptionToUIMapper
         )
 
         val expected =
@@ -91,8 +89,8 @@ class WeatherInteractorTest {
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
         val weatherInteractor = WeatherInteractor.Base(
             weatherRepository,
-            weatherDataToMessageUIMapper,
-            cityDataToMessageUIMapper, chain, domainExceptionToUIMapper
+            weatherDomainToMessageUIMapper,
+            cityDomainToMessageUIMapper, chain, domainExceptionToUIMapper
         )
 
         val expected =
@@ -105,13 +103,13 @@ class WeatherInteractorTest {
 
     @Test
     fun `test interactor with none existed city`() = runBlocking {
-        val noneExistedCity="Ротрстан"
+        val noneExistedCity = "Ротрстан"
         val weatherRepository =
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
         val weatherInteractor = WeatherInteractor.Base(
             weatherRepository,
-            weatherDataToMessageUIMapper,
-            cityDataToMessageUIMapper, chain, domainExceptionToUIMapper
+            weatherDomainToMessageUIMapper,
+            cityDomainToMessageUIMapper, chain, domainExceptionToUIMapper
         )
 
         val expected =
@@ -128,8 +126,8 @@ class WeatherInteractorTest {
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
         val weatherInteractor = WeatherInteractor.Base(
             weatherRepository,
-            weatherDataToMessageUIMapper,
-            cityDataToMessageUIMapper, chain, domainExceptionToUIMapper
+            weatherDomainToMessageUIMapper,
+            cityDomainToMessageUIMapper, chain, domainExceptionToUIMapper
         )
 
         val expected =
@@ -147,8 +145,8 @@ class WeatherInteractorTest {
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
         val weatherInteractor = WeatherInteractor.Base(
             weatherRepository,
-            weatherDataToMessageUIMapper,
-            cityDataToMessageUIMapper, chain, domainExceptionToUIMapper
+            weatherDomainToMessageUIMapper,
+            cityDomainToMessageUIMapper, chain, domainExceptionToUIMapper
         )
 
         val expected =
@@ -165,27 +163,27 @@ class WeatherInteractorTest {
         private val isDefaultCitySet: Boolean
     ) : WeatherRepository {
         private var defaultCity: String
-        private val weatherDataMap = mutableMapOf<String, WeatherData>()
+        private val weatherDomainMap = mutableMapOf<String, WeatherDomain>()
 
         init {
             defaultCity = if (isDefaultCitySet)
                 "Экибастуз"
             else
                 ""
-            weatherDataMap.apply {
-                put("Экибастуз", WeatherData.Base(23F))
-                put("Астана", WeatherData.Base(21F))
-                put("Алмата", WeatherData.Base(35F))
-                put("Павлодар", WeatherData.Base(21F))
-                put("Семипалатинск", WeatherData.Base(19F))
+            weatherDomainMap.apply {
+                put("Экибастуз", WeatherDomain.Base(23F))
+                put("Астана", WeatherDomain.Base(21F))
+                put("Алмата", WeatherDomain.Base(35F))
+                put("Павлодар", WeatherDomain.Base(21F))
+                put("Семипалатинск", WeatherDomain.Base(19F))
             }
 
         }
 
-        override suspend fun getWeatherInCity(city: String): WeatherData {
+        override suspend fun getWeatherInCity(city: String): WeatherDomain {
             if (isInternetAvailable)
-                if (weatherDataMap.contains(city))
-                    return weatherDataMap[city]!!
+                if (weatherDomainMap.contains(city))
+                    return weatherDomainMap[city]!!
                 else
                     throw ThereIsNoCityWithSuchTitle()
             else
@@ -193,19 +191,19 @@ class WeatherInteractorTest {
 
         }
 
-        override suspend fun getWeatherInDefaultCity(): WeatherData {
+        override suspend fun getWeatherInDefaultCity(): WeatherDomain {
             if (isDefaultCitySet)
                 if (isInternetAvailable)
-                    return weatherDataMap[defaultCity]!!
+                    return weatherDomainMap[defaultCity]!!
                 else throw ThereIsNoConnection()
             else throw ThereIsNoDefaultCity()
         }
 
-        override suspend fun saveDefaultCity(newCity: String): CityData {
-            val cities = weatherDataMap.keys
+        override suspend fun saveDefaultCity(newCity: String): CityDomain {
+            val cities = weatherDomainMap.keys
             if (isInternetAvailable)
                 if (cities.contains(newCity))
-                    return CityData.Base(newCity, 1f, 2f)
+                    return CityDomain.Base(newCity)
                 else throw ThereIsNoCityWithSuchTitle()
             else throw ThereIsNoConnection()
 
@@ -222,7 +220,7 @@ class WeatherInteractorTest {
                 R.string.there_is_no_connection -> "There is no connection"
                 R.string.weather_no_default_city -> "Error! Set default city using this command: My city is X, where X is the name of the city"
                 R.string.weather_response -> "Current temperature: %1\$s\u2103 "
-                R.string.set_weather_command_success->"Default city set!"
+                R.string.set_weather_command_success -> "Default city set!"
                 else -> "Something went wrong"
             }
         }

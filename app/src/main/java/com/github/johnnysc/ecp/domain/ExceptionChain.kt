@@ -5,7 +5,8 @@ import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitl
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoConnection
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCity
 
-interface ExceptionChain : HandleError {
+interface ExceptionChain  {
+    fun handle(exception: Exception):DomainException
 
     abstract class Base(private val nextExceptionChain: ExceptionChain) : ExceptionChain {
 
@@ -16,7 +17,7 @@ interface ExceptionChain : HandleError {
         else
             nextExceptionChain.handle(error)
 
-        protected abstract fun createDomainException(): Exception
+        protected abstract fun createDomainException(): DomainException
     }
 
     class ThereIsNoSuchCityChain(exceptionChain: ExceptionChain) : Base(exceptionChain) {

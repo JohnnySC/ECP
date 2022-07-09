@@ -31,11 +31,11 @@ class ExceptionChainTest {
         val inputTwo = ThereIsNoCityWithSuchTitle()
         val inputThree = ThereIsNoDefaultCity()
 
-        val actualOne = (chain.handle(inputOne) as DomainException).map(mapper)
+        val actualOne = chain.handle(inputOne).map(mapper)
         assertEquals(expectedOne, actualOne)
-        val actualTwo = (chain.handle(inputTwo) as DomainException).map(mapper)
+        val actualTwo = chain.handle(inputTwo).map(mapper)
         assertEquals(expectedTwo, actualTwo)
-        val actualThree = (chain.handle(inputThree) as DomainException).map(mapper)
+        val actualThree = chain.handle(inputThree).map(mapper)
         assertEquals(expectedThree, actualThree)
 
     }
@@ -44,7 +44,7 @@ class ExceptionChainTest {
     fun `test exception chain with unknown exception`() {
         val expected = MessageUI.AiError("Unknown exception")
         val input = IndexOutOfBoundsException()
-        val actual = (chain.handle(input) as DomainException).map(mapper)
+        val actual = chain.handle(input).map(mapper)
         assertEquals(expected, actual)
     }
 
