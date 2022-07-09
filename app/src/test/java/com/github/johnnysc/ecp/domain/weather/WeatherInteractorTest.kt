@@ -13,6 +13,7 @@ import org.junit.Assert
 import org.junit.Test
 
 class WeatherInteractorTest {
+
     private val chain = ExceptionChain.ThereIsNoSuchCityChain(
         ExceptionChain.ThereIsNoDefaultCityChain(
             ExceptionChain.ThereIsNoConnectionChain(
@@ -27,9 +28,8 @@ class WeatherInteractorTest {
     private val domainExceptionToUIMapper = DomainException.Mapper.Base(testManageResource)
     private val city = "Астана"
 
-
     @Test
-    fun `test interactor with no internet`() = runBlocking {
+    fun `all methods without internet get MessageUi AiError`() = runBlocking {
         val weatherRepository =
             TestWeatherRepository(isInternetAvailable = false, isDefaultCitySet = true)
         val weatherInteractor = WeatherInteractor.Base(
@@ -48,7 +48,7 @@ class WeatherInteractorTest {
     }
 
     @Test
-    fun `test interactor with no default city`() = runBlocking {
+    fun `get weather in default city without default city get MessageUI AiError`() = runBlocking {
         val weatherRepository =
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = false)
         val weatherInteractor = WeatherInteractor.Base(
@@ -66,7 +66,7 @@ class WeatherInteractorTest {
     }
 
     @Test
-    fun `test interactor with default city`() = runBlocking {
+    fun `get weather in default city with default city get MessageUi Ai with temperature`() = runBlocking {
         val weatherRepository =
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
         val weatherInteractor = WeatherInteractor.Base(
@@ -84,7 +84,7 @@ class WeatherInteractorTest {
     }
 
     @Test
-    fun `test interactor with existed city`() = runBlocking {
+    fun `get weather with existed city get MessageUi Ai with temperature in city`() = runBlocking {
         val weatherRepository =
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
         val weatherInteractor = WeatherInteractor.Base(
@@ -102,7 +102,7 @@ class WeatherInteractorTest {
     }
 
     @Test
-    fun `test interactor with none existed city`() = runBlocking {
+    fun `get temperature with none existed city get MessageUi AiError with ThereIsNoCityWithSuchTitle exception`() = runBlocking {
         val noneExistedCity = "Ротрстан"
         val weatherRepository =
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
@@ -121,7 +121,7 @@ class WeatherInteractorTest {
     }
 
     @Test
-    fun `test interactor setDefaultCity`() = runBlocking {
+    fun `setDefaultCity with existed city get MessageUi Ai with confirmation`() = runBlocking {
         val weatherRepository =
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
         val weatherInteractor = WeatherInteractor.Base(
@@ -139,7 +139,7 @@ class WeatherInteractorTest {
     }
 
     @Test
-    fun `test interactor setDefaultCity with none existed city`() = runBlocking {
+    fun `setDefaultCity with none existed city get MessageUI AiError with ThereIsNoCityWithSuchTitle message `() = runBlocking {
         val noneExistedCity = "Ротрстан"
         val weatherRepository =
             TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
@@ -162,14 +162,13 @@ class WeatherInteractorTest {
         private val isInternetAvailable: Boolean,
         private val isDefaultCitySet: Boolean
     ) : WeatherRepository {
-        private var defaultCity: String
+        private var defaultCity: String = if (isDefaultCitySet)
+            "Экибастуз"
+        else
+            ""
         private val weatherDomainMap = mutableMapOf<String, WeatherDomain>()
 
         init {
-            defaultCity = if (isDefaultCitySet)
-                "Экибастуз"
-            else
-                ""
             weatherDomainMap.apply {
                 put("Экибастуз", WeatherDomain.Base(23F))
                 put("Астана", WeatherDomain.Base(21F))
@@ -177,7 +176,6 @@ class WeatherInteractorTest {
                 put("Павлодар", WeatherDomain.Base(21F))
                 put("Семипалатинск", WeatherDomain.Base(19F))
             }
-
         }
 
         override suspend fun getWeatherInCity(city: String): WeatherDomain {
@@ -185,8 +183,6 @@ class WeatherInteractorTest {
             if (weatherDomainMap.contains(city))
                 return weatherDomainMap[city]!!
             throw ThereIsNoCityWithSuchTitleException()
-
-
         }
 
         override suspend fun getWeatherInDefaultCity(): WeatherDomain {
@@ -203,16 +199,13 @@ class WeatherInteractorTest {
             if (cities.contains(newCity))
                 return CityDomain.Base(newCity)
             throw ThereIsNoCityWithSuchTitleException()
-
-
         }
 
-        fun checkInternetConnection() {
+        private fun checkInternetConnection() {
             if (isInternetAvailable)
                 return
             throw NoInternetConnectionException()
         }
-
     }
 
     class TestManageResource : ManageResources {
@@ -228,6 +221,4 @@ class WeatherInteractorTest {
             }
         }
     }
-
-
 }
