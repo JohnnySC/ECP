@@ -16,7 +16,7 @@ interface CityDomain {
 
         class Base(private val manageResources: ManageResources) : Mapper<MessageUI> {
             override fun map(cityName: String) =
-                MessageUI.Ai(manageResources.string(R.string.set_weather_command_success))
+                MessageUI.Ai(manageResources.string(R.string.set_weather_command_success).format(cityName))
         }
     }
 }

@@ -131,8 +131,8 @@ class WeatherInteractorTest {
         )
 
         val expected =
-            MessageUI.Ai(testManageResource.string(R.string.set_weather_command_success))
-
+            MessageUI.Ai(testManageResource.string(R.string.set_weather_command_success).format(city))
+        println(expected)
         val actual = weatherInteractor.setDefault(city)
 
         Assert.assertEquals(expected, actual)
@@ -216,7 +216,7 @@ class WeatherInteractorTest {
                 R.string.there_is_no_connection -> "There is no connection"
                 R.string.weather_no_default_city -> "Error! Set default city using this command: My city is X, where X is the name of the city"
                 R.string.weather_response -> "Current temperature: %1\$s\u2103 "
-                R.string.set_weather_command_success -> "Default city set!"
+                R.string.set_weather_command_success -> "Default city set to %1\$s!"
                 else -> "Something went wrong"
             }
         }

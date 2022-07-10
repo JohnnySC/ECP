@@ -7,14 +7,11 @@ abstract class AbstractInteractor(
     private val domainExceptionToMessageUIMapper: DomainException.Mapper<MessageUI>
 ) {
 
-    protected suspend fun handle(executeRequest: suspend () -> MessageUI): MessageUI {
-        val result: MessageUI = try {
+    protected suspend fun handle(executeRequest: suspend () -> MessageUI) = try {
             executeRequest.invoke()
         } catch (exception: Exception) {
             handleException.handle(exception).map(
                 domainExceptionToMessageUIMapper
             )
         }
-        return result
-    }
 }
