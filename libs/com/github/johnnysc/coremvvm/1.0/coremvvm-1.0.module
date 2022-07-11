@@ -197,6 +197,46 @@
           "md5": "83dbdd75726ca5b9cde421e2b0f75177"
         }
       ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "coremvvm-1.0-sources.jar",
+          "url": "coremvvm-1.0-sources.jar",
+          "size": 24210,
+          "sha512": "54bea03e27d67997e314195833f102090749009d89ada5171f60d46d90827ccb2238f5ead037d43eaaf0bd24f1a00ef3fd1a9f8ace3941a1b80f30ee6e1e9600",
+          "sha256": "53a4fe2ea4a65c8cd298161f492486780f66ebf4d477bdfd337cc0fe5371e698",
+          "sha1": "c79e383dc234438b20b0fb0dd6ccc22b7ecb96c5",
+          "md5": "83c34bbafe66bda44aee951fb25e736d"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseJavaDocPublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "coremvvm-1.0-javadoc.jar",
+          "url": "coremvvm-1.0-javadoc.jar",
+          "size": 743927,
+          "sha512": "ac7c60179241a8dd114b42a1c60d74dca39871513d579aaa33e93916d3b0b8cf6bdd1020ba8f986783b040c32152c57f64efed0266319f207d251db974235042",
+          "sha256": "45b9030c1dff297c0d27fde2f48a6ac157ec177086a25277554e0d1c8ff05a99",
+          "sha1": "5bc471490b608f8162abac2fc4ac8394991b684c",
+          "md5": "51f463ffb3238445877ec78a87bbdd25"
+        }
+      ]
     }
   ]
 }
