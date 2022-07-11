@@ -15,7 +15,7 @@ allprojects {
         google()
         mavenCentral()
         maven {
-            url "file://$projectDir/libs"
+            url "../libs"
         }
     }
 }
