@@ -16,7 +16,7 @@ allprojects {
         mavenLocal()
         mavenCentral()
         maven {
-            url "$projectDir/libs"
+            url "file://$projectDir/libs"
         }
     }
 }
