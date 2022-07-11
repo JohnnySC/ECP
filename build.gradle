@@ -13,7 +13,6 @@ buildscript {
 allprojects {
     repositories {
         google()
-        mavenLocal()
         mavenCentral()
         maven {
             url "file://$projectDir/libs"
