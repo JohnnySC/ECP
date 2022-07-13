@@ -6,7 +6,7 @@ import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloud
 
 interface ProvideWeatherCloud {
 
-    fun provideCloud(): WeatherCloud
+    fun provideWeatherCloud(): WeatherCloud
 
     class Base(
         retrofitBuilder: ProvideRetrofitBuilder
@@ -14,7 +14,7 @@ interface ProvideWeatherCloud {
         retrofitBuilder
     ), ProvideWeatherCloud {
 
-        override fun provideCloud(): WeatherCloud = service(WeatherCloud::class.java)
+        override fun provideWeatherCloud(): WeatherCloud = service(WeatherCloud::class.java)
 
         override fun baseUrl(): String = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/"
     }

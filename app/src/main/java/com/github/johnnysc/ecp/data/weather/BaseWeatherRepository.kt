@@ -24,8 +24,7 @@ class BaseWeatherRepository(
     }
 
     override suspend fun getWeatherInDefaultCity(): WeatherDomain =
-        weatherCloudDataSource.getWeather(cityCacheDataSource.getDefaultCity().map(cityDataToTitleMapper))
-            .map(weatherRemoteToWeatherDomainMapper)
+        getWeatherInCity(cityCacheDataSource.getDefaultCity().map(cityDataToTitleMapper))
 
     override suspend fun saveDefaultCity(newCity: String): CityDomain {
         if (weatherCloudDataSource.getWeather(newCity).isEmpty()) {

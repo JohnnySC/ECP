@@ -14,7 +14,7 @@ interface WeatherDomain {
     interface Mapper<T> {
         fun map(temperature: Float): T
 
-        class Base(private val manageResources: ManageResources) : Mapper<MessageUI> {
+        class BaseToMessage(private val manageResources: ManageResources) : Mapper<MessageUI> {
             override fun map(temperature: Float) =
                 MessageUI.Ai(manageResources.string(R.string.weather_response).format(temperature))
         }

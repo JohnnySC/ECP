@@ -2,12 +2,7 @@ package com.github.johnnysc.ecp.data.weather.cloud
 
 import com.google.gson.annotations.SerializedName
 
-
-interface CurrentWeather {
-
-    fun map(): Float
-
-    fun isEmpty(): Boolean
+interface CurrentWeather : Mapper<Float>, IsEmpty {
 
     data class Base(
         @SerializedName("temp") private val temp: Float?

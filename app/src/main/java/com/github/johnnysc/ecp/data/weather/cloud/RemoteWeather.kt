@@ -2,11 +2,9 @@ package com.github.johnnysc.ecp.data.weather.cloud
 
 import com.github.johnnysc.ecp.domain.weather.WeatherDomain
 
-interface RemoteWeather {
+interface RemoteWeather : IsEmpty {
 
     fun <T> map(mapper: Mapper<T>): T
-
-    fun isEmpty(): Boolean
 
     class Base(private val weather: Weather) : RemoteWeather {
 
