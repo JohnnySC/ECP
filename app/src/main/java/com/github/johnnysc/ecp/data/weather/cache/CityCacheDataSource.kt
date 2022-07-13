@@ -7,7 +7,7 @@ interface CityCacheDataSource {
 
     fun getDefaultCity(): CityData
 
-    fun saveDefaultCity(newDefaultCity: String): CityData
+    fun saveDefaultCity(newDefaultCity: String)
 
     class Base(private val preferenceDataStore: CityPreferenceDataStore) : CityCacheDataSource {
 
@@ -19,9 +19,8 @@ interface CityCacheDataSource {
             return CityData.Base(cityName)
         }
 
-        override fun saveDefaultCity(newDefaultCity: String): CityData {
+        override fun saveDefaultCity(newDefaultCity: String) {
             preferenceDataStore.save(DEFAULT_CITY_KEY, newDefaultCity)
-            return CityData.Base(newDefaultCity)
         }
 
         companion object {

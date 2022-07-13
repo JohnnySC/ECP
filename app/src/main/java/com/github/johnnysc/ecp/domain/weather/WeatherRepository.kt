@@ -13,7 +13,7 @@ interface WeatherRepository {
     suspend fun getWeatherInDefaultCity(): WeatherDomain
 
     @Throws(ThereIsNoCityWithSuchTitleException::class, NoInternetConnectionException::class)
-    suspend fun saveDefaultCity(newCity: String): CityDomain
+    suspend fun saveDefaultCity(newCity: String)
 
 
 }

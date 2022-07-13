@@ -1,6 +1,5 @@
 package com.github.johnnysc.ecp.data.weather
 
-import com.github.johnnysc.ecp.domain.weather.CityDomain
 
 interface CityData {
 
@@ -15,12 +14,7 @@ interface CityData {
 
         fun map(title: String): T
 
-        class BaseToDomain : Mapper<CityDomain> {
-
-            override fun map(title: String): CityDomain = CityDomain.Base(title)
-        }
-
-        class BaseToString : Mapper<String> {
+        class Base : Mapper<String> {
 
             override fun map(title: String): String = title
         }

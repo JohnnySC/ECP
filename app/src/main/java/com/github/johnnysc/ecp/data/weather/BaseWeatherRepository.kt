@@ -11,9 +11,8 @@ import com.github.johnnysc.ecp.domain.weather.WeatherRepository
 class BaseWeatherRepository(
     private val weatherCloudDataSource: WeatherCloudDataSource,
     private val cityCacheDataSource: CityCacheDataSource,
-    private val cityDataToCityDomainMapper: CityData.Mapper<CityDomain>,
     private val weatherRemoteToWeatherDomainMapper: RemoteWeather.Mapper<WeatherDomain>,
-    private val cityDataToTitleMapper: CityData.Mapper<String>,
+    private val cityDataToTitleMapper: CityData.Mapper<String>
 ) : WeatherRepository {
 
     override suspend fun getWeatherInCity(city: String): WeatherDomain {
@@ -26,10 +25,10 @@ class BaseWeatherRepository(
     override suspend fun getWeatherInDefaultCity(): WeatherDomain =
         getWeatherInCity(cityCacheDataSource.getDefaultCity().map(cityDataToTitleMapper))
 
-    override suspend fun saveDefaultCity(newCity: String): CityDomain {
+    override suspend fun saveDefaultCity(newCity: String) {
         if (weatherCloudDataSource.getWeather(newCity).isEmpty()) {
             throw ThereIsNoCityWithSuchTitleException()
         }
-        return cityCacheDataSource.saveDefaultCity(newCity).map(cityDataToCityDomainMapper)
+        cityCacheDataSource.saveDefaultCity(newCity)
     }
 }

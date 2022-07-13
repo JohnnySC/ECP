@@ -20,9 +20,8 @@ class BaseWeatherRepositoryTest {
         val repository = BaseWeatherRepository(
             TestCloudDataSource(),
             TestCacheDataSource(true),
-            CityData.Mapper.BaseToDomain(),
             RemoteWeather.Mapper.Base(),
-            CityData.Mapper.BaseToString()
+            CityData.Mapper.Base()
         )
         Assert.assertEquals(WeatherDomain.Base(30F), repository.getWeatherInCity("Saint Paul"))
     }
@@ -32,23 +31,23 @@ class BaseWeatherRepositoryTest {
         val repository = BaseWeatherRepository(
             TestCloudDataSource(),
             TestCacheDataSource(true),
-            CityData.Mapper.BaseToDomain(),
             RemoteWeather.Mapper.Base(),
-            CityData.Mapper.BaseToString()
+            CityData.Mapper.Base()
         )
         Assert.assertEquals(WeatherDomain.Base(20F), repository.getWeatherInDefaultCity())
     }
 
     @Test
     fun `test success set default city`() = runBlocking {
+        val cache = TestCacheDataSource(true)
         val repository = BaseWeatherRepository(
             TestCloudDataSource(),
-            TestCacheDataSource(true),
-            CityData.Mapper.BaseToDomain(),
+            cache,
             RemoteWeather.Mapper.Base(),
-            CityData.Mapper.BaseToString()
+            CityData.Mapper.Base()
         )
-        Assert.assertEquals(CityDomain.Base("Saint Paul"), repository.saveDefaultCity("Saint Paul"))
+        repository.saveDefaultCity("Saint Paul")
+        Assert.assertEquals(cache.savedCity, "Saint Paul")
     }
 
     @Test
@@ -56,9 +55,8 @@ class BaseWeatherRepositoryTest {
         val repository = BaseWeatherRepository(
             TestCloudDataSource(),
             TestCacheDataSource(false),
-            CityData.Mapper.BaseToDomain(),
             RemoteWeather.Mapper.Base(),
-            CityData.Mapper.BaseToString()
+            CityData.Mapper.Base()
         )
         Assert.assertThrows(ThereIsNoCityWithSuchTitleException::class.java) {
             runBlocking { repository.getWeatherInCity("Innsmouth") }
@@ -70,9 +68,8 @@ class BaseWeatherRepositoryTest {
         val repository = BaseWeatherRepository(
             TestCloudDataSource(),
             TestCacheDataSource(false),
-            CityData.Mapper.BaseToDomain(),
             RemoteWeather.Mapper.Base(),
-            CityData.Mapper.BaseToString()
+            CityData.Mapper.Base()
         )
         Assert.assertThrows(ThereIsNoDefaultCityException::class.java) {
             runBlocking { repository.getWeatherInDefaultCity() }
@@ -84,9 +81,8 @@ class BaseWeatherRepositoryTest {
         val repository = BaseWeatherRepository(
             TestCloudDataSource(),
             TestCacheDataSource(false),
-            CityData.Mapper.BaseToDomain(),
             RemoteWeather.Mapper.Base(),
-            CityData.Mapper.BaseToString()
+            CityData.Mapper.Base()
         )
         Assert.assertThrows(ThereIsNoCityWithSuchTitleException::class.java) {
             runBlocking { repository.saveDefaultCity("Innsmouth") }
@@ -101,12 +97,16 @@ class BaseWeatherRepositoryTest {
 
     class TestCacheDataSource(private val isDefaultSet: Boolean) : CityCacheDataSource {
 
+        var savedCity = "Hawkins"
+
         override fun getDefaultCity(): CityData {
             if (!isDefaultSet)
                 throw ThereIsNoDefaultCityException()
             return CityData.Base("Hawkins")
         }
 
-        override fun saveDefaultCity(newDefaultCity: String): CityData = CityData.Base(newDefaultCity)
+        override fun saveDefaultCity(newDefaultCity: String) {
+            savedCity = newDefaultCity
+        }
     }
 }
