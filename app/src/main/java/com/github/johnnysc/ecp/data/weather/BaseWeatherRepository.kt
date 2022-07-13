@@ -4,7 +4,6 @@ import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitl
 import com.github.johnnysc.ecp.data.weather.cache.CityCacheDataSource
 import com.github.johnnysc.ecp.data.weather.cloud.RemoteWeather
 import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource
-import com.github.johnnysc.ecp.domain.weather.CityDomain
 import com.github.johnnysc.ecp.domain.weather.WeatherDomain
 import com.github.johnnysc.ecp.domain.weather.WeatherRepository
 
