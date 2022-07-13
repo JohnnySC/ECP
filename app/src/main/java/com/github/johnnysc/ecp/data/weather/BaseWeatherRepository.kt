@@ -14,26 +14,27 @@ class BaseWeatherRepository(
     private val remoteWeatherDataSource: WeatherRemoteDataSource,
     private val localCityDataSource: CityLocalDataSource,
     private val cityDataToCityDomainMapper: CityData.Mapper<CityDomain>,
-    private val weatherRemoteToWeatherDomain: RemoteWeather.Mapper<WeatherDomain>,
+    private val weatherRemoteToWeatherDomainMapper: RemoteWeather.Mapper<WeatherDomain>,
     private val cityDataToTitleMapper: CityData.Mapper<String>,
     handleError: HandleError
 ) : AbstractRepository(handleError), WeatherRepository {
 
-
-    override suspend fun getWeatherInCity(city: String) = handle {
-        return@handle remoteWeatherDataSource.getWeather(city).map(weatherRemoteToWeatherDomain)
-    }
-
-    override suspend fun getWeatherInDefaultCity() = handle {
-        val defCity = localCityDataSource.getDefaultCity()
-        return@handle remoteWeatherDataSource.getWeather(defCity.map(cityDataToTitleMapper))
-            .map(weatherRemoteToWeatherDomain)
-    }
-
-    override suspend fun saveDefaultCity(newCity: String): CityDomain {
-        if (remoteWeatherDataSource.getWeather(cityName = newCity).isEmpty()) {
+    override suspend fun getWeatherInCity(city: String): WeatherDomain = handle {
+        val result = remoteWeatherDataSource.getWeather(city)
+        if (result.isEmpty())
             throw ThereIsNoCityWithSuchTitleException()
-        } else
-            return localCityDataSource.saveDefaultCity(newCity).map(cityDataToCityDomainMapper)
+        result.map(weatherRemoteToWeatherDomainMapper)
+    }
+
+    override suspend fun getWeatherInDefaultCity(): WeatherDomain = handle {
+        remoteWeatherDataSource.getWeather(localCityDataSource.getDefaultCity().map(cityDataToTitleMapper))
+            .map(weatherRemoteToWeatherDomainMapper)
+    }
+
+    override suspend fun saveDefaultCity(newCity: String): CityDomain = handle {
+        if (remoteWeatherDataSource.getWeather(newCity).isEmpty()) {
+            throw ThereIsNoCityWithSuchTitleException()
+        }
+        localCityDataSource.saveDefaultCity(newCity).map(cityDataToCityDomainMapper)
     }
 }

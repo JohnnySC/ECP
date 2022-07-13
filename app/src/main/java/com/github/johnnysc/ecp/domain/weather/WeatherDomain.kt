@@ -7,14 +7,14 @@ import com.github.johnnysc.ecp.presentation.messages.MessageUI
 interface WeatherDomain {
     fun <T> map(mapper: Mapper<T>): T
 
-    class Base(private val temperature: Float) : WeatherDomain {
+    data class Base(private val temperature: Float) : WeatherDomain {
         override fun <T> map(mapper: Mapper<T>) = mapper.map(temperature)
     }
 
     interface Mapper<T> {
         fun map(temperature: Float): T
 
-        class BaseToMessage(private val manageResources: ManageResources) : Mapper<MessageUI> {
+        class Base(private val manageResources: ManageResources) : Mapper<MessageUI> {
             override fun map(temperature: Float) =
                 MessageUI.Ai(manageResources.string(R.string.weather_response).format(temperature))
         }

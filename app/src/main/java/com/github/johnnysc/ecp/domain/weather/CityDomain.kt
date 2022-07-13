@@ -7,7 +7,7 @@ import com.github.johnnysc.ecp.presentation.messages.MessageUI
 interface CityDomain {
     fun <T> map(mapper: Mapper<T>): T
 
-    class Base(private val cityName: String) : CityDomain {
+    data class Base(private val cityName: String) : CityDomain {
         override fun <T> map(mapper: Mapper<T>) = mapper.map(cityName)
     }
 

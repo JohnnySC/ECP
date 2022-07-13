@@ -23,7 +23,7 @@ class WeatherInteractorTest {
     )
     private val testManageResource = TestManageResource()
     private val weatherDomainToMessageUIMapper =
-        WeatherDomain.Mapper.BaseToMessage(testManageResource)
+        WeatherDomain.Mapper.Base(testManageResource)
     private val cityDomainToMessageUIMapper = CityDomain.Mapper.Base(testManageResource)
     private val domainExceptionToUIMapper = DomainException.Mapper.Base(testManageResource)
     private val city = "Астана"
