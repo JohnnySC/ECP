@@ -6,9 +6,13 @@ interface RemoteWeather {
 
     fun <T> map(mapper: Mapper<T>): T
 
-    class Base(private val temperature: Float) : RemoteWeather {
+    fun isEmpty(): Boolean
 
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(temperature)
+    class Base(private val weather: Weather) : RemoteWeather {
+
+        override fun isEmpty(): Boolean = weather.isEmpty()
+
+        override fun <T> map(mapper: Mapper<T>): T = mapper.map(weather.map())
     }
 
     interface Mapper<T> {

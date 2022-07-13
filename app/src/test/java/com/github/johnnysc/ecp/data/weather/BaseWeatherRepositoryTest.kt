@@ -5,8 +5,8 @@ import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCityExcep
 import com.github.johnnysc.ecp.data.weather.cache.CityCacheDataSource
 import com.github.johnnysc.ecp.data.weather.cloud.RemoteWeather
 import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource
-import com.github.johnnysc.ecp.data.weather.cloud.models.CurrentWeather
-import com.github.johnnysc.ecp.data.weather.cloud.models.Weather
+import com.github.johnnysc.ecp.data.weather.cloud.CurrentWeather
+import com.github.johnnysc.ecp.data.weather.cloud.Weather
 import com.github.johnnysc.ecp.domain.weather.CityDomain
 import com.github.johnnysc.ecp.domain.weather.WeatherDomain
 import kotlinx.coroutines.runBlocking
