@@ -23,8 +23,7 @@ class BaseWeatherRepositoryTest {
             TestLocalDataSource(true),
             CityData.Mapper.BaseToDomain(),
             RemoteWeather.Mapper.Base(),
-            CityData.Mapper.BaseToString(),
-            TestHandleError()
+            CityData.Mapper.BaseToString()
         )
         Assert.assertEquals(WeatherDomain.Base(30F), repository.getWeatherInCity("Saint Paul"))
         Assert.assertEquals(WeatherDomain.Base(20F), repository.getWeatherInDefaultCity())
@@ -38,8 +37,7 @@ class BaseWeatherRepositoryTest {
             TestLocalDataSource(false),
             CityData.Mapper.BaseToDomain(),
             RemoteWeather.Mapper.Base(),
-            CityData.Mapper.BaseToString(),
-            TestHandleError()
+            CityData.Mapper.BaseToString()
         )
         Assert.assertThrows(ThereIsNoCityWithSuchTitleException::class.java) {
             runBlocking { repository.getWeatherInCity("Innsmouth") }
