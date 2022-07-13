@@ -2,14 +2,14 @@ package com.github.johnnysc.ecp.data.weather
 
 interface WeatherData {
 
-    fun <M> map(mapper: Mapper<M>): M
+    fun <T> map(mapper: Mapper<T>): T
 
     class Base(private val temperature: Float) : WeatherData {
 
-        override fun <M> map(mapper: Mapper<M>) = mapper.map(temperature)
+        override fun <T> map(mapper: Mapper<T>) = mapper.map(temperature)
     }
 
-    interface Mapper<M> {
-        fun map(temperature: Float): M
+    interface Mapper<T> {
+        fun map(temperature: Float): T
     }
 }

@@ -1,4 +1,4 @@
-package com.github.johnnysc.ecp.data.weather.local
+package com.github.johnnysc.ecp.data.weather.cache
 
 import android.content.SharedPreferences
 

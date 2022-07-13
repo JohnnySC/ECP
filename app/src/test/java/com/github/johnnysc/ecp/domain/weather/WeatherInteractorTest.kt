@@ -102,23 +102,24 @@ class WeatherInteractorTest {
     }
 
     @Test
-    fun `get temperature with none existed city get MessageUi AiError with ThereIsNoCityWithSuchTitle exception`() = runBlocking {
-        val noneExistedCity = "Ротрстан"
-        val weatherRepository =
-            TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
-        val weatherInteractor = WeatherInteractor.Base(
-            weatherRepository,
-            weatherDomainToMessageUIMapper,
-            cityDomainToMessageUIMapper, chain, domainExceptionToUIMapper
-        )
+    fun `get temperature with none existed city get MessageUi AiError with ThereIsNoCityWithSuchTitle exception`() =
+        runBlocking {
+            val noneExistedCity = "Ротрстан"
+            val weatherRepository =
+                TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
+            val weatherInteractor = WeatherInteractor.Base(
+                weatherRepository,
+                weatherDomainToMessageUIMapper,
+                cityDomainToMessageUIMapper, chain, domainExceptionToUIMapper
+            )
 
-        val expected =
-            MessageUI.AiError(testManageResource.string(R.string.there_is_no_city_with_such_title))
+            val expected =
+                MessageUI.AiError(testManageResource.string(R.string.there_is_no_city_with_such_title))
 
-        val actual = weatherInteractor.getWeather(noneExistedCity)
+            val actual = weatherInteractor.getWeather(noneExistedCity)
 
-        Assert.assertEquals(expected, actual)
-    }
+            Assert.assertEquals(expected, actual)
+        }
 
     @Test
     fun `setDefaultCity with existed city get MessageUi Ai with confirmation`() = runBlocking {
@@ -139,23 +140,24 @@ class WeatherInteractorTest {
     }
 
     @Test
-    fun `setDefaultCity with none existed city get MessageUI AiError with ThereIsNoCityWithSuchTitle message `() = runBlocking {
-        val noneExistedCity = "Ротрстан"
-        val weatherRepository =
-            TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
-        val weatherInteractor = WeatherInteractor.Base(
-            weatherRepository,
-            weatherDomainToMessageUIMapper,
-            cityDomainToMessageUIMapper, chain, domainExceptionToUIMapper
-        )
+    fun `setDefaultCity with none existed city get MessageUI AiError with ThereIsNoCityWithSuchTitle message `() =
+        runBlocking {
+            val noneExistedCity = "Ротрстан"
+            val weatherRepository =
+                TestWeatherRepository(isInternetAvailable = true, isDefaultCitySet = true)
+            val weatherInteractor = WeatherInteractor.Base(
+                weatherRepository,
+                weatherDomainToMessageUIMapper,
+                cityDomainToMessageUIMapper, chain, domainExceptionToUIMapper
+            )
 
-        val expected =
-            MessageUI.AiError(testManageResource.string(R.string.there_is_no_city_with_such_title))
+            val expected =
+                MessageUI.AiError(testManageResource.string(R.string.there_is_no_city_with_such_title))
 
-        val actual = weatherInteractor.setDefault(noneExistedCity)
+            val actual = weatherInteractor.setDefault(noneExistedCity)
 
-        Assert.assertEquals(expected, actual)
-    }
+            Assert.assertEquals(expected, actual)
+        }
 
 
     class TestWeatherRepository(

@@ -1,6 +1,6 @@
-package com.github.johnnysc.ecp.data.weather.remote
+package com.github.johnnysc.ecp.data.weather.cloud
 
-import com.github.johnnysc.ecp.data.weather.remote.models.Weather
+import com.github.johnnysc.ecp.data.weather.cloud.models.Weather
 import com.github.johnnysc.ecp.domain.weather.WeatherDomain
 
 interface RemoteWeather {

@@ -4,16 +4,16 @@ import com.github.johnnysc.ecp.domain.weather.CityDomain
 
 interface CityData {
 
-    fun <M> map(mapper: Mapper<M>): M
+    fun <T> map(mapper: Mapper<T>): T
 
     class Base(private val title: String) : CityData {
 
-        override fun <M> map(mapper: Mapper<M>) = mapper.map(title)
+        override fun <T> map(mapper: Mapper<T>) = mapper.map(title)
     }
 
-    interface Mapper<M> {
+    interface Mapper<T> {
 
-        fun map(title: String): M
+        fun map(title: String): T
 
         class BaseToDomain : Mapper<CityDomain> {
 
