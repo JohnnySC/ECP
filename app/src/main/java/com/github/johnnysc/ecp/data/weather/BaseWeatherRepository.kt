@@ -1,7 +1,5 @@
 package com.github.johnnysc.ecp.data.weather
 
-import com.github.johnnysc.coremvvm.data.HandleError
-import com.github.johnnysc.ecp.data.AbstractRepository
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitleException
 import com.github.johnnysc.ecp.data.weather.local.CityLocalDataSource
 import com.github.johnnysc.ecp.data.weather.remote.RemoteWeather
@@ -16,25 +14,23 @@ class BaseWeatherRepository(
     private val cityDataToCityDomainMapper: CityData.Mapper<CityDomain>,
     private val weatherRemoteToWeatherDomainMapper: RemoteWeather.Mapper<WeatherDomain>,
     private val cityDataToTitleMapper: CityData.Mapper<String>,
-    handleError: HandleError
-) : AbstractRepository(handleError), WeatherRepository {
+) : WeatherRepository {
 
-    override suspend fun getWeatherInCity(city: String): WeatherDomain = handle {
+    override suspend fun getWeatherInCity(city: String): WeatherDomain {
         val result = remoteWeatherDataSource.getWeather(city)
         if (result.isEmpty())
             throw ThereIsNoCityWithSuchTitleException()
-        result.map(weatherRemoteToWeatherDomainMapper)
+        return result.map(weatherRemoteToWeatherDomainMapper)
     }
 
-    override suspend fun getWeatherInDefaultCity(): WeatherDomain = handle {
+    override suspend fun getWeatherInDefaultCity(): WeatherDomain =
         remoteWeatherDataSource.getWeather(localCityDataSource.getDefaultCity().map(cityDataToTitleMapper))
             .map(weatherRemoteToWeatherDomainMapper)
-    }
 
-    override suspend fun saveDefaultCity(newCity: String): CityDomain = handle {
+    override suspend fun saveDefaultCity(newCity: String): CityDomain {
         if (remoteWeatherDataSource.getWeather(newCity).isEmpty()) {
             throw ThereIsNoCityWithSuchTitleException()
         }
-        localCityDataSource.saveDefaultCity(newCity).map(cityDataToCityDomainMapper)
+        return localCityDataSource.saveDefaultCity(newCity).map(cityDataToCityDomainMapper)
     }
 }
