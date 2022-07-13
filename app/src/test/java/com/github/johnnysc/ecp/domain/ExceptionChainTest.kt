@@ -8,6 +8,7 @@ import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCityExcep
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.net.UnknownHostException
 
 class ExceptionChainTest {
 
@@ -27,7 +28,7 @@ class ExceptionChainTest {
         val expectedThree =
             MessageUI.AiError("Error! Set default city using this command: My city is X, where X is the name of the city")
 
-        val inputOne = NoInternetConnectionException()
+        val inputOne =UnknownHostException()
         val inputTwo = ThereIsNoCityWithSuchTitleException()
         val inputThree = ThereIsNoDefaultCityException()
 

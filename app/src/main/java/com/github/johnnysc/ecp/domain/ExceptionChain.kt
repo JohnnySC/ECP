@@ -3,6 +3,7 @@ package com.github.johnnysc.ecp.domain
 import com.github.johnnysc.coremvvm.domain.NoInternetConnectionException
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitleException
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCityException
+import java.net.UnknownHostException
 
 interface ExceptionChain {
     fun handle(error: Exception): DomainException
@@ -28,7 +29,7 @@ interface ExceptionChain {
 
     class ThereIsNoConnectionChain(exceptionChain: ExceptionChain) : Base(exceptionChain) {
 
-        override val exceptionClass = NoInternetConnectionException::class.java
+        override val exceptionClass = UnknownHostException::class.java
 
         override fun createDomainException() = DomainException.ThereIsNoConnection()
 

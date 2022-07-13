@@ -11,6 +11,7 @@ import com.github.johnnysc.ecp.presentation.messages.MessageUI
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
+import java.net.UnknownHostException
 
 class WeatherInteractorTest {
 
@@ -203,7 +204,7 @@ class WeatherInteractorTest {
         private fun checkInternetConnection() {
             if (isInternetAvailable)
                 return
-            throw NoInternetConnectionException()
+            throw UnknownHostException()
         }
     }
 
