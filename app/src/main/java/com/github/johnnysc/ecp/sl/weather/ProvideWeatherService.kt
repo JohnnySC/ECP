@@ -1,7 +1,8 @@
-package com.github.johnnysc.ecp.data.weather.remote
+package com.github.johnnysc.ecp.sl.weather
 
 import com.github.johnnysc.coremvvm.data.MakeService
 import com.github.johnnysc.coremvvm.data.ProvideRetrofitBuilder
+import com.github.johnnysc.ecp.data.weather.remote.WeatherService
 
 interface ProvideWeatherService {
 
