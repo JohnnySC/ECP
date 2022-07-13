@@ -24,7 +24,9 @@ interface WeatherInteractor : WeatherInCityUseCase, DefaultCityUseCase, WeatherD
             weatherRepository.getWeatherInDefaultCity().map(weatherDomainToMessageUIMapper)
         }
 
-        override suspend fun setDefault(newCity: String) =
-            handle { weatherRepository.saveDefaultCity(newCity).map(cityDomainToMessageUIMapper) }
+        override suspend fun setDefault(newCity: String) = handle {
+            weatherRepository.saveDefaultCity(newCity)
+            CityDomain.Base(newCity).map(cityDomainToMessageUIMapper)
+        }
     }
 }

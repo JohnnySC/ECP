@@ -193,12 +193,11 @@ class WeatherInteractorTest {
             throw ThereIsNoDefaultCityException()
         }
 
-        override suspend fun saveDefaultCity(newCity: String): CityDomain {
+        override suspend fun saveDefaultCity(newCity: String) {
             val cities = weatherDomainMap.keys
             checkInternetConnection()
-            if (cities.contains(newCity))
-                return CityDomain.Base(newCity)
-            throw ThereIsNoCityWithSuchTitleException()
+            if (!cities.contains(newCity))
+                throw ThereIsNoCityWithSuchTitleException()
         }
 
         private fun checkInternetConnection() {
