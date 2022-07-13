@@ -10,7 +10,7 @@ interface RemoteWeather : IsEmpty {
 
         override fun isEmpty(): Boolean = weather.isEmpty()
 
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(weather.map())
+        override fun <T> map(mapper: Mapper<T>): T = mapper.map(weather.read())
     }
 
     interface Mapper<T> {

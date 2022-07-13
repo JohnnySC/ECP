@@ -1,8 +1,9 @@
 package com.github.johnnysc.ecp.data.weather.cloud
 
+import com.github.johnnysc.coremvvm.core.Read
 import com.google.gson.annotations.SerializedName
 
-interface CurrentWeather : Mapper<Float>, IsEmpty {
+interface CurrentWeather : Read<Float>, IsEmpty {
 
     data class Base(
         @SerializedName("temp") private val temp: Float?
@@ -10,7 +11,7 @@ interface CurrentWeather : Mapper<Float>, IsEmpty {
 
         override fun isEmpty(): Boolean = temp == null
 
-        override fun map(): Float = temp!!
+        override fun read(): Float = temp!!
     }
 }
 
