@@ -14,4 +14,19 @@ interface CityPreferenceDataStore {
 
         override fun read(key: String): String = sharedPreferences.getString(key, null) ?: ""
     }
+
+    class Mock(isDefaultCityAvailable:Boolean):CityPreferenceDataStore {
+        private var defCity:String= if(isDefaultCityAvailable)
+        {
+            "Экибастуз"
+        }
+        else
+            ""
+        override fun save(key: String, data: String) {
+            defCity=data
+        }
+
+        override fun read(key: String)=defCity
+
+    }
 }
