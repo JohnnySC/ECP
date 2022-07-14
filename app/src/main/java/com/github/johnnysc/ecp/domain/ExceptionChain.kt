@@ -29,7 +29,7 @@ interface ExceptionChain {
 
     class ThereIsNoConnectionChain(exceptionChain: ExceptionChain) : Base(exceptionChain) {
 
-        override val exceptionClass = UnknownHostException::class.java
+        override val exceptionClass =NoInternetConnectionException::class.java
 
         override fun createDomainException() = DomainException.ThereIsNoConnection()
 
