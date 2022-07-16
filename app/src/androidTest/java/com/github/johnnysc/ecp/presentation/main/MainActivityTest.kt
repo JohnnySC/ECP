@@ -1,6 +1,8 @@
 package com.github.johnnysc.ecp.presentation.main
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -18,6 +20,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+private const val TAG = "MainActivityTest"
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
 abstract class MainActivityTest {
@@ -31,9 +34,11 @@ abstract class MainActivityTest {
     fun setUp() {
         appContext=ApplicationProvider.getApplicationContext()
         resources=ManageResources.Base(appContext)
+        activityTestRule.launch(Intent(appContext,MainActivity::class.java))
     }
 
     protected fun checkItemText(position: Int, text: String) {
+        Log.d(TAG, "checkItemText: ${RecyclerViewMatcher(R.id.messagesRecyclerView).atPosition(position)}")
         onView(RecyclerViewMatcher(R.id.messagesRecyclerView).atPosition(position)).check(
             matches(
                 withText(text)

@@ -35,8 +35,7 @@
     </style>
 
     <style name="UserMessageStyle" parent="DefaultMessageStyle">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_user_card_custom_corners
-        </item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_user_card_custom_corners</item>
         <item name="android:layout_marginRight">@dimen/default_margin</item>
         <item name="android:layout_marginLeft">@dimen/margin_for_message</item>
         <item name="cardBackgroundColor">@color/user_message_color</item>

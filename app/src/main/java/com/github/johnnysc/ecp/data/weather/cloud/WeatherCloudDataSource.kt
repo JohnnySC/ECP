@@ -22,7 +22,7 @@ interface WeatherCloudDataSource {
         }
 
         companion object {
-            private const val WEATHER_API_KEY = "PLACE YOUR API KEY HERE"
+            private const val WEATHER_API_KEY = "EDKUXQGPXGXE5Y6Y6UREJFVQA"
         }
     }
 

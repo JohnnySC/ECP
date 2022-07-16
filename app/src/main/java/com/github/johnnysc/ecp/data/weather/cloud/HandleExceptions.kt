@@ -3,15 +3,17 @@ package com.github.johnnysc.ecp.data.weather.cloud
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.coremvvm.domain.NoInternetConnectionException
 import com.github.johnnysc.coremvvm.domain.ServiceUnavailableException
+import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitleException
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCityException
 import com.github.johnnysc.ecp.domain.DomainException
 import com.google.gson.stream.MalformedJsonException
+import retrofit2.HttpException
 import java.net.UnknownHostException
 
 class HandleExceptions : HandleError {
     override fun handle(error: Exception) = when (error) {
         is UnknownHostException -> NoInternetConnectionException()
-        is MalformedJsonException->ThereIsNoDefaultCityException()
+        is HttpException->ThereIsNoCityWithSuchTitleException()
         else-> ServiceUnavailableException()
     }
 }

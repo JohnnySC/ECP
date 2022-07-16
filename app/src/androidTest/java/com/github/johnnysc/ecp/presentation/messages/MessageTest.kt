@@ -5,13 +5,14 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.github.johnnysc.ecp.presentation.main.MainActivityTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 class MessageTest : MainActivityTest() {
     private val defaultCity = "Экибастуз"
 
     @Test
-    fun requestForTemperatureInDefaultCityWithInternet() {
+    fun requestForTemperatureInDefaultCityWithInternet() = runBlocking{
         val messagesWithInternetAndDefCity = MessagesWithInternetAndDefCity()
         messagesWithInternetAndDefCity.apply {
             val inputSetDefaultCity =
@@ -38,6 +39,7 @@ class MessageTest : MainActivityTest() {
                 currentTemperatureMessage.createSuccessResponseForTemperatureInDefCity()
             )
         }
+        return@runBlocking
     }
 
     @Test

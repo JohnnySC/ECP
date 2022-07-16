@@ -1,5 +1,6 @@
 package com.github.johnnysc.ecp.sl.weather
 
+import com.github.johnnysc.ecp.data.weather.cloud.HandleExceptions
 import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource
 
 interface ProvideWeatherCloudDataSource {
@@ -8,7 +9,7 @@ interface ProvideWeatherCloudDataSource {
     class Base(private val provideWeatherCloud: ProvideWeatherCloud):ProvideWeatherCloudDataSource
     {
         override fun provideCloudDataSource(): WeatherCloudDataSource {
-            return WeatherCloudDataSource.Base()
+            return WeatherCloudDataSource.Base(HandleExceptions(),provideWeatherCloud.provideWeatherCloud())
         }
     }
 }

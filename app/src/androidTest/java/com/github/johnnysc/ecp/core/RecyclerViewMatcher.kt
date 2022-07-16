@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
+import com.github.johnnysc.ecp.R
 
 class RecyclerViewMatcher (private val recyclerViewId: Int) {
 
@@ -37,7 +38,7 @@ class RecyclerViewMatcher (private val recyclerViewId: Int) {
                     if (recyclerView.id == recyclerViewId) {
                         val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
                         if (viewHolder != null) {
-                            childView = viewHolder.itemView
+                            childView = viewHolder.itemView.findViewById(R.id.messageTextView)
                         }
                     } else {
                         return false
