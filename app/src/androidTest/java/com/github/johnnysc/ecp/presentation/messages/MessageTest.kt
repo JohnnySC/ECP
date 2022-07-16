@@ -1,13 +1,16 @@
 package com.github.johnnysc.ecp.presentation.messages
 
+import android.util.Log
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.github.johnnysc.ecp.presentation.main.MainActivityTest
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
+private const val TAG = "MessageTest"
 class MessageTest : MainActivityTest() {
     private val defaultCity = "Экибастуз"
 
@@ -20,8 +23,9 @@ class MessageTest : MainActivityTest() {
 
             onView(withId(inputTextId)).perform(replaceText(inputSetDefaultCity))
             onView(withId(sendMessage)).perform(click())
-
+            delay(10000)
             checkItemText(defaultCityMessageInputPosition, inputSetDefaultCity)
+            Log.d(TAG, "requestForTemperatureInDefaultCityWithInternet: ")
             checkItemText(
                 successResponseForSetDefCityPosition,
                 defaultCitySetResultMessage.createSuccessResponseForSetDefaultCity(defaultCity)
@@ -32,6 +36,7 @@ class MessageTest : MainActivityTest() {
 
             onView(withId(inputTextId)).perform(replaceText(getWeatherInDefCity))
             onView(withId(sendMessage)).perform(click())
+            Log.d(TAG, "requestForTemperatureInDefaultCityWithInternet: 123")
 
             checkItemText(requestForWeatherInDefaultCity, getWeatherInDefCity)
             checkItemText(

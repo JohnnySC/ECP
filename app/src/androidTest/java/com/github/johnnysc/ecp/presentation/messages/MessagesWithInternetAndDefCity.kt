@@ -7,8 +7,8 @@ class MessagesWithInternetAndDefCity:ViewsIdKeeper() {
     val setDefaultCityCommandID=R.string.set_weather_command_start
     val defaultCitySetResultMessage=R.string.set_weather_command_success
     val currentTemperatureMessage=R.string.weather_response
-    val defaultCityMessageInputPosition=0
+    val defaultCityMessageInputPosition=1
     val successResponseForSetDefCityPosition=0
-    val requestForWeatherInDefaultCity=0
+    val requestForWeatherInDefaultCity=1
     val successResponseForWeatherInDefaultCity=0
 }

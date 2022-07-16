@@ -1,12 +1,16 @@
 package com.github.johnnysc.ecp.core
 
 import android.content.res.Resources
+import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 import com.github.johnnysc.ecp.R
+import kotlin.math.log
 
+private const val TAG = "RecyclerViewMatcher"
 class RecyclerViewMatcher (private val recyclerViewId: Int) {
 
     fun atPosition(position: Int, targetViewId: Int = -1) = atPositionOnView(position, targetViewId)
@@ -37,8 +41,11 @@ class RecyclerViewMatcher (private val recyclerViewId: Int) {
                     val recyclerView = view.rootView.findViewById(recyclerViewId) as RecyclerView
                     if (recyclerView.id == recyclerViewId) {
                         val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
+                        Log.d(TAG, "matchesSafely1: $position ${viewHolder}")
                         if (viewHolder != null) {
                             childView = viewHolder.itemView.findViewById(R.id.messageTextView)
+                            Log.d(TAG, "matchesSafely: ${childView}")
+
                         }
                     } else {
                         return false
@@ -48,6 +55,7 @@ class RecyclerViewMatcher (private val recyclerViewId: Int) {
                 return if (targetViewId == -1) {
                     view === childView
                 } else {
+                    Log.d(TAG, "matchesSafely: 12")
                     val targetView = childView!!.findViewById<View>(targetViewId)
                     view === targetView
                 }

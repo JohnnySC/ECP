@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
@@ -39,6 +40,8 @@ abstract class MainActivityTest {
 
     protected fun checkItemText(position: Int, text: String) {
         Log.d(TAG, "checkItemText: ${RecyclerViewMatcher(R.id.messagesRecyclerView).atPosition(position)}")
+        val typeSafeMatcher=RecyclerViewMatcher(R.id.messagesRecyclerView).atPosition(position)
+
         onView(RecyclerViewMatcher(R.id.messagesRecyclerView).atPosition(position)).check(
             matches(
                 withText(text)
