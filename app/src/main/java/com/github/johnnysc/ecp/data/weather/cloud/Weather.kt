@@ -8,8 +8,6 @@ interface Weather : Read<Float> {
     data class Base(
         @SerializedName("currentConditions") val currentWeather: CurrentWeather.Base
     ) : Weather {
-
-
         override fun read(): Float = currentWeather.read()
     }
 }

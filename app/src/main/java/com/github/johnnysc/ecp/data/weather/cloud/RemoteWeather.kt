@@ -8,8 +8,6 @@ interface RemoteWeather {
 
     class Base(private val weather: Weather) : RemoteWeather {
 
-
-
         override fun <T> map(mapper: Mapper<T>): T = mapper.map(weather.read())
     }
 
