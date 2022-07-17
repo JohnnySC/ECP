@@ -1,7 +1,18 @@
 package com.github.johnnysc.ecp.data.weather.cloud
 
+import android.content.Context
 import com.github.johnnysc.coremvvm.data.CloudDataSource
 import com.github.johnnysc.coremvvm.data.HandleError
+import com.github.johnnysc.ecp.R
+import com.github.johnnysc.ecp.core.RawResourceReader
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
+import retrofit2.HttpException
+import retrofit2.Response
+import java.net.UnknownHostException
 
 interface WeatherCloudDataSource {
 
