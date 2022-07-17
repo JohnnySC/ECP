@@ -1,0 +1,270 @@
+{
+  "queryCost": 1,
+  "latitude": 43.2507,
+  "longitude": 76.8881,
+  "resolvedAddress": "Алматы, Қазақстан",
+  "address": "Алматы",
+  "timezone": "Asia/Almaty",
+  "tzoffset": 6.0,
+  "days": [
+    {
+      "tempmax": 39.1,
+      "tempmin": 20.8,
+      "temp": 30.2,
+      "normal": {
+        "tempmax": [
+          20.4,
+          31.2,
+          38.0
+        ],
+        "tempmin": [
+          12.1,
+          17.3,
+          23.1
+        ]
+      }
+    },
+    {
+      "tempmax": 37.2,
+      "tempmin": 22.2,
+      "temp": 29.3,
+      "normal": {
+        "tempmax": [
+          23.1,
+          31.7,
+          37.5
+        ],
+        "tempmin": [
+          12.4,
+          17.4,
+          21.0
+        ]
+      }
+    },
+    {
+      "tempmax": 35.2,
+      "tempmin": 19.0,
+      "temp": 27.3,
+      "normal": {
+        "tempmax": [
+          20.1,
+          30.8,
+          38.0
+        ],
+        "tempmin": [
+          12.1,
+          17.5,
+          22.1
+        ]
+      }
+    },
+    {
+      "tempmax": 37.0,
+      "tempmin": 18.6,
+      "temp": 27.7,
+      "normal": {
+        "tempmax": [
+          27.1,
+          32.2,
+          41.1
+        ],
+        "tempmin": [
+          12.1,
+          16.4,
+          22.5
+        ]
+      }
+    },
+    {
+      "tempmax": 39.4,
+      "tempmin": 18.4,
+      "temp": 29.3,
+      "normal": {
+        "tempmax": [
+          25.1,
+          31.9,
+          37.0
+        ],
+        "tempmin": [
+          14.0,
+          18.2,
+          26.7
+        ]
+      }
+    },
+    {
+      "tempmax": 42.3,
+      "tempmin": 21.8,
+      "temp": 32.2,
+      "normal": {
+        "tempmax": [
+          20.1,
+          30.7,
+          36.1
+        ],
+        "tempmin": [
+          12.9,
+          17.5,
+          22.6
+        ]
+      }
+    },
+    {
+      "tempmax": 42.4,
+      "tempmin": 23.7,
+      "temp": 33.2,
+      "normal": {
+        "tempmax": [
+          25.1,
+          31.3,
+          38.1
+        ],
+        "tempmin": [
+          11.4,
+          17.8,
+          23.1
+        ]
+      }
+    },
+    {
+      "tempmax": 46.0,
+      "tempmin": 24.8,
+      "temp": 35.6,
+      "normal": {
+        "tempmax": [
+          22.1,
+          30.7,
+          35.5
+        ],
+        "tempmin": [
+          11.9,
+          16.9,
+          23.0
+        ]
+      }
+    },
+    {
+      "tempmax": 38.9,
+      "tempmin": 26.6,
+      "temp": 33.1,
+      "normal": {
+        "tempmax": [
+          24.1,
+          31.2,
+          38.1
+        ],
+        "tempmin": [
+          11.1,
+          17.0,
+          25.1
+        ]
+      }
+    },
+    {
+      "tempmax": 34.6,
+      "tempmin": 21.5,
+      "temp": 28.1,
+      "normal": {
+        "tempmax": [
+          24.1,
+          30.9,
+          37.0
+        ],
+        "tempmin": [
+          12.1,
+          16.3,
+          20.0
+        ]
+      }
+    },
+    {
+      "tempmax": 31.2,
+      "tempmin": 20.0,
+      "temp": 25.1,
+      "normal": {
+        "tempmax": [
+          20.1,
+          30.9,
+          38.0
+        ],
+        "tempmin": [
+          12.1,
+          16.7,
+          21.1
+        ]
+      }
+    },
+    {
+      "tempmax": 38.4,
+      "tempmin": 21.0,
+      "temp": 28.9,
+      "normal": {
+        "tempmax": [
+          20.1,
+          30.4,
+          37.0
+        ],
+        "tempmin": [
+          11.1,
+          17.0,
+          21.1
+        ]
+      }
+    },
+    {
+      "tempmax": 37.5,
+      "tempmin": 22.8,
+      "temp": 28.8,
+      "normal": {
+        "tempmax": [
+          18.1,
+          30.5,
+          37.0
+        ],
+        "tempmin": [
+          7.1,
+          16.5,
+          21.1
+        ]
+      }
+    },
+    {
+      "tempmax": 36.8,
+      "tempmin": 24.3,
+      "temp": 29.3,
+      "normal": {
+        "tempmax": [
+          17.1,
+          31.2,
+          38.1
+        ],
+        "tempmin": [
+          9.1,
+          16.2,
+          21.6
+        ]
+      }
+    },
+    {
+      "tempmax": 36.3,
+      "tempmin": 22.7,
+      "temp": 29.0,
+      "normal": {
+        "tempmax": [
+          18.1,
+          31.0,
+          38.1
+        ],
+        "tempmin": [
+          11.1,
+          16.7,
+          23.1
+        ]
+      }
+    }
+  ],
+  "alerts": [],
+  "currentConditions": {
+    "temp": 34.0
+  }
+}
