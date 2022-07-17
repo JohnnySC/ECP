@@ -41,11 +41,8 @@ class RecyclerViewMatcher (private val recyclerViewId: Int) {
                     val recyclerView = view.rootView.findViewById(recyclerViewId) as RecyclerView
                     if (recyclerView.id == recyclerViewId) {
                         val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
-                        Log.d(TAG, "matchesSafely1: $position ${viewHolder}")
                         if (viewHolder != null) {
                             childView = viewHolder.itemView.findViewById(R.id.messageTextView)
-                            Log.d(TAG, "matchesSafely: ${childView}")
-
                         }
                     } else {
                         return false
@@ -55,7 +52,6 @@ class RecyclerViewMatcher (private val recyclerViewId: Int) {
                 return if (targetViewId == -1) {
                     view === childView
                 } else {
-                    Log.d(TAG, "matchesSafely: 12")
                     val targetView = childView!!.findViewById<View>(targetViewId)
                     view === targetView
                 }

@@ -1,12 +1,18 @@
 package com.github.johnnysc.ecp.data.weather.cloud
 
+import android.content.Context
 import com.github.johnnysc.coremvvm.data.CloudDataSource
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.core.RawResourceReader
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.security.PrivateKey
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
+import retrofit2.HttpException
+import retrofit2.Response
+import java.net.UnknownHostException
 
 interface WeatherCloudDataSource {
 
@@ -28,31 +34,61 @@ interface WeatherCloudDataSource {
 
     class Mock(
         private val rawResourceReader: RawResourceReader,
-        private val gson: Gson
-    ) : WeatherCloudDataSource {
+        private val gson: Gson,
+        handleError: HandleError
+    ) : WeatherCloudDataSource, CloudDataSource.Abstract(handleError) {
         private val typeToken = WeatherResponseToken()
-        override suspend fun getWeather(cityName: String) = when (cityName) {
-            "Екибастуз" -> {
-                fetchWeather(R.raw.wether_succesfull_responce_for_ekibastuz)
-            }
-            "Алматы" -> {
-                fetchWeather(R.raw.weather_succesfull_responce_for_almaty)
-            }
-            else -> {
-                fetchWeather(R.raw.weather_invalid_loc_response)
-            }
+        override suspend fun getWeather(cityName: String) = handle {
+            if (InternetAvailability.getIsInternetAvailable())
+                when (cityName) {
+                    "Екибастуз" -> {
+                        fetchWeather(R.raw.wether_succesfull_responce_for_ekibastuz)
+                    }
+                    "Алматы" -> {
+                        fetchWeather(R.raw.weather_succesfull_responce_for_almaty)
+                    }
+                    else -> {
+
+                        throw HttpException(
+                            Response.error<ResponseBody>(
+                                404,
+                                "some content".toResponseBody("plain/text".toMediaTypeOrNull())
+                            )
+                        )
+                    }
+                }
+            else
+                throw UnknownHostException()
         }
 
+        private fun fetchWeather(idOfResponse: Int): RemoteWeather =
+            RemoteWeather.Base(
+                gson.fromJson(getMockedResponseString(idOfResponse), typeToken.type)
+            )
 
-        fun fetchWeather(idOfResponse: Int): RemoteWeather =
-            gson.fromJson(getMockedResponseString(idOfResponse), typeToken.type)
+        private fun getMockedResponseString(idOfResponse: Int): String {
 
+            val result = rawResourceReader.readText(idOfResponse)
 
-        fun getMockedResponseString(idOfResponse: Int) =
-            rawResourceReader.readText(idOfResponse)
+            return result
+        }
 
-        class WeatherResponseToken : TypeToken<RemoteWeather>()
+        class WeatherResponseToken : TypeToken<Weather.Base>()
 
+    }
+
+    class MockData(private val context: Context) : RawResourceReader {
+        override fun readText(id: Int) =
+            context.resources.openRawResource(id).bufferedReader().readText()
+    }
+
+    object InternetAvailability {
+        private var isInternetAvailable = false
+        fun setInternetAvailable(isInternetAvailable: Boolean) {
+            this.isInternetAvailable = isInternetAvailable
+        }
+
+        fun getIsInternetAvailable() = isInternetAvailable
     }
 }
 

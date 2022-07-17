@@ -27,7 +27,7 @@ class MainApplication : Application(), ProvideViewModel {
         )
         val manageResources:ManageResources=BaseManageResources(this)
         val provideIDontUnderstandYouViewModelChain=ProvideIDontUnderstandYouViewModelChain(manageResources)
-        val provideWeatherViewModelChain= ProvideWeatherViewModelChain(coreModule,manageResources)
+        val provideWeatherViewModelChain= ProvideWeatherViewModelChain(coreModule,this)
         val provideViewModelChain=ProvideViewModelChain.Base(provideWeatherViewModelChain,provideIDontUnderstandYouViewModelChain)
         val messagesDependencyContainer = MessagesDependencyContainer(main, coreModule,provideViewModelChain.viewModelChain())
         viewModelsFactory = ViewModelsFactory(messagesDependencyContainer)

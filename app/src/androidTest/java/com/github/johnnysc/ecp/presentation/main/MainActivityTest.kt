@@ -2,18 +2,18 @@ package com.github.johnnysc.ecp.presentation.main
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
+
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.withId
+
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.github.johnnysc.coremvvm.core.ManageResources
 import com.github.johnnysc.ecp.core.RecyclerViewMatcher
 import com.github.johnnysc.ecp.core.lazyActivityScenarioRule
-import org.junit.Assert.*
+
 import com.github.johnnysc.ecp.R
 
 import org.junit.Before
@@ -39,8 +39,7 @@ abstract class MainActivityTest {
     }
 
     protected fun checkItemText(position: Int, text: String) {
-        Log.d(TAG, "checkItemText: ${RecyclerViewMatcher(R.id.messagesRecyclerView).atPosition(position)}")
-        val typeSafeMatcher=RecyclerViewMatcher(R.id.messagesRecyclerView).atPosition(position)
+
 
         onView(RecyclerViewMatcher(R.id.messagesRecyclerView).atPosition(position)).check(
             matches(
@@ -49,7 +48,18 @@ abstract class MainActivityTest {
         )
     }
 
-    protected fun String.checkExistenceOfItemView(position: Int) {
-        checkItemText(position, this)
-    }
+    protected fun Int.createRequestForDefaultCitySet(cityName: String) =
+        "${resources.string(this)} $cityName"
+
+    protected fun Int.createRequestForWeatherInCity(cityName: String) =
+        "${resources.string(this)} $cityName"
+
+    protected fun Int.createStringFromId() =
+        resources.string(this)
+
+    protected fun Int.createSuccessResponseForSetDefaultCity(cityName: String) =
+        resources.string(this).format(cityName)
+
+    protected fun Int.createSuccessResponseForTemperatureInCity(temperature:Float) =
+        resources.string(this).format(temperature)
 }
