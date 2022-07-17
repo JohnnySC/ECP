@@ -57,7 +57,6 @@ class MessagesTest : MainActivityTest() {
 
             checkItemText(userInputPos, input)
             checkItemText(aiResponsePosition,currentTemperatureMessageId.createSuccessResponseForTemperatureInCity(34.0F))
-
         }
         return@runBlocking
     }
@@ -73,7 +72,6 @@ class MessagesTest : MainActivityTest() {
             onView(withId(sendMessage)).perform(click())
             checkItemText(userInputPos, input)
             checkItemText(aiResponsePosition,thereIsNoCityWithSuchTitle.createStringFromId())
-
         }
         return@runBlocking
 

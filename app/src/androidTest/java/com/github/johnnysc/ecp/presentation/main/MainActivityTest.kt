@@ -39,8 +39,6 @@ abstract class MainActivityTest {
     }
 
     protected fun checkItemText(position: Int, text: String) {
-
-
         onView(RecyclerViewMatcher(R.id.messagesRecyclerView).atPosition(position)).check(
             matches(
                 withText(text)

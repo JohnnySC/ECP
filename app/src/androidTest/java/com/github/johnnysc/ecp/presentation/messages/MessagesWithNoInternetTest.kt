@@ -43,8 +43,6 @@ class MessagesWithNoInternetTest : MainActivityTest() {
             onView(ViewMatchers.withId(sendMessage)).perform(ViewActions.click())
             checkItemText(userInputPos, input)
             checkItemText(aiResponsePosition, theresIsNoConnectionId.createStringFromId())
-
-
         }
         return@runBlocking
     }
