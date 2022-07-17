@@ -9,6 +9,8 @@ interface WeatherCloud {
     @GET("timeline/{location}")
     suspend fun getWeather(
         @Path("location") location: String,
-        @Query("key") key: String
+        @Query("key") key: String,
+        @Query("unitGroup") units: String,
+        @Query("include") include: String
     ): Weather.Base
 }
