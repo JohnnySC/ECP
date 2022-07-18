@@ -5,7 +5,7 @@ plugins {
 
 android {
     compileSdk 32
-
+    testBuildType "uitests"
     defaultConfig {
         applicationId "com.github.johnnysc.ecp"
         minSdk 21
@@ -22,9 +22,13 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             buildConfigField "boolean", "USE_MOCKS", "false"
         }
-        debug {
+        debug{
+            buildConfigField "boolean", "USE_MOCKS", "false"
+        }
+        uitests{
+            initWith debug
             buildConfigField "boolean", "USE_MOCKS", "true"
-            debuggable = true
+
         }
     }
 
