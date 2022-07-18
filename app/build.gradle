@@ -28,7 +28,6 @@ android {
         uitests{
             initWith debug
             buildConfigField "boolean", "USE_MOCKS", "true"
-
         }
     }
 
