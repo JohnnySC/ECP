@@ -23,47 +23,53 @@ class MessagesWithNoInternetTest : MainActivityTest() {
     private val noneExistedCity = "Ротрстан"
 
     @Test
-    fun allMethodsWithoutInternetFirstPart(): Unit = runBlocking {
+    fun setDefaultCityWhenNoInternetMustNoConnectionMessage(): Unit = runBlocking {
         WeatherCloudDataSource.InternetAvailability.setInternetAvailable(false)
-        var input =
-            setDefaultCityCommandID.createRequestForDefaultCitySet(defaultCity)
-
+        val input = setDefaultCityCommandID.createRequestForDefaultCitySet(defaultCity)
         onView(ViewMatchers.withId(inputTextId))
             .perform(ViewActions.replaceText(input))
         onView(ViewMatchers.withId(sendMessage)).perform(ViewActions.click())
         checkItemText(0, input)
         checkItemText(1, theresIsNoConnectionId.createStringFromId())
-
-        input = inputStringForNotDefCityID.createRequestForWeatherInCity(cityName)
-        onView(ViewMatchers.withId(inputTextId))
-            .perform(ViewActions.replaceText(input))
-        onView(ViewMatchers.withId(sendMessage)).perform(ViewActions.click())
-
-        checkItemText(2, input)
-        checkItemText(3, theresIsNoConnectionId.createStringFromId())
-
-        input =
-            setDefaultCityCommandID.createRequestForDefaultCitySet(noneExistedCity)
-        onView(ViewMatchers.withId(inputTextId))
-            .perform(ViewActions.replaceText(input))
-        onView(ViewMatchers.withId(sendMessage)).perform(ViewActions.click())
-        checkItemText(4, input)
-        checkItemText(5, theresIsNoConnectionId.createStringFromId())
     }
 
     @Test
-    fun allMethodsWithoutInternetSecondPart(): Unit = runBlocking {
+    fun setDefaultCityWhenNoInternetAndCityNotExistMustNoConnectionMessage(): Unit = runBlocking {
         WeatherCloudDataSource.InternetAvailability.setInternetAvailable(false)
-        val input = inputStringForNotDefCityID.createRequestForWeatherInCity(noneExistedCity)
+        val input = setDefaultCityCommandID.createRequestForDefaultCitySet(noneExistedCity)
         onView(ViewMatchers.withId(inputTextId))
             .perform(ViewActions.replaceText(input))
         onView(ViewMatchers.withId(sendMessage)).perform(ViewActions.click())
         checkItemText(0, input)
         checkItemText(1, theresIsNoConnectionId.createStringFromId())
-        onView(ViewMatchers.withId(inputTextId))
-            .perform(ViewActions.replaceText(incorrectMessage))
+    }
+
+    @Test
+    fun weatherInCityWhenNoInternetMustNoConnectionMessage(): Unit = runBlocking {
+        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(false)
+        val input = inputStringForNotDefCityID.createRequestForWeatherInCity(cityName)
+        onView(ViewMatchers.withId(inputTextId)).perform(ViewActions.replaceText(input))
         onView(ViewMatchers.withId(sendMessage)).perform(ViewActions.click())
-        checkItemText(2, incorrectMessage)
-        checkItemText(3, iCanUnderstandYou.createStringFromId())
+        checkItemText(0, input)
+        checkItemText(1, theresIsNoConnectionId.createStringFromId())
+    }
+
+    @Test
+    fun weatherInCityWhenNoInternetAndCityNotExistMustNoConnectionMessage(): Unit = runBlocking {
+        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(false)
+        val input = inputStringForNotDefCityID.createRequestForWeatherInCity(noneExistedCity)
+        onView(ViewMatchers.withId(inputTextId)).perform(ViewActions.replaceText(input))
+        onView(ViewMatchers.withId(sendMessage)).perform(ViewActions.click())
+        checkItemText(0, input)
+        checkItemText(1, theresIsNoConnectionId.createStringFromId())
+    }
+
+    @Test
+    fun incorrectMessageWhenNoInternetMustNoConnectionMessage(): Unit = runBlocking {
+        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(false)
+        onView(ViewMatchers.withId(inputTextId)).perform(ViewActions.replaceText(incorrectMessage))
+        onView(ViewMatchers.withId(sendMessage)).perform(ViewActions.click())
+        checkItemText(0, incorrectMessage)
+        checkItemText(1, iCanUnderstandYou.createStringFromId())
     }
 }
