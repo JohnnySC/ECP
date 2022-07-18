@@ -6,7 +6,6 @@ import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource
 import com.github.johnnysc.ecp.presentation.main.MainActivityTest
-import com.github.johnnysc.ecp.presentation.messages.Messages.aiResponsePosition
 import com.github.johnnysc.ecp.presentation.messages.Messages.currentTemperatureMessageId
 import com.github.johnnysc.ecp.presentation.messages.Messages.defaultCitySetResultMessageId
 import com.github.johnnysc.ecp.presentation.messages.Messages.iCanUnderstandYou
@@ -17,7 +16,6 @@ import com.github.johnnysc.ecp.presentation.messages.Messages.inputTextId
 import com.github.johnnysc.ecp.presentation.messages.Messages.sendMessage
 import com.github.johnnysc.ecp.presentation.messages.Messages.setDefaultCityCommandID
 import com.github.johnnysc.ecp.presentation.messages.Messages.thereIsNoCityWithSuchTitle
-import com.github.johnnysc.ecp.presentation.messages.Messages.userInputPos
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
@@ -31,26 +29,19 @@ class MessagesTest : MainActivityTest() {
     @Test
     fun requestForTemperatureInDefaultCityWithInternet() = runBlocking {
         WeatherCloudDataSource.InternetAvailability.setInternetAvailable(true)
-        val input =
-            setDefaultCityCommandID.createRequestForDefaultCitySet(defaultCity)
+        val input = setDefaultCityCommandID.createRequestForDefaultCitySet(defaultCity)
 
         onView(withId(inputTextId)).perform(replaceText(input))
         onView(withId(sendMessage)).perform(click())
-        checkItemText(userInputPos, input)
-        checkItemText(
-            aiResponsePosition,
-            defaultCitySetResultMessageId.createSuccessResponseForSetDefaultCity(defaultCity)
-        )
+        checkItemText(0, input)
+        checkItemText(1, defaultCitySetResultMessageId.createSuccessResponseForSetDefaultCity(defaultCity))
         val getWeatherInDefCity = inputStringForDefCityOneID.createStringFromId()
 
         onView(withId(inputTextId)).perform(replaceText(getWeatherInDefCity))
         onView(withId(sendMessage)).perform(click())
 
-        checkItemText(userInputPos, getWeatherInDefCity)
-        checkItemText(
-            aiResponsePosition,
-            currentTemperatureMessageId.createSuccessResponseForTemperatureInCity(25.8F)
-        )
+        checkItemText(2, getWeatherInDefCity)
+        checkItemText(3, currentTemperatureMessageId.createSuccessResponseForTemperatureInCity(25.8F))
     }
 
     @Test
@@ -60,22 +51,18 @@ class MessagesTest : MainActivityTest() {
         onView(withId(inputTextId)).perform(replaceText(input))
         onView(withId(sendMessage)).perform(click())
 
-        checkItemText(userInputPos, input)
-        checkItemText(
-            aiResponsePosition,
-            currentTemperatureMessageId.createSuccessResponseForTemperatureInCity(34.0F)
-        )
+        checkItemText(0, input)
+        checkItemText(1, currentTemperatureMessageId.createSuccessResponseForTemperatureInCity(34.0F))
     }
 
     @Test
     fun requestForDefCitySetWithNoneExistedCity(): Unit = runBlocking {
         WeatherCloudDataSource.InternetAvailability.setInternetAvailable(true)
-        val input =
-            setDefaultCityCommandID.createRequestForDefaultCitySet(noneExistedCity)
+        val input = setDefaultCityCommandID.createRequestForDefaultCitySet(noneExistedCity)
         onView(withId(inputTextId)).perform(replaceText(input))
         onView(withId(sendMessage)).perform(click())
-        checkItemText(userInputPos, input)
-        checkItemText(aiResponsePosition, thereIsNoCityWithSuchTitle.createStringFromId())
+        checkItemText(0, input)
+        checkItemText(1, thereIsNoCityWithSuchTitle.createStringFromId())
     }
 
     @Test
@@ -84,8 +71,8 @@ class MessagesTest : MainActivityTest() {
         val input = inputStringForNotDefCityID.createRequestForWeatherInCity(noneExistedCity)
         onView(withId(inputTextId)).perform(replaceText(input))
         onView(withId(sendMessage)).perform(click())
-        checkItemText(userInputPos, input)
-        checkItemText(aiResponsePosition, thereIsNoCityWithSuchTitle.createStringFromId())
+        checkItemText(0, input)
+        checkItemText(1, thereIsNoCityWithSuchTitle.createStringFromId())
     }
 
     @Test
@@ -93,7 +80,7 @@ class MessagesTest : MainActivityTest() {
         WeatherCloudDataSource.InternetAvailability.setInternetAvailable(true)
         onView(withId(inputTextId)).perform(replaceText(incorrectMessage))
         onView(withId(sendMessage)).perform(click())
-        checkItemText(userInputPos, incorrectMessage)
-        checkItemText(aiResponsePosition, iCanUnderstandYou.createStringFromId())
+        checkItemText(0, incorrectMessage)
+        checkItemText(1, iCanUnderstandYou.createStringFromId())
     }
 }

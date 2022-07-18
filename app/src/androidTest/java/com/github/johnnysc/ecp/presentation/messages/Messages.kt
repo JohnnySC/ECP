@@ -15,7 +15,4 @@ object Messages {
 
     const val inputTextId = R.id.messageEditText
     const val sendMessage = R.id.sendMessageButton
-
-    const val userInputPos = 1
-    const val aiResponsePosition = 0
 }

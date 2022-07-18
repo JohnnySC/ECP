@@ -20,8 +20,6 @@ class MessagesFragment : BaseFragment<MessagesViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         val messagesRecyclerView = view.findViewById<RecyclerView>(R.id.messagesRecyclerView)
         val messageAdapter = MessageAdapter()
-        messagesRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
         messagesRecyclerView.adapter = messageAdapter
         val messageInput = view.findViewById<MessageEditText>(R.id.messageEditText)
         val sendMessageButton = view.findViewById<FloatingActionButton>(R.id.sendMessageButton)
