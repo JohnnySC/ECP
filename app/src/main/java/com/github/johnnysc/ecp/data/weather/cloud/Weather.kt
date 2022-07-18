@@ -6,8 +6,9 @@ import com.google.gson.annotations.SerializedName
 interface Weather : Read<Float> {
 
     data class Base(
-        @SerializedName("currentConditions") val currentWeather: CurrentWeather.Base
+        @SerializedName("currentConditions") private val currentWeather: CurrentWeather.Base
     ) : Weather {
+
         override fun read(): Float = currentWeather.read()
     }
 }

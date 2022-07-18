@@ -1,7 +1,6 @@
 package com.github.johnnysc.ecp.sl.weather
 
 import android.content.Context
-import com.github.johnnysc.coremvvm.BuildConfig
 
 import com.github.johnnysc.coremvvm.core.ManageResources
 import com.github.johnnysc.coremvvm.sl.CoreModule

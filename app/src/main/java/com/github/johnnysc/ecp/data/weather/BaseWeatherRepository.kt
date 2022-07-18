@@ -1,12 +1,10 @@
 package com.github.johnnysc.ecp.data.weather
 
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitleException
 import com.github.johnnysc.ecp.data.weather.cache.CityCacheDataSource
 import com.github.johnnysc.ecp.data.weather.cloud.RemoteWeather
 import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource
 import com.github.johnnysc.ecp.domain.weather.WeatherDomain
 import com.github.johnnysc.ecp.domain.weather.WeatherRepository
-import retrofit2.HttpException
 
 class BaseWeatherRepository(
     private val weatherCloudDataSource: WeatherCloudDataSource,
@@ -15,10 +13,8 @@ class BaseWeatherRepository(
     private val cityDataToTitleMapper: CityData.Mapper<String>
 ) : WeatherRepository {
 
-    override suspend fun getWeatherInCity(city: String): WeatherDomain {
-        var result = weatherCloudDataSource.getWeather(city)
-        return result.map(weatherRemoteToWeatherDomainMapper)
-    }
+    override suspend fun getWeatherInCity(city: String): WeatherDomain =
+        weatherCloudDataSource.getWeather(city).map(weatherRemoteToWeatherDomainMapper)
 
     override suspend fun getWeatherInDefaultCity(): WeatherDomain =
         getWeatherInCity(cityCacheDataSource.getDefaultCity().map(cityDataToTitleMapper))

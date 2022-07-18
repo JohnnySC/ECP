@@ -10,13 +10,11 @@ class MessagesDependencyContainer(
     private val dependencyContainer: DependencyContainer,
     private val coreModule: CoreModule,
     private val viewModelChain: ViewModelChain,
-
 ) : DependencyContainer {
 
-    override fun <T : ViewModel> module(clazz: Class<T>) =
-        if (clazz == MessagesViewModel::class.java) {
-            MessagesModule(coreModule,viewModelChain)
-        } else {
-            dependencyContainer.module(clazz)
-        }
+    override fun <T : ViewModel> module(clazz: Class<T>) = if (clazz == MessagesViewModel::class.java) {
+        MessagesModule(coreModule, viewModelChain)
+    } else {
+        dependencyContainer.module(clazz)
+    }
 }

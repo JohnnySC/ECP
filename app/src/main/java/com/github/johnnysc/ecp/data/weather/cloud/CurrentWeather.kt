@@ -9,8 +9,6 @@ interface CurrentWeather : Read<Float> {
         @SerializedName("temp") val temp: Float?
     ) : CurrentWeather {
 
-
-
         override fun read(): Float = temp!!
     }
 }

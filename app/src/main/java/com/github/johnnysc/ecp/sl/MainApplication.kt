@@ -10,7 +10,6 @@ import com.github.johnnysc.coremvvm.sl.DependencyContainer
 import com.github.johnnysc.coremvvm.sl.ProvideViewModel
 import com.github.johnnysc.coremvvm.sl.ViewModelsFactory
 import com.github.johnnysc.ecp.core.BaseManageResources
-import com.github.johnnysc.ecp.presentation.messages.FeatureChain
 import com.github.johnnysc.ecp.sl.main.MainDependencyContainer
 import com.github.johnnysc.ecp.sl.message.MessagesDependencyContainer
 import com.github.johnnysc.ecp.sl.weather.*
@@ -25,11 +24,13 @@ class MainApplication : Application(), ProvideViewModel {
         val main = MainDependencyContainer(
             DependencyContainer.Error()
         )
-        val manageResources:ManageResources=BaseManageResources(this)
-        val provideIDontUnderstandYouViewModelChain=ProvideIDontUnderstandYouViewModelChain(manageResources)
-        val provideWeatherViewModelChain= ProvideWeatherViewModelChain(coreModule,this)
-        val provideViewModelChain=ProvideViewModelChain.Base(provideWeatherViewModelChain,provideIDontUnderstandYouViewModelChain)
-        val messagesDependencyContainer = MessagesDependencyContainer(main, coreModule,provideViewModelChain.viewModelChain())
+        val manageResources: ManageResources = BaseManageResources(this)
+        val provideIDontUnderstandYouViewModelChain = ProvideIDontUnderstandYouViewModelChain(manageResources)
+        val provideWeatherViewModelChain = ProvideWeatherViewModelChain(coreModule, this)
+        val provideViewModelChain =
+            ProvideViewModelChain.Base(provideWeatherViewModelChain, provideIDontUnderstandYouViewModelChain)
+        val messagesDependencyContainer =
+            MessagesDependencyContainer(main, coreModule, provideViewModelChain.viewModelChain())
         viewModelsFactory = ViewModelsFactory(messagesDependencyContainer)
     }
 

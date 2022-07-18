@@ -1,14 +1,11 @@
 package com.github.johnnysc.ecp.core
 
 import android.content.res.Resources
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 import com.github.johnnysc.ecp.R
-import kotlin.math.log
 
 class RecyclerViewMatcher(private val recyclerViewId: Int) {
 
@@ -20,7 +17,7 @@ class RecyclerViewMatcher(private val recyclerViewId: Int) {
             var childView: View? = null
 
             override fun describeTo(description: Description) {
-                var idDescription = Integer.toString(recyclerViewId)
+                var idDescription = recyclerViewId.toString()
                 if (this.resources != null) {
                     idDescription = try {
                         this.resources!!.getResourceName(recyclerViewId)
