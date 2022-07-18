@@ -73,13 +73,10 @@ interface WeatherCloudDataSource {
 
         private fun getMockedResponseString(idOfResponse: Int): String {
 
-            val result = rawResourceReader.readText(idOfResponse)
-
-            return result
+            return rawResourceReader.readText(idOfResponse)
         }
 
         class WeatherResponseToken : TypeToken<Weather.Base>()
-
     }
 
     class MockData(private val context: Context) : RawResourceReader {

@@ -10,8 +10,7 @@ import org.hamcrest.TypeSafeMatcher
 import com.github.johnnysc.ecp.R
 import kotlin.math.log
 
-private const val TAG = "RecyclerViewMatcher"
-class RecyclerViewMatcher (private val recyclerViewId: Int) {
+class RecyclerViewMatcher(private val recyclerViewId: Int) {
 
     fun atPosition(position: Int, targetViewId: Int = -1) = atPositionOnView(position, targetViewId)
 

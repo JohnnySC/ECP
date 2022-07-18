@@ -18,31 +18,27 @@ import com.github.johnnysc.ecp.R
 
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
 
-private const val TAG = "MainActivityTest"
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
 abstract class MainActivityTest {
     @get:Rule
     val activityTestRule = lazyActivityScenarioRule<MainActivity>(launchActivity = false)
 
-    protected lateinit var resources: ManageResources
-    protected lateinit var appContext:Context
+    private lateinit var resources: ManageResources
+    private lateinit var appContext: Context
 
     @Before
     fun setUp() {
-        appContext=ApplicationProvider.getApplicationContext()
-        resources=ManageResources.Base(appContext)
-        activityTestRule.launch(Intent(appContext,MainActivity::class.java))
+        appContext = ApplicationProvider.getApplicationContext()
+        resources = ManageResources.Base(appContext)
+        activityTestRule.launch(Intent(appContext, MainActivity::class.java))
     }
 
     protected fun checkItemText(position: Int, text: String) {
         onView(RecyclerViewMatcher(R.id.messagesRecyclerView).atPosition(position)).check(
-            matches(
-                withText(text)
-            )
+            matches(withText(text))
         )
     }
 
@@ -58,6 +54,6 @@ abstract class MainActivityTest {
     protected fun Int.createSuccessResponseForSetDefaultCity(cityName: String) =
         resources.string(this).format(cityName)
 
-    protected fun Int.createSuccessResponseForTemperatureInCity(temperature:Float) =
+    protected fun Int.createSuccessResponseForTemperatureInCity(temperature: Float) =
         resources.string(this).format(temperature)
 }

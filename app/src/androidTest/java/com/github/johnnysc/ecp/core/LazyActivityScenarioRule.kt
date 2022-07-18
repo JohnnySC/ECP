@@ -5,18 +5,7 @@ import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import org.junit.rules.ExternalResource
 
-/**
- * Use this class to do something before starting activity
- * for example clear database
- *
- * @author Asatryan on 28.07.2021
- **/
 class LazyActivityScenarioRule<A : Activity> : ExternalResource {
-
-    constructor(launchActivity: Boolean, startActivityIntentSupplier: () -> Intent) {
-        this.launchActivity = launchActivity
-        scenarioSupplier = { ActivityScenario.launch(startActivityIntentSupplier()) }
-    }
 
     constructor(launchActivity: Boolean, startActivityIntent: Intent) {
         this.launchActivity = launchActivity
@@ -55,21 +44,7 @@ class LazyActivityScenarioRule<A : Activity> : ExternalResource {
         scenario = scenarioSupplier()
         scenarioLaunched = true
     }
-
-    fun getScenario(): ActivityScenario<A> = checkNotNull(scenario)
-
-    fun relaunch(intent: Intent) {
-        getScenario().close()
-        scenarioLaunched = false
-        launch(intent)
-    }
 }
-
-inline fun <reified A : Activity> lazyActivityScenarioRule(
-    launchActivity: Boolean = true,
-    noinline intentSupplier: () -> Intent
-): LazyActivityScenarioRule<A> =
-    LazyActivityScenarioRule(launchActivity, intentSupplier)
 
 inline fun <reified A : Activity> lazyActivityScenarioRule(
     launchActivity: Boolean = true,
