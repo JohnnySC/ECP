@@ -1,6 +1,7 @@
 package com.github.johnnysc.ecp.data.weather.cloud
 
 
+import android.util.Log
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.coremvvm.domain.NoInternetConnectionException
 import com.github.johnnysc.coremvvm.domain.ServiceUnavailableException

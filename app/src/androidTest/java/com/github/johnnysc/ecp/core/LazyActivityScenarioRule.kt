@@ -1,8 +1,10 @@
 package com.github.johnnysc.ecp.core
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
+import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.rules.ExternalResource
 
 class LazyActivityScenarioRule<A : Activity> : ExternalResource {

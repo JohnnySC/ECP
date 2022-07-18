@@ -22,8 +22,9 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             buildConfigField "boolean", "USE_MOCKS", "false"
         }
-        debug{
+        debug {
             buildConfigField "boolean", "USE_MOCKS", "true"
+            debuggable = true
         }
     }
 

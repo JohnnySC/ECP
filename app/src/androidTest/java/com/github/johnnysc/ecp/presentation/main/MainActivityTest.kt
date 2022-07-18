@@ -2,6 +2,7 @@ package com.github.johnnysc.ecp.presentation.main
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -15,25 +16,27 @@ import com.github.johnnysc.ecp.core.RecyclerViewMatcher
 import com.github.johnnysc.ecp.core.lazyActivityScenarioRule
 
 import com.github.johnnysc.ecp.R
+import org.junit.After
 
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 
+private const val TAG = "MainActivityTest"
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
 abstract class MainActivityTest {
     @get:Rule
     val activityTestRule = lazyActivityScenarioRule<MainActivity>(launchActivity = false)
-
     private lateinit var resources: ManageResources
     private lateinit var appContext: Context
-
+    private val citySharedPrefsKey = "city_prefs"
     @Before
     fun setUp() {
         appContext = ApplicationProvider.getApplicationContext()
         resources = ManageResources.Base(appContext)
         activityTestRule.launch(Intent(appContext, MainActivity::class.java))
+        appContext.getSharedPreferences(citySharedPrefsKey,Context.MODE_PRIVATE).edit().clear().apply()
     }
 
     protected fun checkItemText(position: Int, text: String) {

@@ -18,7 +18,7 @@ class ProvideWeatherViewModelChain(
     private val coreModule: CoreModule,
     private val context: Context
 ) : ProvideViewModelChain<WeatherViewModelChain> {
-    private val sharedPrefsKey = "weather"
+
     override fun viewModelChain(): WeatherViewModelChain {
         val manageResources = ManageResources.Base(context)
         val provideWeatherCloudDataSource =
@@ -29,9 +29,9 @@ class ProvideWeatherViewModelChain(
                 val provideWeatherCloud = ProvideWeatherCloud.Base(coreModule)
                 ProvideWeatherCloudDataSource.Base(provideWeatherCloud)
             }
-        val cityPreferenceDataStore =
-            CityPreferenceDataStore.Base(coreModule.sharedPreferences(sharedPrefsKey))
-        val provideCacheDataSource = ProvideCacheDataSource.Base(cityPreferenceDataStore)
+        val provideCityPreferenceDataStore =
+         ProvideCityPreferenceDataStore.Base(coreModule)
+        val provideCacheDataSource = ProvideCacheDataSource.Base(provideCityPreferenceDataStore)
         val provideWeatherRepository =
             ProvideWeatherRepository.Base(provideWeatherCloudDataSource, provideCacheDataSource)
         val provideWeatherExceptionChain = ProvideWeatherExceptionChain()

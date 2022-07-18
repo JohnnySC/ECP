@@ -1,8 +1,7 @@
 package com.github.johnnysc.ecp.presentation.messages
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.replaceText
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource
 import com.github.johnnysc.ecp.presentation.main.MainActivityTest
@@ -16,6 +15,7 @@ import com.github.johnnysc.ecp.presentation.messages.Messages.inputTextId
 import com.github.johnnysc.ecp.presentation.messages.Messages.sendMessage
 import com.github.johnnysc.ecp.presentation.messages.Messages.setDefaultCityCommandID
 import com.github.johnnysc.ecp.presentation.messages.Messages.thereIsNoCityWithSuchTitle
+import com.github.johnnysc.ecp.presentation.messages.Messages.thereIsnoDefaultCitySet
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
@@ -26,6 +26,19 @@ class MessagesTest : MainActivityTest() {
     private val cityName = "Алматы"
     private val noneExistedCity = "Ротрстан"
 
+
+    @Test
+    fun requestForTemperatureInDefaultCityWithoutDefaultCitySet() = runBlocking {
+        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(true)
+
+        val getWeatherInDefCity = inputStringForDefCityOneID.createStringFromId()
+
+        onView(withId(inputTextId)).perform(typeText(getWeatherInDefCity))
+        onView(withId(sendMessage)).perform(click())
+
+        checkItemText(0, getWeatherInDefCity)
+        checkItemText(1, thereIsnoDefaultCitySet.createStringFromId())
+    }
     @Test
     fun requestForTemperatureInDefaultCityWithInternet() = runBlocking {
         WeatherCloudDataSource.InternetAvailability.setInternetAvailable(true)
@@ -43,6 +56,8 @@ class MessagesTest : MainActivityTest() {
         checkItemText(2, getWeatherInDefCity)
         checkItemText(3, currentTemperatureMessageId.createSuccessResponseForTemperatureInCity(25.8F))
     }
+
+
 
     @Test
     fun requestForTemperatureInCityByNameWithInternet() = runBlocking {

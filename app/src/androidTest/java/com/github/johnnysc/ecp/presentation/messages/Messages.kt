@@ -9,6 +9,7 @@ object Messages {
     const val currentTemperatureMessageId = R.string.weather_response
     const val inputStringForNotDefCityID = R.string.what_weather_command_start
     const val thereIsNoCityWithSuchTitle = R.string.there_is_no_city_with_such_title
+    const val thereIsnoDefaultCitySet=R.string.weather_no_default_city
     const val incorrectMessage = "blablabal"
     const val iCanUnderstandYou = R.string.i_dont_understand
     const val theresIsNoConnectionId = R.string.there_is_no_connection
