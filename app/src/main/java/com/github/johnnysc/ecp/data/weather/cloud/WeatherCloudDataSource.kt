@@ -53,7 +53,6 @@ interface WeatherCloudDataSource {
                         fetchWeather(R.raw.weather_succesfull_responce_for_almaty)
                     }
                     else -> {
-
                         throw HttpException(
                             Response.error<ResponseBody>(
                                 404,
