@@ -23,8 +23,8 @@ internal class MessagesViewModelTest {
             viewModelChain = testChainFactory
         )
         viewModel.handleInput("For first one")
-        Assert.assertEquals(MessageUI.User("For first one", "0"), communication.messages[1])
-        Assert.assertEquals(MessageUI.Ai("First message", "1"), communication.messages[0])
+        Assert.assertEquals(MessageUI.User("For first one", "0"), communication.messages[0])
+        Assert.assertEquals(MessageUI.Ai("First message", "1"), communication.messages[1])
     }
 
     @Test
@@ -39,8 +39,8 @@ internal class MessagesViewModelTest {
             viewModelChain = testChainFactory
         )
         viewModel.handleInput("For second one")
-        Assert.assertEquals(MessageUI.User("For second one", "0"), communication.messages[1])
-        Assert.assertEquals(MessageUI.AiError("I don't understand you", "1"), communication.messages[0])
+        Assert.assertEquals(MessageUI.User("For second one", "0"), communication.messages[0])
+        Assert.assertEquals(MessageUI.AiError("I don't understand you", "1"), communication.messages[1])
     }
 
     private class TestChainFactory(feature: FeatureChain.CheckAndHandle) : ViewModelChain(feature)

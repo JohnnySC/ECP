@@ -11,6 +11,7 @@
         android:id="@+id/messagesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:reverseLayout="true"
         app:layout_constraintBottom_toTopOf="@+id/sendMessageButton"
         app:layout_constraintTop_toTopOf="parent" />
 
