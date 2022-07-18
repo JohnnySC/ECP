@@ -18,7 +18,7 @@ internal class MessagesArrayListTest {
         list.add(messageAi)
         expected = listOf(
             MessageUI.User("message user", "0"),
-            MessageUI.Ai("message ai", "1"),
+            MessageUI.Ai("message ai", "1")
         )
         Assert.assertEquals(expected, list)
     }
