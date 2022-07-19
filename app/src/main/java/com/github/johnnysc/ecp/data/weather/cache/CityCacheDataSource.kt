@@ -1,10 +1,10 @@
 package com.github.johnnysc.ecp.data.weather.cache
 
-import android.util.Log
+
 import com.github.johnnysc.ecp.data.weather.CityData
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCityException
 
-private const val TAG = "CityCacheDataSource"
+
 interface CityCacheDataSource {
 
     fun getDefaultCity(): CityData
@@ -15,7 +15,7 @@ interface CityCacheDataSource {
 
         override fun getDefaultCity(): CityData {
             val cityName = preferenceDataStore.read(DEFAULT_CITY_KEY)
-            Log.d(TAG, "getDefaultCity: ${cityName}")
+
             if (cityName.isEmpty()) {
                 throw ThereIsNoDefaultCityException()
             }

@@ -3,7 +3,7 @@ package com.github.johnnysc.ecp.presentation.main
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Log
+
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -26,7 +26,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 
-private const val TAG = "MainActivityTest"
+
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
 abstract class MainActivityTest {

@@ -29,7 +29,7 @@ interface WeatherCloudDataSource {
         }
 
         companion object {
-            private const val WEATHER_API_KEY = "EDKUXQGPXGXE5Y6Y6UREJFVQA"
+            private const val WEATHER_API_KEY = "Api key here"
 
             private const val UNITS = "metric"
 
