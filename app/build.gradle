@@ -20,14 +20,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            buildConfigField "boolean", "USE_MOCKS", "false"
-        }
-        debug{
-            buildConfigField "boolean", "USE_MOCKS", "false"
+
         }
         uitests{
             initWith debug
-            buildConfigField "boolean", "USE_MOCKS", "true"
         }
     }
 
