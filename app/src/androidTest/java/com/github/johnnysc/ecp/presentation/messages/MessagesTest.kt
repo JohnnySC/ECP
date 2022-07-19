@@ -26,10 +26,9 @@ class MessagesTest : MainActivityTest() {
     private val cityName = "Алматы"
     private val noneExistedCity = "Ротрстан"
 
-
     @Test
     fun requestForTemperatureInDefaultCityWithoutDefaultCitySet() = runBlocking {
-        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(true)
+        internetConnection.changeInternetAvailable(true)
 
         val getWeatherInDefCity = inputStringForDefCityOneID.createStringFromId()
 
@@ -41,7 +40,7 @@ class MessagesTest : MainActivityTest() {
     }
     @Test
     fun requestForTemperatureInDefaultCityWithInternet() = runBlocking {
-        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(true)
+        internetConnection.changeInternetAvailable(true)
         val input = setDefaultCityCommandID.createRequestForDefaultCitySet(defaultCity)
 
         onView(withId(inputTextId)).perform(replaceText(input))
@@ -61,7 +60,7 @@ class MessagesTest : MainActivityTest() {
 
     @Test
     fun requestForTemperatureInCityByNameWithInternet() = runBlocking {
-        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(true)
+        internetConnection.changeInternetAvailable(true)
         val input = inputStringForNotDefCityID.createRequestForWeatherInCity(cityName)
         onView(withId(inputTextId)).perform(replaceText(input))
         onView(withId(sendMessage)).perform(click())
@@ -72,7 +71,7 @@ class MessagesTest : MainActivityTest() {
 
     @Test
     fun requestForDefCitySetWithNoneExistedCity(): Unit = runBlocking {
-        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(true)
+        internetConnection.changeInternetAvailable(true)
         val input = setDefaultCityCommandID.createRequestForDefaultCitySet(noneExistedCity)
         onView(withId(inputTextId)).perform(replaceText(input))
         onView(withId(sendMessage)).perform(click())
@@ -82,7 +81,7 @@ class MessagesTest : MainActivityTest() {
 
     @Test
     fun requestForTemperatureInCityByNameWithNoneExistedCity(): Unit = runBlocking {
-        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(true)
+        internetConnection.changeInternetAvailable(true)
         val input = inputStringForNotDefCityID.createRequestForWeatherInCity(noneExistedCity)
         onView(withId(inputTextId)).perform(replaceText(input))
         onView(withId(sendMessage)).perform(click())
@@ -92,7 +91,7 @@ class MessagesTest : MainActivityTest() {
 
     @Test
     fun requestIncomprehensibleMessage(): Unit = runBlocking {
-        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(true)
+        internetConnection.changeInternetAvailable(true)
         onView(withId(inputTextId)).perform(replaceText(incorrectMessage))
         onView(withId(sendMessage)).perform(click())
         checkItemText(0, incorrectMessage)

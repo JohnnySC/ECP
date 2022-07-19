@@ -24,7 +24,7 @@ class ProvideWeatherViewModelChain(
         val provideWeatherCloudDataSource =
             if (USE_MOCKS) {
                 val mockedRes = WeatherCloudDataSource.MockData(context)
-                ProvideWeatherCloudDataSource.Mock(Gson(), mockedRes)
+                ProvideWeatherCloudDataSource.Mock(Gson(), mockedRes,coreModule)
             } else {
                 val provideWeatherCloud = ProvideWeatherCloud.Base(coreModule)
                 ProvideWeatherCloudDataSource.Base(provideWeatherCloud)

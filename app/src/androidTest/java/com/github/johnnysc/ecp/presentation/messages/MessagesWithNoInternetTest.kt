@@ -24,7 +24,7 @@ class MessagesWithNoInternetTest : MainActivityTest() {
 
     @Test
     fun setDefaultCityWhenNoInternetMustNoConnectionMessage(): Unit = runBlocking {
-        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(false)
+        internetConnection.changeInternetAvailable(false)
         val input = setDefaultCityCommandID.createRequestForDefaultCitySet(defaultCity)
         onView(ViewMatchers.withId(inputTextId))
             .perform(ViewActions.replaceText(input))
@@ -35,7 +35,7 @@ class MessagesWithNoInternetTest : MainActivityTest() {
 
     @Test
     fun setDefaultCityWhenNoInternetAndCityNotExistMustNoConnectionMessage(): Unit = runBlocking {
-        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(false)
+        internetConnection.changeInternetAvailable(false)
         val input = setDefaultCityCommandID.createRequestForDefaultCitySet(noneExistedCity)
         onView(ViewMatchers.withId(inputTextId))
             .perform(ViewActions.replaceText(input))
@@ -46,7 +46,7 @@ class MessagesWithNoInternetTest : MainActivityTest() {
 
     @Test
     fun weatherInCityWhenNoInternetMustNoConnectionMessage(): Unit = runBlocking {
-        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(false)
+        internetConnection.changeInternetAvailable(false)
         val input = inputStringForNotDefCityID.createRequestForWeatherInCity(cityName)
         onView(ViewMatchers.withId(inputTextId)).perform(ViewActions.replaceText(input))
         onView(ViewMatchers.withId(sendMessage)).perform(ViewActions.click())
@@ -56,7 +56,7 @@ class MessagesWithNoInternetTest : MainActivityTest() {
 
     @Test
     fun weatherInCityWhenNoInternetAndCityNotExistMustNoConnectionMessage(): Unit = runBlocking {
-        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(false)
+        internetConnection.changeInternetAvailable(false)
         val input = inputStringForNotDefCityID.createRequestForWeatherInCity(noneExistedCity)
         onView(ViewMatchers.withId(inputTextId)).perform(ViewActions.replaceText(input))
         onView(ViewMatchers.withId(sendMessage)).perform(ViewActions.click())
@@ -66,7 +66,7 @@ class MessagesWithNoInternetTest : MainActivityTest() {
 
     @Test
     fun incorrectMessageWhenNoInternetMustNoConnectionMessage(): Unit = runBlocking {
-        WeatherCloudDataSource.InternetAvailability.setInternetAvailable(false)
+        internetConnection.changeInternetAvailable(false)
         onView(ViewMatchers.withId(inputTextId)).perform(ViewActions.replaceText(incorrectMessage))
         onView(ViewMatchers.withId(sendMessage)).perform(ViewActions.click())
         checkItemText(0, incorrectMessage)

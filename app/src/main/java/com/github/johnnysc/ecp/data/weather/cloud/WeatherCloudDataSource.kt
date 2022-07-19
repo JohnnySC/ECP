@@ -1,6 +1,7 @@
 package com.github.johnnysc.ecp.data.weather.cloud
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.github.johnnysc.coremvvm.data.CloudDataSource
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.ecp.R
@@ -40,11 +41,12 @@ interface WeatherCloudDataSource {
     class Mock(
         private val rawResourceReader: RawResourceReader,
         private val gson: Gson,
+        private val internetConnection: InternetConnection.Read,
         handleError: HandleError
     ) : WeatherCloudDataSource, CloudDataSource.Abstract(handleError) {
         private val typeToken = WeatherResponseToken()
         override suspend fun getWeather(cityName: String) = handle {
-            if (InternetAvailability.getIsInternetAvailable())
+            if (internetConnection.isInternetAvailable())
                 when (cityName) {
                     "Екибастуз" -> {
                         fetchWeather(R.raw.wether_succesfull_responce_for_ekibastuz)
@@ -83,13 +85,27 @@ interface WeatherCloudDataSource {
             context.resources.openRawResource(id).bufferedReader().readText()
     }
 
-    object InternetAvailability {
-        private var isInternetAvailable = false
-        fun setInternetAvailable(isInternetAvailable: Boolean) {
-            this.isInternetAvailable = isInternetAvailable
+    interface InternetConnection {
+        interface Write:InternetConnection{
+            fun changeInternetAvailable(isAvailable: Boolean)
         }
 
-        fun getIsInternetAvailable() = isInternetAvailable
+        interface Read:InternetConnection{
+            fun isInternetAvailable(): Boolean
+        }
+
+        interface Mutable:Write,Read
+        class Base(private val sharedPreferences: SharedPreferences) : Mutable {
+            private val IS_INTERNET_AVAILABLE = "IS_INTERNET_AVAILABLE_KEY"
+            override fun isInternetAvailable() =
+                sharedPreferences.getBoolean(IS_INTERNET_AVAILABLE, true)
+
+
+            override fun changeInternetAvailable(isAvailable: Boolean) {
+                sharedPreferences.edit().putBoolean(IS_INTERNET_AVAILABLE, isAvailable).apply()
+            }
+        }
+
     }
 }
 
