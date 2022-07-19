@@ -22,17 +22,19 @@
         android:id="@+id/sendMessageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_margin"
         android:clickable="true"
-        android:src="@android:drawable/ic_menu_send"
+        style="@style/SendMessageButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/send_message"
+        android:focusable="true" />
 
     <com.github.johnnysc.ecp.presentation.messages.MessageEditText
         android:id="@+id/messageEditText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:ems="10"
+        style="@style/MessageEditText"
         android:inputType="text"
         android:layout_margin="@dimen/default_margin"
         android:hint="@string/enter_message"

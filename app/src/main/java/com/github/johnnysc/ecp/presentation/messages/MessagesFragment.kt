@@ -25,6 +25,9 @@ class MessagesFragment : BaseFragment<MessagesViewModel>() {
         sendMessageButton.setOnClickListener {
             messageInput.handleInput(viewModel)
         }
-        viewModel.observe(this, messageAdapter::map)
+        viewModel.observe(this) {
+            messageAdapter.map(it)
+            messagesRecyclerView.scrollToPosition(messageAdapter.itemCount - 1)
+        }
     }
 }

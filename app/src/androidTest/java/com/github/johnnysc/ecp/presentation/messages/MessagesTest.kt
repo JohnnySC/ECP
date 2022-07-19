@@ -38,6 +38,7 @@ class MessagesTest : MainActivityTest() {
         checkItemText(0, getWeatherInDefCity)
         checkItemText(1, thereIsnoDefaultCitySet.createStringFromId())
     }
+
     @Test
     fun requestForTemperatureInDefaultCityWithInternet() = runBlocking {
         internetConnection.changeInternetAvailable(true)
@@ -55,8 +56,6 @@ class MessagesTest : MainActivityTest() {
         checkItemText(2, getWeatherInDefCity)
         checkItemText(3, currentTemperatureMessageId.createSuccessResponseForTemperatureInCity(25.8F))
     }
-
-
 
     @Test
     fun requestForTemperatureInCityByNameWithInternet() = runBlocking {

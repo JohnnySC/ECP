@@ -30,20 +30,27 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
 abstract class MainActivityTest {
+
     @get:Rule
     val activityTestRule = lazyActivityScenarioRule<MainActivity>(launchActivity = false)
     private lateinit var resources: ManageResources
     private lateinit var appContext: Context
     private val citySharedPrefsKey = "city_prefs"
-    private val testSettingsSharedPrefName="test_settings"
+    private val testSettingsSharedPrefName = "test_settings"
     protected lateinit var internetConnection: WeatherCloudDataSource.InternetConnection.Write
+
     @Before
     fun setUp() {
         appContext = ApplicationProvider.getApplicationContext()
         resources = ManageResources.Base(appContext)
         activityTestRule.launch(Intent(appContext, MainActivity::class.java))
-        appContext.getSharedPreferences(citySharedPrefsKey,Context.MODE_PRIVATE).edit().clear().apply()
-        internetConnection=WeatherCloudDataSource.InternetConnection.Base(appContext.getSharedPreferences(testSettingsSharedPrefName,Context.MODE_PRIVATE))
+        appContext.getSharedPreferences(citySharedPrefsKey, Context.MODE_PRIVATE).edit().clear().apply()
+        internetConnection = WeatherCloudDataSource.InternetConnection.Base(
+            appContext.getSharedPreferences(
+                testSettingsSharedPrefName,
+                Context.MODE_PRIVATE
+            )
+        )
     }
 
     protected fun checkItemText(position: Int, text: String) {
