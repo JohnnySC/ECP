@@ -11,7 +11,7 @@ import com.github.johnnysc.ecp.presentation.messages.Messages.thereIsNoCityWithS
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-class MessagesWeatherWeatherTest : MainActivityWeatherTest() {
+class MessagesWeatherTest : MainActivityWeatherTest() {
 
     private val defaultCity = "Ekibastuz"
     private val cityName = "Almaty"
