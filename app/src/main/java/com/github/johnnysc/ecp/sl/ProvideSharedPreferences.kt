@@ -1,6 +1,5 @@
 package com.github.johnnysc.ecp.sl
 
-import android.content.Context
 import android.content.SharedPreferences
 import com.github.johnnysc.coremvvm.sl.CoreModule
 

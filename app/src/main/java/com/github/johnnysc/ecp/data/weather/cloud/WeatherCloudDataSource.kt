@@ -6,8 +6,8 @@ import com.github.johnnysc.coremvvm.data.CloudDataSource
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.core.Converter
+import com.github.johnnysc.ecp.core.ConverterRawResourceToPoJo
 import com.github.johnnysc.ecp.core.ReadRawResource
-import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
@@ -40,7 +40,7 @@ interface WeatherCloudDataSource {
     }
 
     class Mock(
-        private val fetchWeather: FetchWeather,
+        private val fetchWeather: ConverterRawResourceToPoJo<Weather.Base, RemoteWeather>,
         private val internetConnection: InternetConnection.Read,
         handleError: HandleError
     ) : WeatherCloudDataSource, CloudDataSource.Abstract(handleError) {
@@ -49,10 +49,10 @@ interface WeatherCloudDataSource {
             if (internetConnection.isInternetAvailable())
                 when (cityName) {
                     "Ekibastuz" -> {
-                        fetchWeather.fetchWeather(R.raw.wether_succesfull_responce_for_ekibastuz)
+                        fetchWeather.convert(R.raw.wether_succesfull_responce_for_ekibastuz)
                     }
                     "Almaty" -> {
-                        fetchWeather.fetchWeather(R.raw.weather_succesfull_responce_for_almaty)
+                        fetchWeather.convert(R.raw.weather_succesfull_responce_for_almaty)
                     }
                     else -> {
                         throw HttpException(
@@ -67,22 +67,16 @@ interface WeatherCloudDataSource {
                 throw UnknownHostException()
         }
 
-
-        interface FetchWeather {
-            fun fetchWeather(idOfResponse: Int): RemoteWeather
-            class Base(
-                private val converter: Converter<Weather.Base>,
-                private val readRawResource: ReadRawResource
-            ) :
-                FetchWeather {
-                override fun fetchWeather(idOfResponse: Int) = RemoteWeather.Base(
-                    converter.convert(readRawResource.readText(idOfResponse))
-                )
-
-            }
-
-            class WeatherResponseToken : TypeToken<Weather.Base>()
+        class FetchWeather(
+            converter: Converter<Weather.Base>,
+            readRawResource: ReadRawResource
+        ) : ConverterRawResourceToPoJo<Weather.Base, RemoteWeather>(readRawResource, converter) {
+            override fun wrapResult(result: Weather.Base) = RemoteWeather.Base(result)
         }
+
+
+        class WeatherResponseToken : TypeToken<Weather.Base>()
+
     }
 
 

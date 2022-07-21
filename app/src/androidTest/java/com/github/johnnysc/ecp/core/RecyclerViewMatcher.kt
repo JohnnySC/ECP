@@ -3,9 +3,9 @@ package com.github.johnnysc.ecp.core
 import android.content.res.Resources
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.github.johnnysc.ecp.R
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
-import com.github.johnnysc.ecp.R
 
 class RecyclerViewMatcher(private val recyclerViewId: Int) {
 

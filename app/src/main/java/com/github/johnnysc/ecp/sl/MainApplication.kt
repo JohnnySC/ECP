@@ -9,10 +9,9 @@ import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.coremvvm.sl.DependencyContainer
 import com.github.johnnysc.coremvvm.sl.ProvideViewModel
 import com.github.johnnysc.coremvvm.sl.ViewModelsFactory
-
 import com.github.johnnysc.ecp.sl.main.MainDependencyContainer
 import com.github.johnnysc.ecp.sl.message.MessagesDependencyContainer
-import com.github.johnnysc.ecp.sl.weather.*
+import com.github.johnnysc.ecp.sl.weather.ProvideWeatherViewModelChain
 
 class MainApplication : Application(), ProvideViewModel {
 

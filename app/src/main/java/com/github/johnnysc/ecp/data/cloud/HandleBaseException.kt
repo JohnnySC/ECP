@@ -3,8 +3,6 @@ package com.github.johnnysc.ecp.data.cloud
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.coremvvm.domain.NoInternetConnectionException
 import com.github.johnnysc.coremvvm.domain.ServiceUnavailableException
-import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoCityWithSuchTitleException
-import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 

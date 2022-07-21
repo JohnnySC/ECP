@@ -1,12 +1,8 @@
 package com.github.johnnysc.ecp.presentation.main
 
 
-import android.content.Context
-import android.content.Intent
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.github.johnnysc.coremvvm.core.ManageResources
 import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.ecp.core.BaseViewsActions
 import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource

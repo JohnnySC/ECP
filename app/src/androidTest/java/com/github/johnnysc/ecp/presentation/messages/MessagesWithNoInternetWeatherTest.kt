@@ -1,9 +1,6 @@
 package com.github.johnnysc.ecp.presentation.messages
 
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.matcher.ViewMatchers
 import com.github.johnnysc.ecp.presentation.main.MainActivityWeatherTest
 import com.github.johnnysc.ecp.presentation.messages.Messages.iCanUnderstandYou
 import com.github.johnnysc.ecp.presentation.messages.Messages.incorrectMessage

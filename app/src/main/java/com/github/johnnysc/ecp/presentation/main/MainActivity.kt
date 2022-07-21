@@ -1,7 +1,6 @@
 package com.github.johnnysc.ecp.presentation.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelStoreOwner
 import com.github.johnnysc.coremvvm.presentation.FragmentFactory

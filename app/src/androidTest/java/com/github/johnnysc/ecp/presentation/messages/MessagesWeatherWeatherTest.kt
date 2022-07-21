@@ -11,46 +11,46 @@ import com.github.johnnysc.ecp.presentation.messages.Messages.thereIsNoCityWithS
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-
-class MessagesWeatherWeatherTest :MainActivityWeatherTest() {
+class MessagesWeatherWeatherTest : MainActivityWeatherTest() {
 
     private val defaultCity = "Ekibastuz"
     private val cityName = "Almaty"
     private val noneExistedCity = "Rotrstan"
 
     @Test
-    fun requestForTemperatureInDefaultCityWithoutDefaultCitySetAndSetDefCityAndRequireAgain():Unit = runBlocking {
-        internetConnection.turnOnInternet()
-        Messages.apply {
-            val input = inputStringForDefCityOneID.createStringFromId()
-
-            inputTextId.typeTextToEditText(input)
-            sendMessage.handleClick()
-
-            checkItemText(0, input)
-            checkItemText(1, thereIsnoDefaultCitySet.createStringFromId())
-
+    fun requestForTemperatureInDefaultCityWithoutDefaultCitySetAndSetDefCityAndRequireAgain(): Unit =
+        runBlocking {
             internetConnection.turnOnInternet()
-            val defCitySet = setDefaultCityCommandID.createRequestForDefaultCitySet(defaultCity)
+            Messages.apply {
+                var input = inputStringForDefCityOneID.createStringFromId()
 
-            inputTextId.typeTextToEditText(defCitySet)
-            sendMessage.handleClick()
-            checkItemText(2, defCitySet)
-            checkItemText(
-                3,
-                defaultCitySetResultMessageId.createSuccessResponseForSetDefaultCity(defaultCity)
-            )
-            val getWeatherInDefCity = inputStringForDefCityOneID.createStringFromId()
+                inputTextId.typeTextToEditText(input)
+                sendMessage.handleClick()
 
-            inputTextId.typeTextToEditText(getWeatherInDefCity)
-            sendMessage.handleClick()
-            checkItemText(4, getWeatherInDefCity)
-            checkItemText(
-                5,
-                currentTemperatureMessageId.createSuccessResponseForTemperatureInCity(25.8F)
-            )
+                checkItemText(0, input)
+                checkItemText(1, thereIsnoDefaultCitySet.createStringFromId())
+
+                internetConnection.turnOnInternet()
+                input = setDefaultCityCommandID.createRequestForDefaultCitySet(defaultCity)
+
+                inputTextId.typeTextToEditText(input)
+                sendMessage.handleClick()
+                checkItemText(2, input)
+                checkItemText(
+                    3,
+                    defaultCitySetResultMessageId.createSuccessResponseForSetDefaultCity(defaultCity)
+                )
+                input = inputStringForDefCityOneID.createStringFromId()
+
+                inputTextId.typeTextToEditText(input)
+                sendMessage.handleClick()
+                checkItemText(4, input)
+                checkItemText(
+                    5,
+                    currentTemperatureMessageId.createSuccessResponseForTemperatureInCity(25.8F)
+                )
+            }
         }
-    }
 
     @Test
     fun requestForTemperatureInCityByNameWithInternet() = runBlocking {
@@ -60,7 +60,10 @@ class MessagesWeatherWeatherTest :MainActivityWeatherTest() {
         sendMessage.handleClick()
 
         checkItemText(0, input)
-        checkItemText(1, currentTemperatureMessageId.createSuccessResponseForTemperatureInCity(34.0F))
+        checkItemText(
+            1,
+            currentTemperatureMessageId.createSuccessResponseForTemperatureInCity(34.0F)
+        )
     }
 
     @Test
@@ -92,5 +95,5 @@ class MessagesWeatherWeatherTest :MainActivityWeatherTest() {
             checkItemText(0, incorrectMessage)
             checkItemText(1, iCanUnderstandYou.createStringFromId())
         }
-        }
+    }
 }
