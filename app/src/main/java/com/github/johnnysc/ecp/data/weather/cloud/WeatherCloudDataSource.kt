@@ -5,7 +5,8 @@ import android.content.SharedPreferences
 import com.github.johnnysc.coremvvm.data.CloudDataSource
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.ecp.R
-import com.github.johnnysc.ecp.core.RawResourceReader
+import com.github.johnnysc.ecp.core.Converter
+import com.github.johnnysc.ecp.core.ReadRawResource
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -39,20 +40,19 @@ interface WeatherCloudDataSource {
     }
 
     class Mock(
-        private val rawResourceReader: RawResourceReader,
-        private val gson: Gson,
+        private val fetchWeather: FetchWeather,
         private val internetConnection: InternetConnection.Read,
         handleError: HandleError
     ) : WeatherCloudDataSource, CloudDataSource.Abstract(handleError) {
-        private val typeToken = WeatherResponseToken()
+
         override suspend fun getWeather(cityName: String) = handle {
             if (internetConnection.isInternetAvailable())
                 when (cityName) {
-                    "Екибастуз" -> {
-                        fetchWeather(R.raw.wether_succesfull_responce_for_ekibastuz)
+                    "Ekibastuz" -> {
+                        fetchWeather.fetchWeather(R.raw.wether_succesfull_responce_for_ekibastuz)
                     }
-                    "Алматы" -> {
-                        fetchWeather(R.raw.weather_succesfull_responce_for_almaty)
+                    "Almaty" -> {
+                        fetchWeather.fetchWeather(R.raw.weather_succesfull_responce_for_almaty)
                     }
                     else -> {
                         throw HttpException(
@@ -67,45 +67,58 @@ interface WeatherCloudDataSource {
                 throw UnknownHostException()
         }
 
-        private fun fetchWeather(idOfResponse: Int): RemoteWeather =
-            RemoteWeather.Base(
-                gson.fromJson(getMockedResponseString(idOfResponse), typeToken.type)
-            )
 
-        private fun getMockedResponseString(idOfResponse: Int): String {
+        interface FetchWeather {
+            fun fetchWeather(idOfResponse: Int): RemoteWeather
+            class Base(
+                private val converter: Converter<Weather.Base>,
+                private val readRawResource: ReadRawResource
+            ) :
+                FetchWeather {
+                override fun fetchWeather(idOfResponse: Int) = RemoteWeather.Base(
+                    converter.convert(readRawResource.readText(idOfResponse))
+                )
 
-            return rawResourceReader.readText(idOfResponse)
+            }
+
+            class WeatherResponseToken : TypeToken<Weather.Base>()
         }
-
-        class WeatherResponseToken : TypeToken<Weather.Base>()
     }
 
-    class MockData(private val context: Context) : RawResourceReader {
+
+    class MockData(private val context: Context) : ReadRawResource {
         override fun readText(id: Int) =
             context.resources.openRawResource(id).bufferedReader().readText()
     }
 
     interface InternetConnection {
-        interface Write:InternetConnection{
-            fun changeInternetAvailable(isAvailable: Boolean)
+        interface Write : InternetConnection {
+            fun turnOnInternet()
+            fun turnOffInternet()
         }
 
-        interface Read:InternetConnection{
+        interface Read : InternetConnection {
             fun isInternetAvailable(): Boolean
         }
 
-        interface Mutable:Write,Read
+        interface Mutable : Write, Read
         class Base(private val sharedPreferences: SharedPreferences) : Mutable {
-            private val IS_INTERNET_AVAILABLE = "IS_INTERNET_AVAILABLE_KEY"
+            companion object {
+                const val IS_INTERNET_AVAILABLE = "IS_INTERNET_AVAILABLE_KEY"
+            }
+
+            override fun turnOnInternet() {
+                sharedPreferences.edit().putBoolean(IS_INTERNET_AVAILABLE, true).apply()
+            }
+
+            override fun turnOffInternet() {
+                sharedPreferences.edit().putBoolean(IS_INTERNET_AVAILABLE, false).apply()
+            }
+
             override fun isInternetAvailable() =
                 sharedPreferences.getBoolean(IS_INTERNET_AVAILABLE, true)
-
-
-            override fun changeInternetAvailable(isAvailable: Boolean) {
-                sharedPreferences.edit().putBoolean(IS_INTERNET_AVAILABLE, isAvailable).apply()
-            }
         }
-
     }
 }
+
 

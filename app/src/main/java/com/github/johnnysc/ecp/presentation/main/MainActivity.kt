@@ -1,6 +1,7 @@
 package com.github.johnnysc.ecp.presentation.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelStoreOwner
 import com.github.johnnysc.coremvvm.presentation.FragmentFactory
@@ -8,6 +9,7 @@ import com.github.johnnysc.coremvvm.sl.ProvideViewModel
 import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.presentation.main.nav_screen.BaseFragmentFactory
 
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity(), ProvideViewModel {
 
     private lateinit var fragmentFactory: FragmentFactory
@@ -21,6 +23,8 @@ class MainActivity : AppCompatActivity(), ProvideViewModel {
         viewModel.observe(this) { navScreen ->
             fragmentFactory.fragment(navigationScreen = navScreen)
         }
+
+
     }
 
     override fun <T : androidx.lifecycle.ViewModel> provideViewModel(

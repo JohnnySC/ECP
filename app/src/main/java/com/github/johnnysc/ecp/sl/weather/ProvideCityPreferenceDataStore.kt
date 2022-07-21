@@ -8,8 +8,7 @@ interface ProvideCityPreferenceDataStore {
     fun provideCityPreferenceDataStore(): CityPreferenceDataStore
 
     class Base(private val coreModule: CoreModule) : ProvideCityPreferenceDataStore {
-        private val citySharedPrefsKey = "city_prefs"
         override fun provideCityPreferenceDataStore() =
-            CityPreferenceDataStore.Base(coreModule.sharedPreferences(citySharedPrefsKey))
+            CityPreferenceDataStore.Base(ProvideCitySharedPref(coreModule).provideSharedPreferences())
     }
 }

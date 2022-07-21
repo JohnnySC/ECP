@@ -1,9 +1,10 @@
 package com.github.johnnysc.ecp.sl.weather
 
-import com.github.johnnysc.coremvvm.sl.CoreModule
-import com.github.johnnysc.ecp.core.RawResourceReader
-import com.github.johnnysc.ecp.data.weather.cloud.HandleExceptions
+import com.github.johnnysc.ecp.core.Converter
+import com.github.johnnysc.ecp.core.ReadRawResource
+import com.github.johnnysc.ecp.data.weather.cloud.HandleWeatherExceptions
 import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource
+import com.github.johnnysc.ecp.sl.ProvideSharedPreferences
 import com.google.gson.Gson
 
 interface ProvideWeatherCloudDataSource {
@@ -15,7 +16,7 @@ interface ProvideWeatherCloudDataSource {
 
         override fun provideCloudDataSource(): WeatherCloudDataSource {
             return WeatherCloudDataSource.Base(
-                HandleExceptions(),
+                HandleWeatherExceptions(),
                 provideWeatherCloud.provideWeatherCloud()
             )
         }
@@ -23,16 +24,19 @@ interface ProvideWeatherCloudDataSource {
 
     class Mock(
         private val gson: Gson,
-        private val rawResourceReader: RawResourceReader,
-        private val coreModule: CoreModule
+        private val readRawResource: ReadRawResource,
+        private val provideSharedPreferences: ProvideSharedPreferences
     ) :
         ProvideWeatherCloudDataSource {
-        private val testSettingsSharedPrefName="test_settings"
+
         override fun provideCloudDataSource() = WeatherCloudDataSource.Mock(
-            rawResourceReader,
-            gson,
-            WeatherCloudDataSource.InternetConnection.Base(coreModule.sharedPreferences(testSettingsSharedPrefName)),
-            HandleExceptions ()
+            WeatherCloudDataSource.Mock.FetchWeather.Base(
+                Converter.Base(
+                    WeatherCloudDataSource.Mock.FetchWeather.WeatherResponseToken(),
+                    gson
+                ), readRawResource
+            ), WeatherCloudDataSource.InternetConnection.Base(provideSharedPreferences.provideSharedPreferences()),
+            HandleWeatherExceptions()
         )
     }
 }

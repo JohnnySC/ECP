@@ -18,8 +18,6 @@ interface ProvideWeatherRepository {
             RemoteWeather.Mapper.Base(),
             CityData.Mapper.Base()
         )
-
-
     }
 }
 

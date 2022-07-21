@@ -1,8 +1,9 @@
 package com.github.johnnysc.ecp.presentation.messages
 
 import com.github.johnnysc.ecp.R
+import com.github.johnnysc.ecp.core.ViewsIds
 
-object Messages {
+object Messages:ViewsIds() {
     const val inputStringForDefCityOneID: Int = R.string.what_is_weather_like
     const val setDefaultCityCommandID = R.string.set_weather_command_start
     const val defaultCitySetResultMessageId = R.string.set_weather_command_success
@@ -13,7 +14,4 @@ object Messages {
     const val incorrectMessage = "blablabal"
     const val iCanUnderstandYou = R.string.i_dont_understand
     const val theresIsNoConnectionId = R.string.there_is_no_connection
-
-    const val inputTextId = R.id.messageEditText
-    const val sendMessage = R.id.sendMessageButton
 }

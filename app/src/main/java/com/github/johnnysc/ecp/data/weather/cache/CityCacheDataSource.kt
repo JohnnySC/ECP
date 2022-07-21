@@ -1,9 +1,7 @@
 package com.github.johnnysc.ecp.data.weather.cache
 
-
 import com.github.johnnysc.ecp.data.weather.CityData
 import com.github.johnnysc.ecp.data.weather.exceptions.ThereIsNoDefaultCityException
-
 
 interface CityCacheDataSource {
 
@@ -15,7 +13,6 @@ interface CityCacheDataSource {
 
         override fun getDefaultCity(): CityData {
             val cityName = preferenceDataStore.read(DEFAULT_CITY_KEY)
-
             if (cityName.isEmpty()) {
                 throw ThereIsNoDefaultCityException()
             }
@@ -27,7 +24,6 @@ interface CityCacheDataSource {
         }
 
         companion object {
-
             private const val DEFAULT_CITY_KEY = "default city key"
         }
     }

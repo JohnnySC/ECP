@@ -1,5 +1,4 @@
-package com.github.johnnysc.ecp.data.weather.cloud
-
+package com.github.johnnysc.ecp.data.cloud
 
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.coremvvm.domain.NoInternetConnectionException
@@ -9,12 +8,10 @@ import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-
-class HandleExceptions : HandleError {
-
-    override fun handle(error: Exception) = when (error) {
+abstract class HandleBaseException:HandleError {
+    override fun handle(error: Exception)= when (error) {
         is UnknownHostException, is SocketTimeoutException -> NoInternetConnectionException()
-        is HttpException -> ThereIsNoCityWithSuchTitleException()
         else -> ServiceUnavailableException()
     }
+
 }
