@@ -3,19 +3,24 @@ package com.github.johnnysc.ecp.core
 import android.content.SharedPreferences
 
 interface InternetConnection {
+
     interface Write : InternetConnection {
+
         fun turnOnInternet()
         fun turnOffInternet()
     }
 
     interface Read : InternetConnection {
+
         fun isInternetAvailable(): Boolean
     }
 
     interface Mutable : Write, Read
+
     class Base(private val sharedPreferences: SharedPreferences) : Mutable {
+
         companion object {
-            const val IS_INTERNET_AVAILABLE = "IS_INTERNET_AVAILABLE_KEY"
+            private const val IS_INTERNET_AVAILABLE = "IS_INTERNET_AVAILABLE_KEY"
         }
 
         override fun turnOnInternet() {
