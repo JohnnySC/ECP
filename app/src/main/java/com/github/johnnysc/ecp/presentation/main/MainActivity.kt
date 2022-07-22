@@ -27,4 +27,5 @@ class MainActivity : AppCompatActivity(), ProvideViewModel {
         clazz: Class<T>,
         owner: ViewModelStoreOwner
     ) = (application as ProvideViewModel).provideViewModel(clazz, this)
+
 }
