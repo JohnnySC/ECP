@@ -49,10 +49,10 @@ interface WeatherCloudDataSource {
             if (internetConnection.isInternetAvailable())
                 when (cityName) {
                     "Ekibastuz" -> {
-                        fetchWeather.convert(R.raw.wether_succesfull_responce_for_ekibastuz)
+                        fetchWeather.map(R.raw.wether_succesfull_responce_for_ekibastuz)
                     }
                     "Almaty" -> {
-                        fetchWeather.convert(R.raw.weather_succesfull_responce_for_almaty)
+                        fetchWeather.map(R.raw.weather_succesfull_responce_for_almaty)
                     }
                     else -> {
                         throw HttpException(
