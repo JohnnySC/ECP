@@ -1,11 +1,9 @@
 package com.github.johnnysc.ecp.data.weather.cloud
 
-import android.content.Context
-import android.content.SharedPreferences
 import com.github.johnnysc.coremvvm.data.CloudDataSource
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.ecp.R
-import com.github.johnnysc.ecp.core.ConvertFromJson
+import com.github.johnnysc.ecp.core.StringToObject
 import com.github.johnnysc.ecp.core.ConvertRawResourceToPoJo
 import com.github.johnnysc.ecp.core.InternetConnection
 import com.github.johnnysc.ecp.core.ReadRawResource
@@ -69,9 +67,9 @@ interface WeatherCloudDataSource {
         }
 
         class FetchWeather(
-            convertFromJson: ConvertFromJson<Weather.Base>,
+            stringToObject: StringToObject<Weather.Base>,
             readRawResource: ReadRawResource
-        ) : ConvertRawResourceToPoJo<Weather.Base, RemoteWeather>(readRawResource, convertFromJson) {
+        ) : ConvertRawResourceToPoJo<Weather.Base, RemoteWeather>(readRawResource, stringToObject) {
             override fun wrapResult(result: Weather.Base) = RemoteWeather.Base(result)
         }
 

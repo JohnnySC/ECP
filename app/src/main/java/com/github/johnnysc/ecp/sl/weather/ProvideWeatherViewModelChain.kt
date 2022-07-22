@@ -4,7 +4,7 @@ import android.content.Context
 import com.github.johnnysc.coremvvm.core.ManageResources
 import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.ecp.BuildConfig.BUILD_TYPE
-import com.github.johnnysc.ecp.core.ConvertFromJson
+import com.github.johnnysc.ecp.core.StringToObject
 import com.github.johnnysc.ecp.core.ReadRawResource
 import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource
 import com.github.johnnysc.ecp.presentation.weather.WeatherChain
@@ -26,7 +26,7 @@ class ProvideWeatherViewModelChain(
         val provideWeatherCloudDataSource =
             if (BUILD_TYPE == uiTestVariant) {
                 val provideConvertRawResourceToPojoAdapter = ProvideWeatherConverterRawToPojo(
-                    ConvertFromJson.Base(
+                    StringToObject.Base(
                         WeatherCloudDataSource.Mock.WeatherResponseToken(), Gson()
                     ), ReadRawResource.Mock(context)
                 )
