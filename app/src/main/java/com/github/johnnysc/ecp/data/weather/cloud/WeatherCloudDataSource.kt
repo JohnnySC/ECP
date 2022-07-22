@@ -29,7 +29,7 @@ interface WeatherCloudDataSource {
         }
 
         companion object {
-            private const val WEATHER_API_KEY = "Api key here"
+            private const val WEATHER_API_KEY = "EDKUXQGPXGXE5Y6Y6UREJFVQA"
 
             private const val UNITS = "metric"
 
@@ -56,8 +56,8 @@ interface WeatherCloudDataSource {
                     else -> {
                         throw HttpException(
                             Response.error<ResponseBody>(
-                                404,
-                                "some content".toResponseBody("plain/text".toMediaTypeOrNull())
+                                400,
+                                "Invalid location found. Please check your location parameter:".toResponseBody("plain/text".toMediaTypeOrNull())
                             )
                         )
                     }
