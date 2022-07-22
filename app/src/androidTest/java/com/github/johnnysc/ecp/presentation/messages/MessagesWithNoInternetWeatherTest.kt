@@ -12,7 +12,7 @@ import com.github.johnnysc.ecp.presentation.messages.Messages.theresIsNoConnecti
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-class MessagesWithNoInternetWeatherTest :MainActivityWeatherTest() {
+class MessagesWithNoInternetWeatherTest : MainActivityWeatherTest() {
 
     private val defaultCity = "Ekibastuz"
     private val cityName = "Almaty"

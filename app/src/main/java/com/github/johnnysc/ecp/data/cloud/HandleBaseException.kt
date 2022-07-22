@@ -6,10 +6,9 @@ import com.github.johnnysc.coremvvm.domain.ServiceUnavailableException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-abstract class HandleBaseException:HandleError {
-    override fun handle(error: Exception)= when (error) {
+abstract class HandleBaseException : HandleError {
+    override fun handle(error: Exception) = when (error) {
         is UnknownHostException, is SocketTimeoutException -> NoInternetConnectionException()
         else -> ServiceUnavailableException()
     }
-
 }

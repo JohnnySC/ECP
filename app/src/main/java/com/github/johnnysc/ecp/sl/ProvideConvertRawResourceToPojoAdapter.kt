@@ -4,8 +4,9 @@ import com.github.johnnysc.ecp.core.Converter
 import com.github.johnnysc.ecp.core.ConverterRawResourceToPoJo
 import com.github.johnnysc.ecp.core.ReadRawResource
 
-abstract class ProvideConvertRawResourceToPojoAdapter<O,W>(protected val readRawResource: ReadRawResource,
-                                                      protected val converter: Converter<O>)
-{
-    abstract fun provideConvertRawResourceToPojoAdapter():ConverterRawResourceToPoJo<O,W>
+abstract class ProvideConvertRawResourceToPojoAdapter<T, V>(
+    protected val readRawResource: ReadRawResource,
+    protected val converter: Converter<T>
+) {
+    abstract fun provideConvertRawResourceToPojoAdapter(): ConverterRawResourceToPoJo<T, V>
 }

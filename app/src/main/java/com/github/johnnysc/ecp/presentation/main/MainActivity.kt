@@ -8,7 +8,6 @@ import com.github.johnnysc.coremvvm.sl.ProvideViewModel
 import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.presentation.main.nav_screen.BaseFragmentFactory
 
-private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity(), ProvideViewModel {
 
     private lateinit var fragmentFactory: FragmentFactory
@@ -22,13 +21,10 @@ class MainActivity : AppCompatActivity(), ProvideViewModel {
         viewModel.observe(this) { navScreen ->
             fragmentFactory.fragment(navigationScreen = navScreen)
         }
-
-
     }
 
     override fun <T : androidx.lifecycle.ViewModel> provideViewModel(
         clazz: Class<T>,
         owner: ViewModelStoreOwner
     ) = (application as ProvideViewModel).provideViewModel(clazz, this)
-
 }

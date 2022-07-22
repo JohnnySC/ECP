@@ -22,7 +22,7 @@ interface ProvideWeatherCloudDataSource {
     }
 
     class Mock(
-        private val provideConvertRawResourceToPojoAdapter: ProvideConvertRawResourceToPojoAdapter<Weather.Base,RemoteWeather>,
+        private val provideConvertRawResourceToPojoAdapter: ProvideConvertRawResourceToPojoAdapter<Weather.Base, RemoteWeather>,
         private val provideSharedPreferences: ProvideSharedPreferences
     ) :
         ProvideWeatherCloudDataSource {
