@@ -6,7 +6,7 @@ import com.github.johnnysc.coremvvm.data.CloudDataSource
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.core.ConvertFromJson
-import com.github.johnnysc.ecp.core.ConverterRawResourceToPoJo
+import com.github.johnnysc.ecp.core.ConvertRawResourceToPoJo
 import com.github.johnnysc.ecp.core.ReadRawResource
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -40,7 +40,7 @@ interface WeatherCloudDataSource {
     }
 
     class Mock(
-        private val fetchWeather: ConverterRawResourceToPoJo<Weather.Base, RemoteWeather>,
+        private val fetchWeather: ConvertRawResourceToPoJo<Weather.Base, RemoteWeather>,
         private val internetConnection: InternetConnection.Read,
         handleError: HandleError
     ) : WeatherCloudDataSource, CloudDataSource.Abstract(handleError) {
@@ -70,7 +70,7 @@ interface WeatherCloudDataSource {
         class FetchWeather(
             convertFromJson: ConvertFromJson<Weather.Base>,
             readRawResource: ReadRawResource
-        ) : ConverterRawResourceToPoJo<Weather.Base, RemoteWeather>(readRawResource, convertFromJson) {
+        ) : ConvertRawResourceToPoJo<Weather.Base, RemoteWeather>(readRawResource, convertFromJson) {
             override fun wrapResult(result: Weather.Base) = RemoteWeather.Base(result)
         }
 

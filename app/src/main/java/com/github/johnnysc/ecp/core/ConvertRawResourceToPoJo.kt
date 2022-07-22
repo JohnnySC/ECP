@@ -1,14 +1,15 @@
 package com.github.johnnysc.ecp.core
 
 import androidx.annotation.RawRes
+import com.github.johnnysc.coremvvm.core.Mapper
 
-abstract class ConverterRawResourceToPoJo<T, V>(
+abstract class ConvertRawResourceToPoJo<T, V>(
     private val readRawResource: ReadRawResource,
     private val convertFromJson: ConvertFromJson<T>
-) {
+) : Mapper<Int, V> {
 
-    fun convert(@RawRes id: Int): V {
-        val resource = readRawResource.readText(id)
+    override fun map(@RawRes data: Int): V {
+        val resource = readRawResource.readText(data)
         return wrapResult(convertFromJson.map(resource))
     }
 

@@ -1,7 +1,7 @@
 package com.github.johnnysc.ecp.sl.weather
 
 import com.github.johnnysc.ecp.core.ConvertFromJson
-import com.github.johnnysc.ecp.core.ConverterRawResourceToPoJo
+import com.github.johnnysc.ecp.core.ConvertRawResourceToPoJo
 import com.github.johnnysc.ecp.core.ReadRawResource
 import com.github.johnnysc.ecp.data.weather.cloud.RemoteWeather
 import com.github.johnnysc.ecp.data.weather.cloud.Weather
@@ -15,7 +15,7 @@ class ProvideWeatherConverterRawToPojo(
     readRawResource,
     convertFromJson
 ) {
-    override fun provideConvertRawResourceToPojoAdapter(): ConverterRawResourceToPoJo<Weather.Base, RemoteWeather> {
+    override fun provideConvertRawResourceToPojoAdapter(): ConvertRawResourceToPoJo<Weather.Base, RemoteWeather> {
         return WeatherCloudDataSource.Mock.FetchWeather(convertFromJson, readRawResource)
     }
 }
