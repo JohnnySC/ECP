@@ -7,6 +7,7 @@ import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.core.ConvertFromJson
 import com.github.johnnysc.ecp.core.ConvertRawResourceToPoJo
+import com.github.johnnysc.ecp.core.InternetConnection
 import com.github.johnnysc.ecp.core.ReadRawResource
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -74,45 +75,10 @@ interface WeatherCloudDataSource {
             override fun wrapResult(result: Weather.Base) = RemoteWeather.Base(result)
         }
 
-
         class WeatherResponseToken : TypeToken<Weather.Base>()
-
     }
 
 
-    class MockData(private val context: Context) : ReadRawResource {
-        override fun readText(id: Int) =
-            context.resources.openRawResource(id).bufferedReader().readText()
-    }
-
-    interface InternetConnection {
-        interface Write : InternetConnection {
-            fun turnOnInternet()
-            fun turnOffInternet()
-        }
-
-        interface Read : InternetConnection {
-            fun isInternetAvailable(): Boolean
-        }
-
-        interface Mutable : Write, Read
-        class Base(private val sharedPreferences: SharedPreferences) : Mutable {
-            companion object {
-                const val IS_INTERNET_AVAILABLE = "IS_INTERNET_AVAILABLE_KEY"
-            }
-
-            override fun turnOnInternet() {
-                sharedPreferences.edit().putBoolean(IS_INTERNET_AVAILABLE, true).apply()
-            }
-
-            override fun turnOffInternet() {
-                sharedPreferences.edit().putBoolean(IS_INTERNET_AVAILABLE, false).apply()
-            }
-
-            override fun isInternetAvailable() =
-                sharedPreferences.getBoolean(IS_INTERNET_AVAILABLE, true)
-        }
-    }
 }
 
 

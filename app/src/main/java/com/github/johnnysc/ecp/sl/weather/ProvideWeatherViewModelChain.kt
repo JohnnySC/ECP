@@ -5,13 +5,13 @@ import com.github.johnnysc.coremvvm.core.ManageResources
 import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.ecp.BuildConfig.BUILD_TYPE
 import com.github.johnnysc.ecp.core.ConvertFromJson
+import com.github.johnnysc.ecp.core.ReadRawResource
 import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource
 import com.github.johnnysc.ecp.presentation.weather.WeatherChain
 import com.github.johnnysc.ecp.presentation.weather.WeatherViewModelChain
 import com.github.johnnysc.ecp.sl.ProvideSharedPreferences
 import com.github.johnnysc.ecp.sl.ProvideViewModelChain
 import com.google.gson.Gson
-
 
 class ProvideWeatherViewModelChain(
     private val coreModule: CoreModule,
@@ -21,7 +21,6 @@ class ProvideWeatherViewModelChain(
         private const val uiTestVariant = "uitests"
     }
 
-
     override fun viewModelChain(): WeatherViewModelChain {
         val manageResources = ManageResources.Base(context)
         val provideWeatherCloudDataSource =
@@ -29,7 +28,7 @@ class ProvideWeatherViewModelChain(
                 val provideConvertRawResourceToPojoAdapter = ProvideWeatherConverterRawToPojo(
                     ConvertFromJson.Base(
                         WeatherCloudDataSource.Mock.WeatherResponseToken(), Gson()
-                    ), WeatherCloudDataSource.MockData(context)
+                    ), ReadRawResource.Mock(context)
                 )
                 ProvideWeatherCloudDataSource.Mock(
                     provideConvertRawResourceToPojoAdapter,

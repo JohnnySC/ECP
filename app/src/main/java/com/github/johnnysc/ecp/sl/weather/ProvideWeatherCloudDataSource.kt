@@ -1,5 +1,6 @@
 package com.github.johnnysc.ecp.sl.weather
 
+import com.github.johnnysc.ecp.core.InternetConnection
 import com.github.johnnysc.ecp.data.weather.cloud.HandleWeatherExceptions
 import com.github.johnnysc.ecp.data.weather.cloud.RemoteWeather
 import com.github.johnnysc.ecp.data.weather.cloud.Weather
@@ -29,7 +30,7 @@ interface ProvideWeatherCloudDataSource {
 
         override fun provideCloudDataSource() = WeatherCloudDataSource.Mock(
             provideConvertRawResourceToPojoAdapter.provideConvertRawResourceToPojoAdapter(),
-            WeatherCloudDataSource.InternetConnection.Base(provideSharedPreferences.provideSharedPreferences()),
+            InternetConnection.Base(provideSharedPreferences.provideSharedPreferences()),
             HandleWeatherExceptions()
         )
     }
