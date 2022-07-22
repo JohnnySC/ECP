@@ -9,7 +9,7 @@ import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource
 import com.github.johnnysc.ecp.sl.ProvideConvertRawResourceToPojoAdapter
 
 class ProvideWeatherConverterRawToPojo(
-    converter: Converter,
+    converter: Converter<Weather.Base>,
     readRawResource: ReadRawResource
 ) : ProvideConvertRawResourceToPojoAdapter<Weather.Base, RemoteWeather>(
     readRawResource,

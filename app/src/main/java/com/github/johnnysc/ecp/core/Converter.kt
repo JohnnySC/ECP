@@ -3,11 +3,11 @@ package com.github.johnnysc.ecp.core
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-interface Converter {
+interface Converter<T> {
 
-    fun <T> convert(input: String, typeToken: TypeToken<T>): T
+    fun convert(input: String): T
 
-    class Base(private val gson: Gson) : Converter {
-        override fun <T> convert(input: String, typeToken: TypeToken<T>): T = gson.fromJson(input, typeToken.type)
+    class Base<T>(private val typeToken: TypeToken<T>, private val gson: Gson) : Converter<T> {
+        override fun convert(input: String): T = gson.fromJson(input, typeToken.type)
     }
 }
