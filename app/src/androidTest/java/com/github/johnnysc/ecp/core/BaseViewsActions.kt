@@ -27,8 +27,7 @@ open class BaseViewsActions {
     protected lateinit var appContext: Context
 
     @Before
-    fun before()
-    {
+    fun before() {
         appContext = ApplicationProvider.getApplicationContext()
         resources = ManageResources.Base(appContext)
         activityTestRule.launch(Intent(appContext, MainActivity::class.java))
@@ -38,8 +37,7 @@ open class BaseViewsActions {
         onView(withId(this)).perform(ViewActions.typeText(input))
     }
 
-    protected fun Int.handleClick()
-    {
+    protected fun Int.handleClick() {
         onView(withId(this)).perform(ViewActions.click())
     }
 
