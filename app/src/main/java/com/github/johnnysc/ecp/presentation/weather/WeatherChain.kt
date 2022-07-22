@@ -6,11 +6,11 @@ import com.github.johnnysc.ecp.presentation.commands.Command
 import com.github.johnnysc.ecp.presentation.messages.FeatureChain
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 import com.github.johnnysc.ecp.presentation.weather.commands.setdefault.ParseCity
-import com.github.johnnysc.ecp.presentation.weather.commands.weatherincity.WeatherInCityCommand
-import com.github.johnnysc.ecp.presentation.weather.commands.weatherdefault.ParseDefaultWeather
 import com.github.johnnysc.ecp.presentation.weather.commands.setdefault.WeatherSetCityCommand
+import com.github.johnnysc.ecp.presentation.weather.commands.weatherdefault.ParseDefaultWeather
 import com.github.johnnysc.ecp.presentation.weather.commands.weatherdefault.WeatherDefaultCommand
 import com.github.johnnysc.ecp.presentation.weather.commands.weatherincity.ParseWeatherInCity
+import com.github.johnnysc.ecp.presentation.weather.commands.weatherincity.WeatherInCityCommand
 
 class WeatherChain(
     private val interactor: WeatherInteractor,

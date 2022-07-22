@@ -4,7 +4,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface WeatherCloud {
+interface WeatherService {
 
     @GET("timeline/{location}")
     suspend fun getWeather(

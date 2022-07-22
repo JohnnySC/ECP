@@ -24,7 +24,6 @@ interface CityCacheDataSource {
         }
 
         companion object {
-
             private const val DEFAULT_CITY_KEY = "default city key"
         }
     }

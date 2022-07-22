@@ -7,9 +7,9 @@
         <item name="android:layout_marginLeft">@dimen/default_margin</item>
         <item name="android:layout_marginTop">@dimen/default_margin</item>
         <item name="android:layout_marginBottom">@dimen/default_margin</item>
+        <item name="contentPadding">@dimen/default_padding</item>
         <item name="android:layout_gravity">left</item>
     </style>
-
 
     <style name="MessageTextAppearance">
         <item name="android:textColor">@color/black</item>
@@ -17,6 +17,9 @@
         <item name="android:layout_margin">@dimen/default_margin</item>
     </style>
 
+    <style name="ErrorMessageTextAppearance" parent="MessageTextAppearance">
+        <item name="android:textColor">@color/white</item>
+    </style>
 
     <style name="AiCorrectMessageStyle" parent="DefaultMessageStyle">
         <item name="cardBackgroundColor">@color/correct_ai_answer_color</item>
@@ -35,8 +38,7 @@
     </style>
 
     <style name="UserMessageStyle" parent="DefaultMessageStyle">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_user_card_custom_corners
-        </item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_user_card_custom_corners</item>
         <item name="android:layout_marginRight">@dimen/default_margin</item>
         <item name="android:layout_marginLeft">@dimen/margin_for_message</item>
         <item name="cardBackgroundColor">@color/user_message_color</item>
@@ -46,8 +48,16 @@
     <style name="ShapeAppearanceOverlay_user_card_custom_corners" parent="ShapeAppearanceOverlay_card_custom_corners">
         <item name="cornerSizeTopLeft">@dimen/biggest_corner_radius</item>
         <item name="cornerSizeBottomRight">@dimen/rectangle_corner_radius</item>
-
     </style>
 
+    <style name="MessageEditText">
+        <item name="android:backgroundTint">@color/user_message_color</item>
+        <item name="android:textCursorDrawable">@drawable/edit_text_cursor</item>
+    </style>
 
+    <style name="SendMessageButton">
+        <item name="android:backgroundTint">@color/user_message_color</item>
+        <item name="android:src">@android:drawable/ic_menu_send</item>
+        <item name="android:layout_margin">@dimen/default_margin</item>
+    </style>
 </resources>

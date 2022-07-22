@@ -14,5 +14,6 @@
     <string name="unknown_exception">Unknown exception</string>
     <string name="there_is_no_city_with_such_title">There is no city with such title</string>
     <string name="there_is_no_connection">There is no connection</string>
+    <string name="send_message">Send message</string>
 
 </resources>

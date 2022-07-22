@@ -91,7 +91,7 @@ class BaseWeatherRepositoryTest {
     class TestCloudDataSource : WeatherCloudDataSource {
 
         override suspend fun getWeather(cityName: String): RemoteWeather =
-            RemoteWeather.Base(Weather.Base(CurrentWeather.Base(if (cityName == "Hawkins") 20F else if (cityName == "Saint Paul") 30F else null)))
+            RemoteWeather.Base(Weather.Base(CurrentWeather.Base(if (cityName == "Hawkins") 20F else if (cityName == "Saint Paul") 30F else throw ThereIsNoCityWithSuchTitleException())))
     }
 
     class TestCacheDataSource(private val isDefaultSet: Boolean) : CityCacheDataSource {
