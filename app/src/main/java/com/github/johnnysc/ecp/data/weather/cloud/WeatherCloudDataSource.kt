@@ -57,7 +57,9 @@ interface WeatherCloudDataSource {
                         throw HttpException(
                             Response.error<ResponseBody>(
                                 400,
-                                "Invalid location found. Please check your location parameter:".toResponseBody("plain/text".toMediaTypeOrNull())
+                                "Invalid location found. Please check your location parameter:".toResponseBody(
+                                    "plain/text".toMediaTypeOrNull()
+                                )
                             )
                         )
                     }
