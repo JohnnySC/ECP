@@ -6,7 +6,7 @@ import com.github.johnnysc.ecp.core.ReadRawResource
 
 abstract class ProvideConvertRawResourceToPojoAdapter<T, V>(
     protected val readRawResource: ReadRawResource,
-    protected val converter: Converter<T>
+    protected val converter: Converter
 ) {
     abstract fun provideConvertRawResourceToPojoAdapter(): ConverterRawResourceToPoJo<T, V>
 }

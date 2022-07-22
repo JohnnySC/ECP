@@ -49,10 +49,10 @@ interface WeatherCloudDataSource {
             if (internetConnection.isInternetAvailable())
                 when (cityName) {
                     "Ekibastuz" -> {
-                        fetchWeather.convert(R.raw.wether_succesfull_responce_for_ekibastuz)
+                        fetchWeather.convert(R.raw.wether_succesfull_responce_for_ekibastuz, WeatherResponseToken())
                     }
                     "Almaty" -> {
-                        fetchWeather.convert(R.raw.weather_succesfull_responce_for_almaty)
+                        fetchWeather.convert(R.raw.weather_succesfull_responce_for_almaty, WeatherResponseToken())
                     }
                     else -> {
                         throw HttpException(
@@ -68,15 +68,14 @@ interface WeatherCloudDataSource {
         }
 
         class FetchWeather(
-            converter: Converter<Weather.Base>,
+            converter: Converter,
             readRawResource: ReadRawResource
         ) : ConverterRawResourceToPoJo<Weather.Base, RemoteWeather>(readRawResource, converter) {
-            override fun wrapResult(result: Weather.Base) = RemoteWeather.Base(result)
+
+            override fun wrapResult(result: Weather.Base): RemoteWeather = RemoteWeather.Base(result)
         }
 
-
         class WeatherResponseToken : TypeToken<Weather.Base>()
-
     }
 
 
