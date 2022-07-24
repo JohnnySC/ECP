@@ -21,7 +21,7 @@ interface WeatherCloudDataSource {
 
     class Base(
         handleError: HandleError,
-        private val weatherCloud: WeatherCloud
+        private val weatherCloud: WeatherService
     ) : WeatherCloudDataSource, CloudDataSource.Abstract(handleError) {
 
         override suspend fun getWeather(cityName: String): RemoteWeather = handle {

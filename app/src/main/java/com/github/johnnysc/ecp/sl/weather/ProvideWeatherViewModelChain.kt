@@ -35,7 +35,7 @@ class ProvideWeatherViewModelChain(
                     ProvideSharedPreferences.ProvideTestSettingsSharedPref(coreModule)
                 )
             } else {
-                val provideWeatherCloud = ProvideWeatherCloud.Base(coreModule)
+                val provideWeatherCloud = ProvideWeatherService.Base(coreModule)
                 ProvideWeatherCloudDataSource.Base(provideWeatherCloud)
             }
         val provideCityPreferenceDataStore =
