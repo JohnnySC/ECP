@@ -21,15 +21,15 @@ interface WeatherCloudDataSource {
 
     class Base(
         handleError: HandleError,
-        private val weatherService: WeatherService
+        private val weatherCloud: WeatherCloud
     ) : WeatherCloudDataSource, CloudDataSource.Abstract(handleError) {
 
         override suspend fun getWeather(cityName: String): RemoteWeather = handle {
-            RemoteWeather.Base(weatherService.getWeather(cityName, WEATHER_API_KEY, UNITS, INCLUDE))
+            RemoteWeather.Base(weatherCloud.getWeather(cityName, WEATHER_API_KEY, UNITS, INCLUDE))
         }
 
         companion object {
-            private const val WEATHER_API_KEY = "PLACEHOLDER FOR API KEY"
+            private const val WEATHER_API_KEY = "EDKUXQGPXGXE5Y6Y6UREJFVQA"
 
             private const val UNITS = "metric"
 
