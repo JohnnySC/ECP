@@ -12,12 +12,12 @@ interface ProvideWeatherCloudDataSource {
 
     fun provideCloudDataSource(): WeatherCloudDataSource
 
-    class Base(private val provideWeatherCloud: ProvideWeatherCloud) :
+    class Base(private val provideWeatherCloud: ProvideWeatherService) :
         ProvideWeatherCloudDataSource {
 
         override fun provideCloudDataSource() = WeatherCloudDataSource.Base(
             HandleWeatherExceptions(),
-            provideWeatherCloud.provideWeatherCloud()
+            provideWeatherCloud.provideWeatherService()
         )
 
     }
