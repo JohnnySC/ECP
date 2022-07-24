@@ -8,6 +8,7 @@ import com.github.johnnysc.ecp.presentation.messages.Messages.inputTextId
 import com.github.johnnysc.ecp.presentation.messages.Messages.sendMessage
 import com.github.johnnysc.ecp.presentation.messages.Messages.setDefaultCityCommandID
 import com.github.johnnysc.ecp.presentation.messages.Messages.thereIsNoCityWithSuchTitle
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
@@ -26,7 +27,7 @@ class MessagesWeatherTest : MainActivityWeatherTest() {
 
                 inputTextId.typeTextToEditText(input)
                 sendMessage.handleClick()
-
+                
                 checkItemText(0, input)
                 checkItemText(1, thereIsnoDefaultCitySet.createStringFromId())
 
@@ -35,15 +36,18 @@ class MessagesWeatherTest : MainActivityWeatherTest() {
 
                 inputTextId.typeTextToEditText(input)
                 sendMessage.handleClick()
+                
                 checkItemText(2, input)
                 checkItemText(
                     3,
                     defaultCitySetResultMessageId.createSuccessResponseForSetDefaultCity(defaultCity)
                 )
+
                 input = inputStringForDefCityOneID.createStringFromId()
 
                 inputTextId.typeTextToEditText(input)
                 sendMessage.handleClick()
+                
                 checkItemText(4, input)
                 checkItemText(
                     5,
@@ -58,7 +62,7 @@ class MessagesWeatherTest : MainActivityWeatherTest() {
         val input = inputStringForNotDefCityID.createRequestForWeatherInCity(cityName)
         inputTextId.typeTextToEditText(input)
         sendMessage.handleClick()
-
+        
         checkItemText(0, input)
         checkItemText(
             1,
@@ -72,6 +76,7 @@ class MessagesWeatherTest : MainActivityWeatherTest() {
         val input = setDefaultCityCommandID.createRequestForDefaultCitySet(noneExistedCity)
         inputTextId.typeTextToEditText(input)
         sendMessage.handleClick()
+        
         checkItemText(0, input)
         checkItemText(1, thereIsNoCityWithSuchTitle.createStringFromId())
     }
