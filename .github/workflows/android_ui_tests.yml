@@ -4,7 +4,7 @@ on: pull_request
 
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: macOS-10.15
     
     steps:
       - uses: actions/checkout@v3
@@ -19,9 +19,7 @@ jobs:
 
       - run: sdkmanager platform-tools
 
-      - run: adb devices
-
-      - run: echo $ANDROID_HOME
+      - run: adb start-server
           
       - uses: malinskiy/action-android/emulator-run-cmd@release/0.1.3
         with:
@@ -29,3 +27,10 @@ jobs:
           api: 21
           tag: default
           abi: x86
+          
+      - name: Save logcat output
+        uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: logcat
+          path: artifacts/logcat.log
