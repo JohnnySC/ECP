@@ -12,15 +12,20 @@ interface FeatureChain {
         suspend fun handle(message: String): MessageUI
     }
 
+    interface Execute:FeatureChain
+    {
+        suspend fun execute():MessageUI
+    }
 
+    interface CheckAndExecute:Check,Execute
 
     interface CheckAndHandle : Check, Handle
 
-    class UnknownMessageChain(private val manageResources: ManageResources) : CheckAndHandle {
+    class UnknownMessageChain(private val manageResources: ManageResources) : CheckAndExecute {
 
         override fun canHandle(message: String) = true
 
-        override suspend fun handle(message: String) = MessageUI.AiError(
+        override suspend fun execute() = MessageUI.AiError(
             manageResources.string(R.string.i_dont_understand)
         )
     }

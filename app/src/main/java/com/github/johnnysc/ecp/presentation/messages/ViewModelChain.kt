@@ -1,14 +1,14 @@
 package com.github.johnnysc.ecp.presentation.messages
 
 abstract class ViewModelChain(
-    private val featureChain: FeatureChain.CheckAndHandle,
+    private val featureChain: FeatureChain.CheckAndExecute,
 ) : FeatureChain.Handle {
 
     protected var nextFeatureChain: FeatureChain.Handle = FeatureChain.Empty()
 
     override suspend fun handle(message: String) =
         if (featureChain.canHandle(message))
-            featureChain.handle(message)
+            featureChain.execute()
         else
             nextFeatureChain.handle(message)
 

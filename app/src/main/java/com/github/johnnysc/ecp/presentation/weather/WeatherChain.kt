@@ -21,7 +21,7 @@ class WeatherChain(
         WeatherDefaultCommand(ParseDefaultWeather(manageResources)),
         WeatherSetCityCommand(ParseCity(manageResources))
     )
-) : FeatureChain.CheckAndHandle {
+) : FeatureChain.CheckAndExecute {
 
     private var currentCommand: Command<WeatherInteractor> = Command.Empty()
 
@@ -35,7 +35,7 @@ class WeatherChain(
         return find != null
     }
 
-    override suspend fun handle(message: String): MessageUI {
+    override suspend fun execute(): MessageUI {
         val result = currentCommand.handle(interactor)
         currentCommand = Command.Empty()
         return result
