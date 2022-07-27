@@ -31,7 +31,6 @@ class MessagesWeatherTest : MainActivityWeatherTest() {
                 checkItemText(0, input)
                 checkItemText(1, thereIsnoDefaultCitySet.createStringFromId())
 
-                internetConnection.turnOnInternet()
                 input = setDefaultCityCommandID.createRequestForDefaultCitySet(defaultCity)
 
                 inputTextId.typeTextToEditText(input)

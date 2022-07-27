@@ -14,7 +14,7 @@ class HandleWeatherExceptions : HandleBaseException() {
     override fun handle(error: Exception) =
         if (error is HttpException && error.response()?.errorBody()?.string()?.startsWith(
                 LOCATION_INCORRECT_ERROR_PREFIX
-            ) ?: false
+            ) == true
         ) {
             ThereIsNoCityWithSuchTitleException()
         } else {
