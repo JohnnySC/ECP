@@ -1,20 +1,12 @@
 package com.github.johnnysc.ecp.presentation.main
 
-
-import androidx.test.filters.LargeTest
-import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.ecp.core.BaseViewsActions
 import com.github.johnnysc.ecp.core.InternetConnection
-import com.github.johnnysc.ecp.data.weather.cloud.WeatherCloudDataSource
 import com.github.johnnysc.ecp.sl.ProvideSharedPreferences
 import com.github.johnnysc.ecp.sl.weather.ProvideCitySharedPref
 import org.junit.Before
-import org.junit.runner.RunWith
 
-
-@RunWith(AndroidJUnit4ClassRunner::class)
-@LargeTest
 abstract class MainActivityWeatherTest : BaseViewsActions() {
 
     protected lateinit var internetConnection: InternetConnection.Write
