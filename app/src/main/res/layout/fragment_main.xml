@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.messages.MessagesFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.github.johnnysc.ecp.presentation.messages.MessagesRecyclerView
         android:id="@+id/messagesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
