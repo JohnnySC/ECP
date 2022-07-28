@@ -8,17 +8,12 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.filters.LargeTest
-import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.github.johnnysc.coremvvm.core.ManageResources
 import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.presentation.main.MainActivity
 import org.junit.Before
 import org.junit.Rule
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4ClassRunner::class)
-@LargeTest
 open class BaseViewsActions {
 
     @get:Rule
