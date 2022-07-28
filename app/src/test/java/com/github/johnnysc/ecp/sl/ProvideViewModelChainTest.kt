@@ -34,9 +34,10 @@ class ProvideViewModelChainTest {
         Assert.assertEquals(viewModelChainBaseTestThree, nextFeatureChain)
     }
 
-    private class ViewModelChainTest(featureChain: FeatureChain.CheckAndHandle) :
+    private class ViewModelChainTest(featureChain: FeatureChain.CheckAndHandle<Boolean>) :
         ViewModelChain(featureChain) {
-        fun provideNextFeatureChain(): FeatureChain.Handle {
+
+        fun provideNextFeatureChain(): FeatureChain.Check<MessageUI> {
             return nextFeatureChain
         }
     }
@@ -46,14 +47,11 @@ class ProvideViewModelChainTest {
         override fun viewModelChain() = viewModelChain
     }
 
-    private class FeatureTestChain : FeatureChain.CheckAndHandle {
-        override fun canHandle(message: String): Boolean {
-            return true
-        }
+    private class FeatureTestChain : FeatureChain.CheckAndHandle<Boolean> {
 
-        override suspend fun handle(message: String): MessageUI {
-            return MessageUI.Empty()
-        }
+        override suspend fun canHandle(message: String): Boolean = true
+
+        override suspend fun handle(): MessageUI = MessageUI.Empty()
     }
 
 

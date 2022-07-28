@@ -43,16 +43,16 @@ internal class MessagesViewModelTest {
         Assert.assertEquals(MessageUI.AiError("I don't understand you", "1"), communication.messages[1])
     }
 
-    private class TestChainFactory(feature: FeatureChain.CheckAndHandle) : ViewModelChain(feature)
+    private class TestChainFactory(feature: FeatureChain.CheckAndHandle<Boolean>) : ViewModelChain(feature)
 
-    private class TestChainOne : FeatureChain.CheckAndHandle {
-        override fun canHandle(message: String): Boolean = message == "For first one"
+    private class TestChainOne : FeatureChain.CheckAndHandle<Boolean> {
+        override suspend fun canHandle(message: String): Boolean = message == "For first one"
 
-        override suspend fun handle(message: String): MessageUI = MessageUI.Ai("First message")
+        override suspend fun handle(): MessageUI = MessageUI.Ai("First message")
     }
 
-    private class TestChainTwo : FeatureChain.Handle {
-        override suspend fun handle(message: String): MessageUI = MessageUI.AiError("I don't understand you")
+    private class TestChainTwo : FeatureChain.Check<MessageUI> {
+        override suspend fun canHandle(message: String): MessageUI = MessageUI.AiError("I don't understand you")
     }
 
     private class TestCommunication : MessagesCommunication.Mutable {
