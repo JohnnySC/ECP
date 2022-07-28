@@ -21,11 +21,11 @@ class WeatherChain(
         WeatherDefaultCommand(ParseDefaultWeather(manageResources)),
         WeatherSetCityCommand(ParseCity(manageResources))
     )
-) : FeatureChain.CheckAndHandle {
+) : FeatureChain.CheckAndHandle<Boolean> {
 
     private var currentCommand: Command<WeatherInteractor> = Command.Empty()
 
-    override fun canHandle(message: String): Boolean {
+    override suspend fun canHandle(message: String): Boolean {
         val find = commands.find {
             it.canHandle(message)
         }
@@ -35,7 +35,7 @@ class WeatherChain(
         return find != null
     }
 
-    override suspend fun handle(message: String): MessageUI {
+    override suspend fun handle(): MessageUI {
         val result = currentCommand.handle(interactor)
         currentCommand = Command.Empty()
         return result

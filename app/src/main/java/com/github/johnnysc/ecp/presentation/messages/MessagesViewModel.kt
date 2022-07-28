@@ -9,13 +9,13 @@ import com.github.johnnysc.coremvvm.core.Dispatchers
 class MessagesViewModel(
     private val dispatchers: Dispatchers,
     private val communication: MessagesCommunication.Mutable,
-    private val viewModelChain: FeatureChain.Handle
+    private val viewModelChain: FeatureChain.Check<MessageUI>
 ) : ViewModel(), MessagesCommunication.Observe, HandleInput {
 
     override fun handleInput(message: String) {
         communication.map(MessageUI.User(message))
         dispatchers.launchBackground(viewModelScope) {
-            val messageUI = viewModelChain.handle(message)
+            val messageUI = viewModelChain.canHandle(message)
             dispatchers.changeToUI { communication.map(messageUI) }
         }
     }
