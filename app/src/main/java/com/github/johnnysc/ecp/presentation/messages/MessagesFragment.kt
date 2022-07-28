@@ -17,7 +17,7 @@ class MessagesFragment : BaseFragment<MessagesViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val messagesRecyclerView = view.findViewById<RecyclerView>(R.id.messagesRecyclerView)
+        val messagesRecyclerView = view.findViewById<MessagesRecyclerView>(R.id.messagesRecyclerView)
         val messageAdapter = MessageAdapter()
         messagesRecyclerView.adapter = messageAdapter
         val messageInput = view.findViewById<MessageEditText>(R.id.messageEditText)
@@ -27,7 +27,7 @@ class MessagesFragment : BaseFragment<MessagesViewModel>() {
         }
         viewModel.observe(this) {
             messageAdapter.map(it)
-            messagesRecyclerView.scrollToPosition(messageAdapter.itemCount - 1)
+            messagesRecyclerView.scrollDown()
         }
     }
 }
