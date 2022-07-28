@@ -24,10 +24,14 @@ class MainApplication : Application(), ProvideViewModel {
             DependencyContainer.Error()
         )
         val manageResources: ManageResources = ManageResources.Base(this)
-        val provideIDontUnderstandYouViewModelChain = ProvideIDontUnderstandYouViewModelChain(manageResources)
+        val provideIDontUnderstandYouViewModelChain =
+            ProvideIDontUnderstandYouViewModelChain(manageResources)
         val provideWeatherViewModelChain = ProvideWeatherViewModelChain(coreModule, this)
         val provideViewModelChain =
-            ProvideViewModelChain.Base(provideWeatherViewModelChain, provideIDontUnderstandYouViewModelChain)
+            ProvideViewModelChain.Base(
+                provideWeatherViewModelChain,
+                provideIDontUnderstandYouViewModelChain
+            )
         val messagesDependencyContainer =
             MessagesDependencyContainer(main, coreModule, provideViewModelChain.viewModelChain())
         viewModelsFactory = ViewModelsFactory(messagesDependencyContainer)

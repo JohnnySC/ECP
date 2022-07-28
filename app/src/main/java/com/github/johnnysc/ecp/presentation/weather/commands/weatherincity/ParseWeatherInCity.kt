@@ -8,7 +8,7 @@ import com.github.johnnysc.ecp.presentation.commands.Parser
 
 class ParseWeatherInCity(private val manageResources: ManageResources) : Parser<WeatherInCityUseCase> {
 
-    override fun map(data: String): HandleUseCase<WeatherInCityUseCase>? {
+    override fun map(data: String): IsEmptyHandleUseCase<WeatherInCityUseCase> {
         val commandStart = manageResources.string(R.string.what_weather_command_start)
         if (data.startsWith(commandStart, true)) {
             val city = data.substring(commandStart.length).trim()
@@ -16,6 +16,6 @@ class ParseWeatherInCity(private val manageResources: ManageResources) : Parser<
                 return WeatherInCity(city)
             }
         }
-        return null
+        return IsEmptyHandleUseCase.Empty()
     }
 }
