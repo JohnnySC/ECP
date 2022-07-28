@@ -4,28 +4,28 @@ import com.github.johnnysc.coremvvm.core.ManageResources
 import com.github.johnnysc.ecp.R
 
 interface FeatureChain {
-    interface Check<T> : FeatureChain {
-        suspend fun canHandle(message: String): T
+    interface Check : FeatureChain {
+        fun canHandle(message: String): Boolean
     }
 
     interface Handle : FeatureChain {
-        suspend fun handle(): MessageUI
+        suspend fun handle(message: String): MessageUI
     }
 
-    interface CheckAndHandle<T> : Check<T>, Handle
+    interface CheckAndHandle : Check, Handle
 
-    class UnknownMessageChain(private val manageResources: ManageResources) : CheckAndHandle<Boolean> {
+    class UnknownMessageChain(private val manageResources: ManageResources) : CheckAndHandle {
+        private val errorMessageId = "-1"
 
-        override suspend fun canHandle(message: String) = true
+        override fun canHandle(message: String) = true
 
-        override suspend fun handle() = MessageUI.AiError(
+        override suspend fun handle(message: String) = MessageUI.AiError(
             manageResources.string(R.string.i_dont_understand)
         )
     }
 
-    class Empty : Check<MessageUI> {
-
-        override suspend fun canHandle(message: String) = MessageUI.Empty()
+    class Empty : Handle {
+        override suspend fun handle(message: String) = MessageUI.Empty()
     }
 
 }

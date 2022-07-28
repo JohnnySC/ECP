@@ -14,7 +14,7 @@ class WeatherInCityCommand(
 
     override suspend fun handle(useCase: WeatherInteractor): MessageUI = handler!!.handle(useCase)
 
-    override suspend fun canHandle(message: String): Boolean {
+    override fun canHandle(message: String): Boolean {
         handler = parser.map(message)
         return handler != null
     }
