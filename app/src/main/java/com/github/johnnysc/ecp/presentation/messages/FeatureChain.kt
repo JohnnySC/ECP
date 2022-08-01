@@ -2,7 +2,6 @@ package com.github.johnnysc.ecp.presentation.messages
 
 import com.github.johnnysc.coremvvm.core.ManageResources
 import com.github.johnnysc.ecp.R
-import com.github.johnnysc.ecp.domain.weather.WeatherInteractor
 import com.github.johnnysc.ecp.presentation.commands.Command
 
 interface FeatureChain {
