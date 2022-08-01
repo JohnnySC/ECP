@@ -13,31 +13,12 @@ import com.github.johnnysc.ecp.presentation.weather.commands.weatherincity.Parse
 import com.github.johnnysc.ecp.presentation.weather.commands.weatherincity.WeatherInCityCommand
 
 class WeatherChain(
-    private val interactor: WeatherInteractor,
+    interactor: WeatherInteractor,
     private val manageResources: ManageResources,
-    private val commands: List<Command<WeatherInteractor>>
+    commands: List<Command<WeatherInteractor>>
     = listOf(
         WeatherInCityCommand(ParseWeatherInCity(manageResources)),
         WeatherDefaultCommand(ParseDefaultWeather(manageResources)),
         WeatherSetCityCommand(ParseCity(manageResources))
     )
-) : FeatureChain.CheckAndHandle {
-
-    private var currentCommand: Command<WeatherInteractor> = Command.Empty()
-
-    override fun canHandle(message: String): Boolean {
-        val find = commands.find {
-            it.canHandle(message)
-        }
-        find?.let {
-            currentCommand = it
-        }
-        return find != null
-    }
-
-    override suspend fun handle(message: String): MessageUI {
-        val result = currentCommand.handle(interactor)
-        currentCommand = Command.Empty()
-        return result
-    }
-}
+) : FeatureChain.CheckAndHandle.Base<WeatherInteractor>(interactor, commands)
