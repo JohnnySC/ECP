@@ -3,7 +3,7 @@ package com.github.johnnysc.ecp.presentation.weather
 import com.github.johnnysc.coremvvm.core.ManageResources
 import com.github.johnnysc.ecp.domain.weather.WeatherInteractor
 import com.github.johnnysc.ecp.presentation.commands.Command
-import com.github.johnnysc.ecp.presentation.messages.FeatureChain
+import com.github.johnnysc.ecp.presentation.messages.AbstractFeatureChain
 import com.github.johnnysc.ecp.presentation.weather.commands.setdefault.ParseCity
 import com.github.johnnysc.ecp.presentation.weather.commands.setdefault.WeatherSetCityCommand
 import com.github.johnnysc.ecp.presentation.weather.commands.weatherdefault.ParseDefaultWeather
@@ -20,4 +20,4 @@ class WeatherChain(
         WeatherDefaultCommand(ParseDefaultWeather(manageResources)),
         WeatherSetCityCommand(ParseCity(manageResources))
     )
-) : FeatureChain.CheckAndHandle.Base<WeatherInteractor>(interactor, commands)
+) : AbstractFeatureChain<WeatherInteractor>(interactor, commands)
