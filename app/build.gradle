@@ -16,14 +16,20 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    def keysPropertiesFile = rootProject.file("keys.properties")
+    def keysProperties = new Properties()
+    keysProperties.load(new FileInputStream(keysPropertiesFile))
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-
         }
         uitests{
             initWith debug
+        }
+        buildTypes.forEach {
+            it.buildConfigField("String", "WeatherAPIKey", keysProperties["WeatherAPIKey"])
         }
     }
 
