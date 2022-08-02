@@ -1,6 +1,12 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+}
+
+secrets {
+    propertiesFileName 'secrets.properties'
+    defaultPropertiesFileName = 'secrets.defaults.properties'
 }
 
 android {
@@ -16,10 +22,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    def keysPropertiesFile = rootProject.file("keys.properties")
-    def keysProperties = new Properties()
-    keysProperties.load(new FileInputStream(keysPropertiesFile))
-
     buildTypes {
         release {
             minifyEnabled false
@@ -27,9 +29,6 @@ android {
         }
         uitests{
             initWith debug
-        }
-        buildTypes.forEach {
-            it.buildConfigField("String", "WeatherAPIKey", keysProperties["WeatherAPIKey"])
         }
     }
 
