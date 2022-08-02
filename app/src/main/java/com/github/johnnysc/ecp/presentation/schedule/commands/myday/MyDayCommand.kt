@@ -4,5 +4,5 @@ import com.github.johnnysc.ecp.domain.schedule.MyDayUseCase
 import com.github.johnnysc.ecp.domain.schedule.ScheduleInteractor
 import com.github.johnnysc.ecp.presentation.commands.Command
 
-class ScheduleMyDayCommand(parser: ParseMyDay) :
+class MyDayCommand(parser: ParseMyDay) :
     Command.Abstract<ScheduleInteractor, MyDayUseCase>(parser)

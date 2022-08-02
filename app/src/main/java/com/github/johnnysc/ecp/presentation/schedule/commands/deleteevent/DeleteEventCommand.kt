@@ -4,5 +4,5 @@ import com.github.johnnysc.ecp.domain.schedule.DeleteEventUseCase
 import com.github.johnnysc.ecp.domain.schedule.ScheduleInteractor
 import com.github.johnnysc.ecp.presentation.commands.Command
 
-class ScheduleDeleteEventCommand(parser: ParseDeleteEvent) :
+class DeleteEventCommand(parser: ParseDeleteEvent) :
     Command.Abstract<ScheduleInteractor, DeleteEventUseCase>(parser)

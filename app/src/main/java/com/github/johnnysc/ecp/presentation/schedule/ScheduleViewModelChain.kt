@@ -1,4 +1,5 @@
 package com.github.johnnysc.ecp.presentation.schedule
 
-class ScheduleViewModelChain {
-}
+import com.github.johnnysc.ecp.presentation.messages.ViewModelChain
+
+class ScheduleViewModelChain(scheduleChain: ScheduleChain) : ViewModelChain(scheduleChain)
