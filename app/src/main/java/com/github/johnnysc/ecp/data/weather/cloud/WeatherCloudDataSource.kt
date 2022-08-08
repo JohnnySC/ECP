@@ -2,6 +2,7 @@ package com.github.johnnysc.ecp.data.weather.cloud
 
 import com.github.johnnysc.coremvvm.data.CloudDataSource
 import com.github.johnnysc.coremvvm.data.HandleError
+import com.github.johnnysc.ecp.BuildConfig
 import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.core.StringToObject
 import com.github.johnnysc.ecp.core.ConvertRawResourceToPoJo
@@ -29,7 +30,7 @@ interface WeatherCloudDataSource {
         }
 
         companion object {
-            private const val WEATHER_API_KEY = "YOUR API KEY"
+            private const val WEATHER_API_KEY = BuildConfig.weatherApiKey
 
             private const val UNITS = "metric"
 
