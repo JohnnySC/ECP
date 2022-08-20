@@ -19,4 +19,13 @@
     <string name="delete_event_command_start">Delete an event</string>
     <string name="my_day_command">My day</string>
     <string name="my_events_command">My events</string>
+    <string name="your_events_today">What you\'re doing today:</string>
+    <string name="your_events">What you do:</string>
+    <string name="unknown_date">Date unrecognizable!</string>
+    <string name="there_is_no_event">There is no such event!</string>
+    <string name="today">today</string>
+    <string name="tomorrow">tomorrow</string>
+    <string name="task_successfully_added">Task successfully added!</string>
+    <string name="task_successfully_delete">Task successfully delete!</string>
+    <string name="there_are_no_events">Unfortunately, there are no events!</string>
 </resources>
