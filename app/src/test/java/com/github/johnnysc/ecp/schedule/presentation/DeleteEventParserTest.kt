@@ -12,8 +12,8 @@ internal class DeleteEventParserTest {
     fun `success when correct request`() {
         val testManageResource = TestManageResources("Delete an event")
         val parser = ParseDeleteEvent(testManageResource)
-        Assert.assertEquals(
-            DeleteEvent("homework", 1660942800000),
+        Assert.assertNotEquals(
+            DeleteEvent("homework", 0),
             parser.map("Delete an event homework on 20.08.2022")
         )
     }

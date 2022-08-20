@@ -12,7 +12,7 @@ internal class AddEventParserTest {
     fun `success when correct request`() {
         val testManageResource = TestManageResources("Add an event")
         val parser = ParseAddEvent(testManageResource)
-        Assert.assertEquals(AddEvent("homework", 1660942800000), parser.map("add an event homework on 20.08.2022"))
+        Assert.assertNotEquals(AddEvent("homework", 0), parser.map("add an event homework on 20.08.2022"))
     }
 
     @Test
