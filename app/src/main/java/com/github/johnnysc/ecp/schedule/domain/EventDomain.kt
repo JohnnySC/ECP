@@ -13,7 +13,7 @@ interface EventDomain {
         override fun <T> map(mapper: Mapper<T>): T = mapper.map(events)
     }
 
-    interface Mapper<T> {
+    interface Mapper<out T> {
 
         fun map(events: List<String>): T
 

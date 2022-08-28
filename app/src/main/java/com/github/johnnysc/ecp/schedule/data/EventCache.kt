@@ -15,7 +15,7 @@ interface EventCache {
         override fun <T> map(mapper: Mapper<T>): T = mapper.map(name, date)
     }
 
-    interface Mapper<T> {
+    interface Mapper<out T> {
 
         fun map(name: String, date: Long): T
 
