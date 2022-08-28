@@ -5,6 +5,7 @@ import com.github.johnnysc.ecp.domain.DomainException
 import com.github.johnnysc.ecp.domain.ExceptionChain
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
 import com.github.johnnysc.ecp.schedule.data.EventCache
+import com.github.johnnysc.ecp.schedule.data.ScheduleRepository
 
 interface ScheduleInteractor : AddEventUseCase, DeleteEventUseCase, MyDayUseCase, MyEventsUseCase {
 

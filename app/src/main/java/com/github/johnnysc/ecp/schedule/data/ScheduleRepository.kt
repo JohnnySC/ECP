@@ -1,6 +1,4 @@
-package com.github.johnnysc.ecp.schedule.domain
-
-import com.github.johnnysc.ecp.schedule.data.EventCache
+package com.github.johnnysc.ecp.schedule.data
 
 interface ScheduleRepository {
 

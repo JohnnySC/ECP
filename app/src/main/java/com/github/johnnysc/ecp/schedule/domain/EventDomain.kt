@@ -41,7 +41,7 @@ interface EventDomain {
                             append("\n")
                     }
                 }
-                return MessageUI.Ai("${manageResources.string(R.string.your_events_today)}$list")
+                return MessageUI.Ai("${manageResources.string(R.string.your_events_today)}\n$list")
             }
         }
 
@@ -57,7 +57,7 @@ interface EventDomain {
                             append("\n")
                     }
                 }
-                return MessageUI.Ai("${manageResources.string(R.string.your_events)}$list")
+                return MessageUI.Ai("${manageResources.string(R.string.your_events)}\n$list")
             }
         }
     }
