@@ -5,11 +5,12 @@ import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.schedule.domain.AddEventUseCase
 import com.github.johnnysc.ecp.presentation.commands.Parser
 import com.github.johnnysc.ecp.presentation.weather.commands.weatherincity.IsEmptyHandleUseCase
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
+import com.github.johnnysc.ecp.schedule.presentation.commands.ConvertTime
 
-class ParseAddEvent(manageResources: ManageResources) : Parser<AddEventUseCase> {
+class ParseAddEvent(
+    manageResources: ManageResources,
+    private val convertTime: ConvertTime
+) : Parser<AddEventUseCase> {
 
     private val commandStart = manageResources.string(R.string.add_event_command_start)
 
@@ -23,10 +24,10 @@ class ParseAddEvent(manageResources: ManageResources) : Parser<AddEventUseCase> 
             if (name.isNotEmpty() && date.isNotEmpty() && date != name) {
                 val definedDate =
                     if (today == date) System.currentTimeMillis() else try {
-                        SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).parse(date)?.time
-                    } catch (e: ParseException) {
-                        0L
-                    } ?: 0L
+                        convertTime.fromStringToTime(date)
+                    } catch (e: Exception) {
+                        return IsEmptyHandleUseCase.Empty()
+                    }
                 return AddEvent(name, definedDate)
             }
         }
