@@ -5,8 +5,6 @@ import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.domain.DomainException
 import com.github.johnnysc.ecp.domain.ExceptionChain
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
-import com.github.johnnysc.ecp.schedule.data.EventCache
-import com.github.johnnysc.ecp.schedule.data.ScheduleRepository
 import com.github.johnnysc.ecp.schedule.domain.exception.ThereIsNoSuchEventChain
 import com.github.johnnysc.ecp.schedule.domain.exception.ThereIsNoSuchEventException
 import kotlinx.coroutines.runBlocking
@@ -24,14 +22,12 @@ internal class ScheduleInteractorTest {
     private val eventDomainScheduleToMessageUI = EventDomain.Mapper.BaseSchedule(manageResources)
     private val eventDomainTodayToMessageUI = EventDomain.Mapper.BaseToday(manageResources)
     private val eventDomainAddEventToMessageUI = EventDomain.Mapper.AddSuccess(manageResources)
-    private val eventDomainDeleteEventToMessageUI = EventDomain.Mapper.DeleteSuccess(manageResources)
-
-    private val eventCacheToString = EventCache.Mapper.ToString()
+    private val eventDomainDeleteEventToMessageUI =
+        EventDomain.Mapper.DeleteSuccess(manageResources)
 
     private val domainExceptionToUIMapper = DomainException.Mapper.Base(manageResources)
 
-    private val mockEvents =
-        listOf<EventCache>(EventCache.Base("Event 1", 1661721138000), EventCache.Base("Event 2", 1661721138000))
+    private val mockEvents = listOf("29.08.2022: Event 1", "29.08.2022: Event 2")
 
     @Test
     fun `success add event`() = runBlocking {
@@ -42,7 +38,6 @@ internal class ScheduleInteractorTest {
             eventDomainScheduleToMessageUI,
             eventDomainAddEventToMessageUI,
             eventDomainDeleteEventToMessageUI,
-            eventCacheToString,
             chain,
             domainExceptionToUIMapper
         )
@@ -60,7 +55,6 @@ internal class ScheduleInteractorTest {
             eventDomainScheduleToMessageUI,
             eventDomainAddEventToMessageUI,
             eventDomainDeleteEventToMessageUI,
-            eventCacheToString,
             chain,
             domainExceptionToUIMapper
         )
@@ -78,7 +72,6 @@ internal class ScheduleInteractorTest {
             eventDomainScheduleToMessageUI,
             eventDomainAddEventToMessageUI,
             eventDomainDeleteEventToMessageUI,
-            eventCacheToString,
             chain,
             domainExceptionToUIMapper
         )
@@ -96,7 +89,6 @@ internal class ScheduleInteractorTest {
             eventDomainScheduleToMessageUI,
             eventDomainAddEventToMessageUI,
             eventDomainDeleteEventToMessageUI,
-            eventCacheToString,
             chain,
             domainExceptionToUIMapper
         )
@@ -118,7 +110,6 @@ internal class ScheduleInteractorTest {
             eventDomainScheduleToMessageUI,
             eventDomainAddEventToMessageUI,
             eventDomainDeleteEventToMessageUI,
-            eventCacheToString,
             chain,
             domainExceptionToUIMapper
         )
@@ -136,7 +127,6 @@ internal class ScheduleInteractorTest {
             eventDomainScheduleToMessageUI,
             eventDomainAddEventToMessageUI,
             eventDomainDeleteEventToMessageUI,
-            eventCacheToString,
             chain,
             domainExceptionToUIMapper
         )
@@ -158,7 +148,6 @@ internal class ScheduleInteractorTest {
             eventDomainScheduleToMessageUI,
             eventDomainAddEventToMessageUI,
             eventDomainDeleteEventToMessageUI,
-            eventCacheToString,
             chain,
             domainExceptionToUIMapper
         )
@@ -168,20 +157,20 @@ internal class ScheduleInteractorTest {
     }
 
     private class TestScheduleRepository(
-        private val events: List<EventCache> = emptyList(),
+        private val events: List<String> = emptyList(),
         private val isNonExistentEvent: Boolean = false
     ) : ScheduleRepository {
 
-        override suspend fun todayEvents(): List<EventCache> = events
+        override suspend fun todayEvents(): List<String> = events
 
-        override suspend fun allEvents(): List<EventCache> = events
+        override suspend fun allEvents(): List<String> = events
 
-        override suspend fun removeEvent(event: EventCache) {
+        override suspend fun removeEvent(name: String, date: Long) {
             if (isNonExistentEvent)
                 throw ThereIsNoSuchEventException()
         }
 
-        override suspend fun addEvent(event: EventCache) {}
+        override suspend fun addEvent(name: String, date: Long) {}
     }
 
     private class TestManageResource : ManageResources {
