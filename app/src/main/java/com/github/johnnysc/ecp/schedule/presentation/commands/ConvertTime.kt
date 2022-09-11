@@ -10,13 +10,14 @@ interface ConvertTime {
     fun fromStringToTime(string: String): Long
 
     class Base(
-        private val pattern: String = "dd.MM.yyyy"
+        private val dateFormat: SimpleDateFormat =
+            SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).
     ) : ConvertTime {
 
         override fun fromTimeToString(time: Long): String =
-            SimpleDateFormat(pattern, Locale.getDefault()).format(Date(time))
+            dateFormat.format(Date(time))
 
         override fun fromStringToTime(string: String): Long =
-            SimpleDateFormat(pattern, Locale.getDefault()).parse(string)?.time!!
+            dateFormat.parse(string)?.time!!
     }
 }
