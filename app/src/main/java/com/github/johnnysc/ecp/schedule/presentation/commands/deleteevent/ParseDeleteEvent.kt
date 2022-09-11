@@ -23,12 +23,13 @@ class ParseDeleteEvent(
             val name = words.first().trim()
             val date = words.last().trim()
             if (name.isNotEmpty() && date.isNotEmpty() && date != name) {
-                val definedDate =
-                    if (today == date) System.currentTimeMillis() else try {
-                        convertTime.fromStringToTime(date)
-                    } catch (e: Exception) {
-                        return IsEmptyHandleUseCase.Empty()
-                    }
+                val definedDate = if (today == date)
+                    System.currentTimeMillis()
+                else try {
+                    convertTime.fromStringToTime(date)
+                } catch (e: Exception) {
+                    return IsEmptyHandleUseCase.Empty()
+                }
                 return DeleteEvent(name, definedDate)
             }
         }

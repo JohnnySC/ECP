@@ -1,5 +1,6 @@
 package com.github.johnnysc.ecp.schedule.data
 
+import com.github.johnnysc.ecp.schedule.presentation.commands.ConvertTime
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,10 +20,12 @@ interface EventCache {
 
         fun map(name: String, date: Long): T
 
-        class ToString : Mapper<String> {
+        class ToString(
+            private val convertTime: ConvertTime
+        ) : Mapper<String> {
 
             override fun map(name: String, date: Long): String =
-                "${SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date(date))}: $name"
+                "${convertTime.fromTimeToString(date)}: $name"
         }
     }
 }

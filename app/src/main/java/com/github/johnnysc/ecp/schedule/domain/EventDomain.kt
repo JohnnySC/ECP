@@ -1,5 +1,6 @@
 package com.github.johnnysc.ecp.schedule.domain
 
+import androidx.annotation.StringRes
 import com.github.johnnysc.coremvvm.core.ManageResources
 import com.github.johnnysc.ecp.R
 import com.github.johnnysc.ecp.presentation.messages.MessageUI
@@ -29,7 +30,10 @@ interface EventDomain {
                 MessageUI.Ai(manageResources.string(R.string.task_successfully_delete))
         }
 
-        class BaseToday(private val manageResources: ManageResources) : Mapper<MessageUI> {
+        abstract class AbstractListMapper(
+            @StringRes private val titleId: Int,
+            private val manageResources: ManageResources
+        ) : Mapper<MessageUI> {
 
             override fun map(events: List<String>): MessageUI {
                 if (events.isEmpty())
@@ -41,24 +45,18 @@ interface EventDomain {
                             append("\n")
                     }
                 }
-                return MessageUI.Ai("${manageResources.string(R.string.your_events_today)}\n$list")
+                return MessageUI.Ai("${manageResources.string(titleId)}\n$list")
             }
         }
 
-        class BaseSchedule(private val manageResources: ManageResources) : Mapper<MessageUI> {
+        class BaseToday(manageResources: ManageResources) : AbstractListMapper(
+            R.string.your_events_today,
+            manageResources
+        )
 
-            override fun map(events: List<String>): MessageUI {
-                if (events.isEmpty())
-                    return MessageUI.Ai(manageResources.string(R.string.there_are_no_events))
-                val list = buildString {
-                    for (i in events.indices) {
-                        append(events[i])
-                        if (i != events.size - 1)
-                            append("\n")
-                    }
-                }
-                return MessageUI.Ai("${manageResources.string(R.string.your_events)}\n$list")
-            }
-        }
+        class BaseSchedule(manageResources: ManageResources) : AbstractListMapper(
+            R.string.your_events,
+            manageResources
+        )
     }
 }
