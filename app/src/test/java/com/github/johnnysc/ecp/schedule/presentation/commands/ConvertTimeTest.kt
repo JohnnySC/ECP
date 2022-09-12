@@ -2,6 +2,7 @@ package com.github.johnnysc.ecp.schedule.presentation.commands
 
 import org.junit.Assert
 import org.junit.Test
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -12,7 +13,7 @@ internal class ConvertTimeTest {
         val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
         simpleDateFormat.timeZone = TimeZone.getTimeZone("Europe/Moscow")
         val convertTime = ConvertTime.Base(simpleDateFormat)
-        Assert.assertEquals("11.09.2022", convertTime.fromTimeToString(		1662843600000))
+        Assert.assertEquals("11.09.2022", convertTime.fromTimeToString(1662843600000))
     }
 
     @Test
@@ -20,7 +21,7 @@ internal class ConvertTimeTest {
         val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
         simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Denver")
         val convertTime = ConvertTime.Base(simpleDateFormat)
-        Assert.assertEquals("10.09.2022", convertTime.fromTimeToString(		1662843600000))
+        Assert.assertEquals("10.09.2022", convertTime.fromTimeToString(1662843600000))
     }
 
     @Test
@@ -37,5 +38,15 @@ internal class ConvertTimeTest {
         simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Denver")
         val convertTime = ConvertTime.Base(simpleDateFormat)
         Assert.assertEquals(1662876000000, convertTime.fromStringToTime("11.09.2022"))
+    }
+
+    @Test
+    fun `failed when unreadable string`() {
+        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Denver")
+        val convertTime = ConvertTime.Base(simpleDateFormat)
+        Assert.assertThrows(ParseException::class.java) {
+            convertTime.fromStringToTime("some non-data string")
+        }
     }
 }
