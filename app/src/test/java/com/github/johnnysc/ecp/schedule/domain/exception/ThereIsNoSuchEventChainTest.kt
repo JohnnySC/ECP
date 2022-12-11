@@ -20,7 +20,6 @@ internal class ThereIsNoSuchEventChainTest {
     fun `test exception chain with standard exceptions from data layer of weather feature`() {
         val expected = MessageUI.AiError("There is no such event!")
         val input = ThereIsNoSuchEventException()
-
         val actual = chain.handle(input).map(mapper)
         assertEquals(expected, actual)
     }
